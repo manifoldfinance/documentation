@@ -6,10 +6,15 @@
 
 ```
 
+## Protocol Diagram 
+
+![](src/protocol.png)
+
 ### 📡 Networks
 
 The contract has been deployed to:
 
+Rinkeby
 - **Network 4**: `0x766291bE965E6Ba5E77892Ac70034f6B264AE7ea`
 
 ### 🎟 Events
