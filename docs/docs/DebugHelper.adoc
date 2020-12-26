@@ -1,0 +1,73 @@
+
+:url-project: https://sambacha.github.io/gasevo-docs
+:url-docs:  https://sambacha.github.io/gasevo-docs
+:url-org: https://sambacha.github.io/gasevo-docs
+:public-key: /gpg/6F6EB43E.asc
+:active-key: {url-group}{public-key}
+:docbook:
+
+:toc: 
+
+= DebugHelper
+
+____
+____
+
+....
+....
+
+[[-events]]
+=== 🎟 Events
+
+==== Log
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|message |`false` |`string`
+|===
+
+=== `uint2str`
+
+____
+👀 `pure`
+____
+
+[[-returns]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `int2str`
+
+____
+👀 `pure`
+____
+
+[[-returns-1]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `i64x64ToStr`
+
+____
+👀 `pure`
+____
+
+[[-returns-2]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===

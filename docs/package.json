@@ -1,0 +1,23 @@
+{
+  "name": "gen-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.json",
+  "directories": {
+    "docs": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sambacha/gasevo-docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sambacha/gasevo-docs/issues"
+  },
+  "homepage": "https://github.com/sambacha/gasevo-docs#readme"
+}

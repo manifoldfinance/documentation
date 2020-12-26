@@ -1,0 +1,1801 @@
+
+:url-project: https://sambacha.github.io/gasevo-docs
+:url-docs:  https://sambacha.github.io/gasevo-docs
+:url-org: https://sambacha.github.io/gasevo-docs
+:public-key: /gpg/6F6EB43E.asc
+:active-key: {url-group}{public-key}
+:docbook:
+
+:toc: 
+= GasEVO Documentation
+
+____
+Release version 1.0.7
+____
+
+=== Documentation
+
+link:docs/ABDKMath64x64.md[ABDKMath64x64] link:docs/GasEVO.md[GasEVO]
+[%hardbreaks]
+link:docs/TestableGasEVO.md[TestableGasEVO]
+[%hardbreaks]
+link:docs/TestableGasEVOToken.md[TestableGasEVOToken]
+[%hardbreaks]
+link:docs/DebugHelper.md[DebugHelper]
+[%hardbreaks]
+link:docs/_TokenVault.md[_TokenVault]
+
+=== Notes
+
+* `_TokenVault` is not part of the protocol and is experimental only,
+not to be published into production
+
+=== Usage
+
+SDK Kit forthcoming
+
+
+== GasEVO
+
+____
+____
+
+....
+....
+
+[[-networks]]
+=== 📡 Networks
+
+The contract has been deployed to:
+
+* *Network 4*: `0x766291bE965E6Ba5E77892Ac70034f6B264AE7ea`
+
+[[-events]]
+=== 🎟 Events
+
+==== Approval
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|owner |`true` |`address`
+|spender |`true` |`address`
+|value |`false` |`uint256`
+|===
+
+==== BoughtEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|seller |`false` |`address`
+|evoAmount |`false` |`uint256`
+|ethAmount |`false` |`uint256`
+|===
+
+==== InterestOnEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|sender |`false` |`address`
+|evoAmount |`false` |`uint256`
+|interest |`false` |`uint256`
+|===
+
+==== SoldEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|buyer |`false` |`address`
+|evoAmount |`false` |`uint256`
+|ethAmount |`false` |`uint256`
+|===
+
+==== Transfer
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|from |`true` |`address`
+|to |`true` |`address`
+|value |`false` |`uint256`
+|===
+
+=== `DAY_IN_SECONDS`
+
+____
+👀 `view`
+____
+
+[[-returns]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `NUM_OF_RATES`
+
+____
+👀 `view`
+____
+
+[[-returns-1]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `allowance`
+
+____
+👀 `view`
+____
+
+[[-details]]
+==== 🔎 Details
+
+See \{IERC20-allowance}.
+
+[[-returns-2]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `approve`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-1]]
+==== 🔎 Details
+
+See \{IERC20-approve}. _ Requirements: _ - `spender` cannot be the zero
+address.
+
+[[-returns-3]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `balanceOf`
+
+____
+👀 `view`
+____
+
+[[-details-2]]
+==== 🔎 Details
+
+See \{IERC20-balanceOf}.
+
+[[-returns-4]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `decimals`
+
+____
+👀 `view`
+____
+
+[[-details-3]]
+==== 🔎 Details
+
+Returns the number of decimals used to get its user representation. For
+example, if `decimals` equals `2`, a balance of `505` tokens should be
+displayed to a user as `5,05` (`505 / 10 ** 2`). _ Tokens usually opt
+for a value of 18, imitating the relationship between Ether and Wei. _
+NOTE: This information is only used for _display_ purposes: it in no way
+affects any of the arithmetic of the contract, including
+\{IERC20-balanceOf} and \{IERC20-transfer}.
+
+[[-returns-5]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint8`
+|===
+
+=== `decreaseAllowance`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-4]]
+==== 🔎 Details
+
+Atomically decreases the allowance granted to `spender` by the caller. _
+This is an alternative to \{approve} that can be used as a mitigation
+for problems described in \{IERC20-approve}. _ Emits an \{Approval}
+event indicating the updated allowance. _ Requirements: _ - `spender`
+cannot be the zero address. - `spender` must have allowance for the
+caller of at least `subtractedValue`.
+
+[[-returns-6]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `increaseAllowance`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-5]]
+==== 🔎 Details
+
+Atomically increases the allowance granted to `spender` by the caller. _
+This is an alternative to \{approve} that can be used as a mitigation
+for problems described in \{IERC20-approve}. _ Emits an \{Approval}
+event indicating the updated allowance. _ Requirements: _ - `spender`
+cannot be the zero address.
+
+[[-returns-7]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `name`
+
+____
+👀 `view`
+____
+
+[[-details-6]]
+==== 🔎 Details
+
+Returns the name of the token.
+
+[[-returns-8]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `symbol`
+
+____
+👀 `view`
+____
+
+[[-details-7]]
+==== 🔎 Details
+
+Returns the symbol of the token, usually a shorter version of the name.
+
+[[-returns-9]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `totalSupply`
+
+____
+👀 `view`
+____
+
+[[-details-8]]
+==== 🔎 Details
+
+PRICE EQUILIBRIUM Prevent manifold amount of affecting the price
+equilibrium.
+
+[[-returns-10]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getEthDeposit`
+
+____
+👀 `view`
+____
+
+[[-details-9]]
+==== 🔎 Details
+
+INTROSPECT ETH DEPOSIT SUPPORTING THE TOKEN SUPPLY
+
+[[-returns-11]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getTotalRate`
+
+____
+👀 `view`
+____
+
+[[-details-10]]
+==== 🔎 Details
+
+INTROSPECT TOTAL RATE
+
+[[-returns-12]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getHolderRate`
+
+____
+👀 `view`
+____
+
+[[-details-11]]
+==== 🔎 Details
+
+INTROSPECT HOLDER'S RATE
+
+[[-returns-13]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `convEvo2Eth`
+
+____
+👀 `view`
+____
+
+[[-details-12]]
+==== 🔎 Details
+
+CONVERT $EVO to $ETH at the inner exchange rate (price), w/o applied
+interest.
+
+[[-returns-14]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `convEth2Evo`
+
+____
+👀 `view`
+____
+
+[[-details-13]]
+==== 🔎 Details
+
+Convert $ETH to $EVO at the inner exchange rate (price), w/o applied
+interest.
+
+[[-returns-15]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getRates`
+
+____
+👀 `view`
+____
+
+[[-returns-16]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|Not specified |`uint256`
+|===
+
+=== `getEvoInterestPct`
+
+____
+👀 `view`
+____
+
+[[-returns-17]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getEvoInterest`
+
+____
+👀 `view`
+____
+
+[[-returns-18]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `depositEth`
+
+____
+👀 `payable` | 💰 Payable
+____
+
+[[-details-14]]
+==== 🔎 Details
+
+Same as buying token at market price plus interest.
+
+[[-returns-19]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `withdrawEth`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-15]]
+==== 🔎 Details
+
+Same as selling token at market price minus interest.
+
+[[-returns-20]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `transfer`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-16]]
+==== 🔎 Details
+
+Extend to track transfers.
+
+[[-returns-21]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `transferFrom`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-17]]
+==== 🔎 Details
+
+Extend to track transfers.
+
+[[-returns-22]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+== TestableGasEVO
+
+____
+____
+
+....
+....
+
+[[-events-1]]
+=== 🎟 Events
+
+==== Approval
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|owner |`true` |`address`
+|spender |`true` |`address`
+|value |`false` |`uint256`
+|===
+
+==== BoughtEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|seller |`false` |`address`
+|evoAmount |`false` |`uint256`
+|ethAmount |`false` |`uint256`
+|===
+
+==== InterestOnEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|sender |`false` |`address`
+|evoAmount |`false` |`uint256`
+|interest |`false` |`uint256`
+|===
+
+==== Log
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|message |`false` |`string`
+|===
+
+==== LogUint
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|message |`false` |`uint256`
+|===
+
+==== SoldEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|buyer |`false` |`address`
+|evoAmount |`false` |`uint256`
+|ethAmount |`false` |`uint256`
+|===
+
+==== Transfer
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|from |`true` |`address`
+|to |`true` |`address`
+|value |`false` |`uint256`
+|===
+
+=== `DAY_IN_SECONDS`
+
+____
+👀 `view`
+____
+
+[[-returns-23]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `NUM_OF_RATES`
+
+____
+👀 `view`
+____
+
+[[-returns-24]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `allowance`
+
+____
+👀 `view`
+____
+
+[[-details-18]]
+==== 🔎 Details
+
+See \{IERC20-allowance}.
+
+[[-returns-25]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `approve`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-19]]
+==== 🔎 Details
+
+See \{IERC20-approve}. _ Requirements: _ - `spender` cannot be the zero
+address.
+
+[[-returns-26]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `balanceOf`
+
+____
+👀 `view`
+____
+
+[[-details-20]]
+==== 🔎 Details
+
+See \{IERC20-balanceOf}.
+
+[[-returns-27]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `convEth2Evo`
+
+____
+👀 `view`
+____
+
+[[-details-21]]
+==== 🔎 Details
+
+Convert $ETH to $EVO at the inner exchange rate (price), w/o applied
+interest.
+
+[[-returns-28]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `convEvo2Eth`
+
+____
+👀 `view`
+____
+
+[[-details-22]]
+==== 🔎 Details
+
+CONVERT $EVO to $ETH at the inner exchange rate (price), w/o applied
+interest.
+
+[[-returns-29]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `decimals`
+
+____
+👀 `view`
+____
+
+[[-details-23]]
+==== 🔎 Details
+
+Returns the number of decimals used to get its user representation. For
+example, if `decimals` equals `2`, a balance of `505` tokens should be
+displayed to a user as `5,05` (`505 / 10 ** 2`). _ Tokens usually opt
+for a value of 18, imitating the relationship between Ether and Wei. _
+NOTE: This information is only used for _display_ purposes: it in no way
+affects any of the arithmetic of the contract, including
+\{IERC20-balanceOf} and \{IERC20-transfer}.
+
+[[-returns-30]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint8`
+|===
+
+=== `decreaseAllowance`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-24]]
+==== 🔎 Details
+
+Atomically decreases the allowance granted to `spender` by the caller. _
+This is an alternative to \{approve} that can be used as a mitigation
+for problems described in \{IERC20-approve}. _ Emits an \{Approval}
+event indicating the updated allowance. _ Requirements: _ - `spender`
+cannot be the zero address. - `spender` must have allowance for the
+caller of at least `subtractedValue`.
+
+[[-returns-31]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `depositEth`
+
+____
+👀 `payable` | 💰 Payable
+____
+
+[[-details-25]]
+==== 🔎 Details
+
+Same as buying token at market price plus interest.
+
+[[-returns-32]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `getEthDeposit`
+
+____
+👀 `view`
+____
+
+[[-details-26]]
+==== 🔎 Details
+
+INTROSPECT ETH DEPOSIT SUPPORTING THE TOKEN SUPPLY
+
+[[-returns-33]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getEvoInterest`
+
+____
+👀 `view`
+____
+
+[[-returns-34]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getEvoInterestPct`
+
+____
+👀 `view`
+____
+
+[[-returns-35]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getHolderRate`
+
+____
+👀 `view`
+____
+
+[[-details-27]]
+==== 🔎 Details
+
+INTROSPECT HOLDER'S RATE
+
+[[-returns-36]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getRates`
+
+____
+👀 `view`
+____
+
+[[-returns-37]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|Not specified |`uint256`
+|===
+
+=== `getTotalRate`
+
+____
+👀 `view`
+____
+
+[[-details-28]]
+==== 🔎 Details
+
+INTROSPECT TOTAL RATE
+
+[[-returns-38]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `increaseAllowance`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-29]]
+==== 🔎 Details
+
+Atomically increases the allowance granted to `spender` by the caller. _
+This is an alternative to \{approve} that can be used as a mitigation
+for problems described in \{IERC20-approve}. _ Emits an \{Approval}
+event indicating the updated allowance. _ Requirements: _ - `spender`
+cannot be the zero address.
+
+[[-returns-39]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `name`
+
+____
+👀 `view`
+____
+
+[[-details-30]]
+==== 🔎 Details
+
+Returns the name of the token.
+
+[[-returns-40]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `symbol`
+
+____
+👀 `view`
+____
+
+[[-details-31]]
+==== 🔎 Details
+
+Returns the symbol of the token, usually a shorter version of the name.
+
+[[-returns-41]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `totalSupply`
+
+____
+👀 `view`
+____
+
+[[-details-32]]
+==== 🔎 Details
+
+PRICE EQUILIBRIUM Prevent manifold amount of affecting the price
+equilibrium.
+
+[[-returns-42]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `transfer`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-33]]
+==== 🔎 Details
+
+Extend to track transfers.
+
+[[-returns-43]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `transferFrom`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-34]]
+==== 🔎 Details
+
+Extend to track transfers.
+
+[[-returns-44]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `withdrawEth`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-35]]
+==== 🔎 Details
+
+Same as selling token at market price minus interest.
+
+[[-returns-45]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `log`
+
+____
+👀 `nonpayable`
+____
+
+=== `logUint`
+
+____
+👀 `nonpayable`
+____
+
+=== `trackTotalRates`
+
+____
+👀 `nonpayable`
+____
+
+[[-returns-46]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `trackHolderRates`
+
+____
+👀 `nonpayable`
+____
+
+[[-returns-47]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+== DebugHelper
+
+____
+____
+
+....
+....
+
+[[-events-2]]
+=== 🎟 Events
+
+==== Log
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|message |`false` |`string`
+|===
+
+=== `uint2str`
+
+____
+👀 `pure`
+____
+
+[[-returns-48]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `int2str`
+
+____
+👀 `pure`
+____
+
+[[-returns-49]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `i64x64ToStr`
+
+____
+👀 `pure`
+____
+
+[[-returns-50]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+== TestableGasEVOToken
+
+____
+____
+
+....
+....
+
+[[-events-3]]
+=== 🎟 Events
+
+==== Approval
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|owner |`true` |`address`
+|spender |`true` |`address`
+|value |`false` |`uint256`
+|===
+
+==== BoughtEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|seller |`false` |`address`
+|evoAmount |`false` |`uint256`
+|ethAmount |`false` |`uint256`
+|===
+
+==== InterestOnEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|sender |`false` |`address`
+|evoAmount |`false` |`uint256`
+|interest |`false` |`uint256`
+|===
+
+==== Log
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|message |`false` |`string`
+|===
+
+==== LogUint
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|message |`false` |`uint256`
+|===
+
+==== SoldEvo
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|buyer |`false` |`address`
+|evoAmount |`false` |`uint256`
+|ethAmount |`false` |`uint256`
+|===
+
+==== Transfer
+
+[cols="^,^,^",options="header",]
+|===
+|Name |Indexed |Type
+|from |`true` |`address`
+|to |`true` |`address`
+|value |`false` |`uint256`
+|===
+
+=== `DAY_IN_SECONDS`
+
+____
+👀 `view`
+____
+
+[[-returns-51]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `NUM_OF_RATES`
+
+____
+👀 `view`
+____
+
+[[-returns-52]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `allowance`
+
+____
+👀 `view`
+____
+
+[[-details-36]]
+==== 🔎 Details
+
+See \{IERC20-allowance}.
+
+[[-returns-53]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `approve`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-37]]
+==== 🔎 Details
+
+See \{IERC20-approve}. _ Requirements: _ - `spender` cannot be the zero
+address.
+
+[[-returns-54]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `balanceOf`
+
+____
+👀 `view`
+____
+
+[[-details-38]]
+==== 🔎 Details
+
+See \{IERC20-balanceOf}.
+
+[[-returns-55]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `convEth2Evo`
+
+____
+👀 `view`
+____
+
+[[-details-39]]
+==== 🔎 Details
+
+Convert $ETH to $EVO at the inner exchange rate (price), w/o applied
+interest.
+
+[[-returns-56]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `convEvo2Eth`
+
+____
+👀 `view`
+____
+
+[[-details-40]]
+==== 🔎 Details
+
+CONVERT $EVO to $ETH at the inner exchange rate (price), w/o applied
+interest.
+
+[[-returns-57]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `decimals`
+
+____
+👀 `view`
+____
+
+[[-details-41]]
+==== 🔎 Details
+
+Returns the number of decimals used to get its user representation. For
+example, if `decimals` equals `2`, a balance of `505` tokens should be
+displayed to a user as `5,05` (`505 / 10 ** 2`). _ Tokens usually opt
+for a value of 18, imitating the relationship between Ether and Wei. _
+NOTE: This information is only used for _display_ purposes: it in no way
+affects any of the arithmetic of the contract, including
+\{IERC20-balanceOf} and \{IERC20-transfer}.
+
+[[-returns-58]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint8`
+|===
+
+=== `decreaseAllowance`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-42]]
+==== 🔎 Details
+
+Atomically decreases the allowance granted to `spender` by the caller. _
+This is an alternative to \{approve} that can be used as a mitigation
+for problems described in \{IERC20-approve}. _ Emits an \{Approval}
+event indicating the updated allowance. _ Requirements: _ - `spender`
+cannot be the zero address. - `spender` must have allowance for the
+caller of at least `subtractedValue`.
+
+[[-returns-59]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `depositEth`
+
+____
+👀 `payable` | 💰 Payable
+____
+
+[[-details-43]]
+==== 🔎 Details
+
+Same as buying token at market price plus interest.
+
+[[-returns-60]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `getEthDeposit`
+
+____
+👀 `view`
+____
+
+[[-details-44]]
+==== 🔎 Details
+
+INTROSPECT ETH DEPOSIT SUPPORTING THE TOKEN SUPPLY
+
+[[-returns-61]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getEvoInterest`
+
+____
+👀 `view`
+____
+
+[[-returns-62]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getEvoInterestPct`
+
+____
+👀 `view`
+____
+
+[[-returns-63]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getHolderRate`
+
+____
+👀 `view`
+____
+
+[[-details-45]]
+==== 🔎 Details
+
+INTROSPECT HOLDER'S RATE
+
+[[-returns-64]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `getRates`
+
+____
+👀 `view`
+____
+
+[[-returns-65]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|Not specified |`uint256`
+|===
+
+=== `getTotalRate`
+
+____
+👀 `view`
+____
+
+[[-details-46]]
+==== 🔎 Details
+
+INTROSPECT TOTAL RATE
+
+[[-returns-66]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `increaseAllowance`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-47]]
+==== 🔎 Details
+
+Atomically increases the allowance granted to `spender` by the caller. _
+This is an alternative to \{approve} that can be used as a mitigation
+for problems described in \{IERC20-approve}. _ Emits an \{Approval}
+event indicating the updated allowance. _ Requirements: _ - `spender`
+cannot be the zero address.
+
+[[-returns-67]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `name`
+
+____
+👀 `view`
+____
+
+[[-details-48]]
+==== 🔎 Details
+
+Returns the name of the token.
+
+[[-returns-68]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `symbol`
+
+____
+👀 `view`
+____
+
+[[-details-49]]
+==== 🔎 Details
+
+Returns the symbol of the token, usually a shorter version of the name.
+
+[[-returns-69]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`string`
+|===
+
+=== `totalSupply`
+
+____
+👀 `view`
+____
+
+[[-details-50]]
+==== 🔎 Details
+
+PRICE EQUILIBRIUM Prevent manifold amount of affecting the price
+equilibrium.
+
+[[-returns-70]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`uint256`
+|===
+
+=== `transfer`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-51]]
+==== 🔎 Details
+
+Extend to track transfers.
+
+[[-returns-71]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `transferFrom`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-52]]
+==== 🔎 Details
+
+Extend to track transfers.
+
+[[-returns-72]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `withdrawEth`
+
+____
+👀 `nonpayable`
+____
+
+[[-details-53]]
+==== 🔎 Details
+
+Same as selling token at market price minus interest.
+
+[[-returns-73]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `log`
+
+____
+👀 `nonpayable`
+____
+
+=== `logUint`
+
+____
+👀 `nonpayable`
+____
+
+=== `trackTotalRates`
+
+____
+👀 `nonpayable`
+____
+
+[[-returns-74]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+=== `trackHolderRates`
+
+____
+👀 `nonpayable`
+____
+
+[[-returns-75]]
+==== → Returns
+
+[cols="^,^",options="header",]
+|===
+|Name |Type
+|Not specified |`bool`
+|===
+
+== ABDKMath64x64
+
+____
+____
+
+....
+....
+
+[[-notice]]
+=== 📋 Notice
+
+Smart contract library of mathematical functions operating with signed
+64.64-bit fixed point numbers. Signed 64.64-bit fixed point number is
+basically a simple fraction whose numerator is signed 128-bit integer
+and denominator is 2^64. As long as denominator is always the same,
+there is no need to store it, thus in Solidity signed 64.64-bit fixed
+point numbers are represented by int128 type holding only the numerator.
+
+[[-networks-1]]
+=== 📡 Networks
+
+The contract has been deployed to:
+
+* *Network 4*: `0xB26aC0C1B506D88BA3bCf4298236ab8381808D15`
+
+
+=== License
+
+SPDX: ISC
