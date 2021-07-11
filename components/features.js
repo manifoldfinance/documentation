@@ -16,11 +16,13 @@ const TITLE_WITH_TRANSLATIONS = {
 export default () => {
   const { locale } = useRouter();
   return (
+
+
     <div className="mx-auto max-w-full w-[880px] text-center px-4 mb-10">
       <p className="text-lg mb-2 text-gray-600 md:!text-2xl">
         {TITLE_WITH_TRANSLATIONS[locale]}
       </p>
-      <div className={styles.features}>
+     <div className={styles.features}>
         <div>
           <Feature
             text="Lightweight"
@@ -186,5 +188,6 @@ export default () => {
         </div>
       </div>
     </div>
+  
   );
 };
