@@ -7,3 +7,6 @@ yalc.lock
 
 public/*.st
 public/*.toml
+
+# Local Netlify folder
+.netlify
