@@ -1,6 +1,6 @@
 {
   "name": "@manifoldfinance/docs",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Documentation for Manifold Finance",
   "main": "index.js",
   "scripts": {

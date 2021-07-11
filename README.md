@@ -19,6 +19,21 @@ yarn dev
 
 Visit `localhost:3000` to preview your changes.
 
+### Deployment 
+
+#### Requirements 
+
+- netlify cli
+- nodejs 14+
+
+```sh
+npm ci
+npm run build
+netlify build
+netlify deploy --prod
+```
+
+
 ## Notice
 
 Copyright 2021  - All Rights Reserved, CommodityStream, Inc
