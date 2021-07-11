@@ -1,6 +1,14 @@
-# [SWR website](https://swr.vercel.app)
+# [Manifold Finance](#)
 
-The official website for [SWR](https://github.com/vercel/swr).
+## Documentation and Specifications
+
+### Sections
+
+- YCabal/Backbone Cabal
+- FOLD Governance and Staking
+- Strategies and Staking
+
+### Development
 
 To develop locally, clone this repository and run the following command to start the local dev server:
 
@@ -9,11 +17,8 @@ yarn
 yarn dev
 ```
 
-And visit `localhost:3000` to preview your changes.
+Visit `localhost:3000` to preview your changes.
 
-## Contributors
+## Notice
 
-- https://github.com/vercel/swr-site/graphs/contributors
-- Simplified Chinese translation done by Fang Lu ([@huzhengen](https://github.com/huzhengen))
-- Spanish translation done by Markoz Peña ([@markozxuu](https://twitter.com/markozxuu)) 
-- Japanese translation done by uttk ([@uttk](https://github.com/uttk)), Tomohiro SHIOYA ([@shioyang](https://github.com/shioyang))
+Copyright 2021  - All Rights Reserved, CommodityStream, Inc
