@@ -86,7 +86,7 @@ export default () => {
             }
           />
           <Feature
-            text="Jamstack Oriented"
+            text="Multichain support"
             icon={
               <svg
                 width="24"
@@ -106,7 +106,7 @@ export default () => {
         </div>
         <div>
           <Feature
-            text="Suspense"
+            text="Automated"
             icon={
               <svg
                 viewBox="0 0 24 24"
@@ -125,7 +125,7 @@ export default () => {
             }
           />
           <Feature
-            text="TypeScript Ready"
+            text="Minimal Integration"
             icon={
               <svg
                 width="24"
@@ -146,7 +146,7 @@ export default () => {
         </div>
         <div>
           <Feature
-            text="Pagination"
+            text="Performant"
             icon={
               <svg
                 viewBox="0 0 24 24"
@@ -165,7 +165,7 @@ export default () => {
             }
           />
           <Feature
-            text="Remote + Local"
+            text="Push Notifications"
             icon={
               <svg
                 width="24"
