@@ -8,8 +8,8 @@
     "title": "Docs",
     "type": "nav"
   },
-  "examples": {
-    "title": "Examples",
+  "YCabal": {
+    "title": "YCabal",
     "type": "nav"
   },
   "blog": {
