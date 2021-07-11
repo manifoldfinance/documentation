@@ -1,13 +1,14 @@
 {
   "name": "@manifoldfinance/docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Documentation for Manifold Finance",
   "main": "index.js",
   "scripts": {
     "lint": "npx prettier --config .prettierrc --write .",
-    "dev": "next",
-    "start": "next start",
-    "build": "STORK_PATH=$(pwd)/bin/stork.bin next build"
+    "dev": "npx next",
+    "start": "npx next start",
+    "build": "STORK_PATH=$(pwd)/bin/stork.bin next build",
+    "prod": "NODE_ENV=production npx next"
   },
   "author": "CommodityStream, Inc",
   "license": "Apache-2.0",
