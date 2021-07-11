@@ -4,6 +4,8 @@
 /500  /en-US/500.html  200
 /docs/getting-started  /en-US/docs/getting-started.html  200
 /docs/mev-client  /en-US/docs/mev-client.html  200
+/docs/reference/RPC  /en-US/docs/reference/RPC.html  200
+/docs/reference/wss/introduction  /en-US/docs/reference/wss/introduction.html  200
 /examples/basic  /en-US/examples/basic.html  200
 /_next/image*  url=:url w=:width q=:quality  /nextimg/:url/:width/:quality  301!
 /nextimg/*  /.netlify/functions/next_image  200
