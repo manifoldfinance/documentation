@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "../../../../.stylelintrc"
+  ],
+  "rules": {
+    "declaration-no-important": null,
+    "selector-max-id": null,
+    "selector-type-no-unknown": null
+  }
+}
