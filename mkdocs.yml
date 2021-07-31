@@ -2,25 +2,7 @@ site_name: Manifold Finance
 site_url: https://docs.manifoldfinance.com/
 site_description: Manifold Finance documentation.
 site_author: Manifold Finance
-copyright: Copyright 2021 - Manifold Finance All Rights Reserved
-
-nav:
-    - API:
-        - Command Line:
-          - Options: Reference/CLI/CLI-Syntax.md
-          - Subcommands: Reference/CLI/CLI-Subcommands.
-    - Rulebook:
-      - API Methods: Reference/API-Methods.md
-      - Rulebook: rulebook/directory.md
-      - Limit Orders: rulebook/limit_order_books.md
-      - Obligations: rulebook/obligations.md
-      - Clearing: rulebook/proposal.md
-      - Rulebook: rulebook/refunder.md
-      - Suspension: rulebook/suspensions.md
-      - Governance: rulebook/technical.md
-      - Settlement: rulebook/trade-settlement.md
-
-
+copyright: Copyright 2021 - CommodityStream  All Rights Reserved
 
 extra:
 #  doc_site_edit_url: https://github.com/manifoldfinance/docs/
@@ -38,21 +20,89 @@ extra:
   google:
     site_verification:
       - ''
-  logo_regular: logo.svg
-  logo_reversed: &logo_reversed logo-reversed.svg
+  logo_regular: custom_theme/logo.svg
+  logo_reversed: &logo_reversed custom_theme/logo-reversed.svg
 
 # Repository
 repo_name: manifoldfinance/docs
 repo_url: https://github.com/manifoldfinance/mkdocs/
 
+# Configuration
 theme:
-    name: material
-    palette:
-        primary: black
-        accent: teal
-    favicon: favicon.svg
-    logo: *logo_reversed
+  name: null
+  custom_dir: !ENV [THEME_DIR, "material"]
 
+  # Static files
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  features:
+    - content.code.annotate
+    - content.tabs.link
+    # - header.autohide
+    # - navigation.expand
+    # - navigation.indexes
+    # - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    # - toc.integrate
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/favicon.png
+  icon:
+    logo: logo
+
+# Plugins
+plugins:
+  - search
+  - social
+  - redirects:
+      redirect_maps:
+  - minify:
+      minify_html: true
+
+# Customization
+extra:
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/manifoldfinance
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/manifoldfinance
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/manifoldfinance
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/foldfinance
+
+# Extensions
 markdown_extensions:
   - admonition
   - abbr
@@ -92,12 +142,11 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 
-plugins:
-    - search:
-        lang: 'en'
-        separator: '[\s\-\.\_]+'
-    - minify:
-        minify_html: true
-        minify_js: true
-        htmlmin_opts:
-          remove_comments: true
+
+# Page tree
+nav:
+  - Home: index.md
+  - Getting started:
+    - Gas Rebating: refunder.md
+    - Releases:
+      - Changelog: changelog.md
