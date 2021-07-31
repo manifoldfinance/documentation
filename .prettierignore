@@ -1,0 +1,11 @@
+.cache
+.DS_Store
+node_modules
+site/
+build/
+*.html
+*.css
+*.scss
+*.png
+*.svg
+

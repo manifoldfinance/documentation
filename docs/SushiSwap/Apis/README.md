@@ -6,13 +6,13 @@ All URIs are relative to *https://sushi.backbonecabal.xyz*
 
 | Method                                                                     | HTTP request                           | Description                                           |
 | -------------------------------------------------------------------------- | -------------------------------------- | ----------------------------------------------------- |
-| [**apiV1OrdersGet**](READMEmd#apiV1OrdersGet)                         | **GET** /api/v1/orders                 | Get existing orders.                                  |
-| [**apiV1OrdersPost**](READMEmd#apiV1OrdersPost)                       | **POST** /api/v1/orders                | Create a new order.                                   |
-| [**apiV1OrdersUIDDelete**](READMEmd#apiV1OrdersUIDDelete)             | **DELETE** /api/v1/orders/{UID}        | Cancels order by marking it invalid with a timestamp. |
-| [**apiV1OrdersUIDGet**](READMEmd#apiV1OrdersUIDGet)                   | **GET** /api/v1/orders/{UID}           | Get existing order from UID.                          |
-| [**apiV1SolvableOrdersGet**](READMEmd#apiV1SolvableOrdersGet)         | **GET** /api/v1/solvable_orders        | Get solvable orders.                                  |
-| [**apiV1TokensSellTokenFeeGet**](READMEmd#apiV1TokensSellTokenFeeGet) | **GET** /api/v1/tokens/{sellToken}/fee |
-| [**apiV1TradesGet**](READMEmd#apiV1TradesGet)                         | **GET** /api/v1/trades                 | Get existing Trades.                                  |
+| [**apiV1OrdersGet**](#)                         | **GET** /api/v1/orders                 | Get existing orders.                                  |
+| [**apiV1OrdersPost**](#)                       | **POST** /api/v1/orders                | Create a new order.                                   |
+| [**apiV1OrdersUIDDelete**](#)             | **DELETE** /api/v1/orders/{UID}        | Cancels order by marking it invalid with a timestamp. |
+| [**apiV1OrdersUIDGet**](#)                   | **GET** /api/v1/orders/{UID}           | Get existing order from UID.                          |
+| [**apiV1SolvableOrdersGet**](#)         | **GET** /api/v1/solvable_orders        | Get solvable orders.                                  |
+| [**apiV1TokensSellTokenFeeGet**](#) | **GET** /api/v1/tokens/{sellToken}/fee |
+| [**apiV1TradesGet**](#)                         | **GET** /api/v1/trades                 | Get existing Trades.                                  |
 
 <a name="apiV1OrdersGet"></a>
 
@@ -38,7 +38,7 @@ Get existing orders.
 
 ### Return type
 
-[**List**](..//Models/Order.md)
+[**List**](#)
 
 ### Authorization
 
@@ -61,11 +61,11 @@ Create a new order.
 
 | Name     | Type                                             | Description          | Notes |
 | -------- | ------------------------------------------------ | -------------------- | ----- |
-| **body** | [**OrderCreation**](..//Models/OrderCreation.md) | The order to create. |
+| **body** | [**OrderCreation**](#) | The order to create. |
 
 ### Return type
 
-[**String**](..//Models/string.md)
+[**String**](#)
 
 ### Authorization
 
@@ -91,7 +91,7 @@ Cancels order by marking it invalid with a timestamp.
 | Name     | Type                                                     | Description                                                                                                                                                                          | Notes             |
 | -------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
 | **uID**  | **String**                                               | Unique identifier for the order: 56 bytes encoded as hex with &#x60;0x&#x60; prefix. Bytes 0 to 32 are the order digest, bytes 30 to 52 the owner address and bytes 52..56 valid to, | [default to null] |
-| **body** | [**OrderCancellation**](..//Models/OrderCancellation.md) | Signed OrderCancellation                                                                                                                                                             |
+| **body** | [**OrderCancellation**](#) | Signed OrderCancellation                                                                                                                                                             |
 
 ### Return type
 
@@ -122,7 +122,7 @@ Get existing order from UID.
 
 ### Return type
 
-[**List**](..//Models/Order.md)
+[**List**](#)
 
 ### Authorization
 
@@ -149,7 +149,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List**](..//Models/Order.md)
+[**List**](#)
 
 ### Authorization
 
@@ -176,7 +176,7 @@ No authorization required
 
 ### Return type
 
-[**FeeInformation**](..//Models/FeeInformation.md)
+[**FeeInformation**](#)
 
 ### Authorization
 
@@ -206,7 +206,7 @@ Get existing Trades.
 
 ### Return type
 
-[**List**](..//Models/Trade.md)
+[**List**](#)
 
 ### Authorization
 
