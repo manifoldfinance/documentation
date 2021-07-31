@@ -1,0 +1,819 @@
+{
+    "openrpc": "1.0.0",
+    "info": {
+      "version": "1.0.10",
+      "title": "MEV Geth JSON-RPC",
+      "description": "",
+      "license": {
+        "name": "GPL-2.0-Only",
+        "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html"
+      }
+    },
+    "methods": [
+      {
+        "name": "eth_call",
+        "summary": "Executes a new message call (locally) immediately without creating a transaction on the block chain.",
+        "params": [
+          {
+            "$ref": "#/components/contentDescriptors/Transaction"
+          },
+          {
+            "$ref": "#/components/contentDescriptors/BlockNumber"
+          }
+        ],
+        "result": {
+          "name": "returnValue",
+          "description": "The return value of the executed contract",
+          "schema": {
+            "$ref": "#/components/schemas/Bytes"
+          }
+        }
+      },
+      {
+        "name": "eth_chainId",
+        "summary": "Returns the currently configured chain id",
+        "description": "Returns the currently configured chain id, a value used in replay-protected transaction signing as introduced by [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md).",
+        "params": [],
+        "result": {
+          "name": "chainId",
+          "description": "hex format integer of the current chain id. Defaults are ETC=61, ETH=1, Morden=62.",
+          "schema": {
+            "title": "chainId",
+            "type": "string",
+            "pattern": "^0x[a-fA-F\\d]+$"
+          }
+        }
+      },
+      {
+        "name": "eth_protocolVersion",
+        "summary": "Returns the current ethereum protocol version.",
+        "params": [1],
+        "result": {
+          "name": "protocolVersion",
+          "description": "The current ethereum protocol version",
+          "schema": {
+            "$ref": "#/components/schemas/Integer"
+          }
+        }
+      },
+      {
+        "name": "eth_sendRawTransaction",
+        "summary": "Creates new message call transaction or a contract creation for signed transactions.",
+        "params": [
+          {
+            "name": "signedTransactionData",
+            "required": true,
+            "description": "The signed transaction data",
+            "schema": {
+              "$ref": "#/components/schemas/Bytes"
+            }
+          }
+        ],
+        "result": {
+          "name": "transactionHash",
+          "description": "The transaction hash, or the zero hash if the transaction is not yet available.",
+          "schema": {
+            "$ref": "#/components/schemas/Keccak"
+          }
+        }
+      }
+    ],
+    "components": {
+      "schemas": {
+        "ProofNode": {
+          "title": "proofNode",
+          "description": "An individual node used to prove a path down a merkle-patricia-tree",
+          "$ref": "#/components/schemas/Bytes"
+        },
+        "StorageProofKey": {
+          "title": "storageProofKey",
+          "description": "The key used to get the storage slot in its account tree.",
+          "$ref": "#/components/schemas/Integer"
+        },
+        "StorageProof": {
+          "title": "storageProofSet",
+          "type": "array",
+          "description": "Current block header PoW hash.",
+          "items": {
+            "title": "storageProof",
+            "type": "object",
+            "description": "Object proving a relationship of a storage value to an account's storageHash.",
+            "properties": {
+              "key": {
+                "$ref": "#/components/schemas/StorageProofKey"
+              },
+              "value": {
+                "title": "storageProofValue",
+                "description": "The value of the storage slot in its account tree",
+                "$ref": "#/components/schemas/Integer"
+              },
+              "proof": {
+                "$ref": "#/components/schemas/ProofNodes"
+              }
+            }
+          }
+        },
+        "ProofNodes": {
+          "title": "proofNodes",
+          "type": "array",
+          "description": "The set of node values needed to traverse a patricia merkle tree (from root to leaf) to retrieve a value",
+          "items": {
+            "$ref": "#/components/schemas/ProofNode"
+          }
+        },
+        "PowHash": {
+          "title": "powHash",
+          "description": "Current block header PoW hash.",
+          "$ref": "#/components/schemas/DataWord"
+        },
+        "SeedHash": {
+          "title": "seedHash",
+          "description": "The seed hash used for the DAG.",
+          "$ref": "#/components/schemas/DataWord"
+        },
+        "MixHash": {
+          "title": "mixHash",
+          "description": "The mix digest.",
+          "$ref": "#/components/schemas/DataWord"
+        },
+        "Difficulty": {
+          "title": "difficulty",
+          "description": "The boundary condition ('target'), 2^256 / difficulty.",
+          "$ref": "#/components/schemas/DataWord"
+        },
+        "FilterId": {
+          "title": "filterId",
+          "type": "string",
+          "description": "An identifier used to reference the filter."
+        },
+        "BlockHash": {
+          "title": "blockHash",
+          "type": "string",
+          "pattern": "^0x[a-fA-F\\d]{64}$",
+          "description": "The hex representation of the Keccak 256 of the RLP encoded block"
+        },
+        "BlockNumber": {
+          "title": "blockNumber",
+          "type": "string",
+          "description": "The hex representation of the block's height",
+          "$ref": "#/components/schemas/Integer"
+        },
+        "BlockNumberTag": {
+          "title": "blockNumberTag",
+          "type": "string",
+          "description": "The optional block height description",
+          "enum": [
+            "earliest",
+            "latest",
+            "pending"
+          ]
+        },
+        "BlockOrNull": {
+          "title": "blockOrNull",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Block"
+            },
+            {
+              "$ref": "#/components/schemas/Null"
+            }
+          ]
+        },
+        "IntegerOrNull": {
+          "title": "integerOrNull",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Integer"
+            },
+            {
+              "$ref": "#/components/schemas/Null"
+            }
+          ]
+        },
+        "AddressOrNull": {
+          "title": "addressOrNull",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Address"
+            },
+            {
+              "$ref": "#/components/schemas/Null"
+            }
+          ]
+        },
+        "Receipt": {
+          "title": "receipt",
+          "type": "object",
+          "description": "The receipt of a transaction",
+          "required": [
+            "blockHash",
+            "blockNumber",
+            "contractAddress",
+            "cumulativeGasUsed",
+            "from",
+            "gasUsed",
+            "logs",
+            "logsBloom",
+            "to",
+            "transactionHash",
+            "transactionIndex"
+          ],
+          "properties": {
+            "blockHash": {
+              "$ref": "#/components/schemas/BlockHash"
+            },
+            "blockNumber": {
+              "$ref": "#/components/schemas/BlockNumber"
+            },
+            "contractAddress": {
+              "title": "ReceiptContractAddress",
+              "description": "The contract address created, if the transaction was a contract creation, otherwise null",
+              "$ref": "#/components/schemas/AddressOrNull"
+            },
+            "cumulativeGasUsed": {
+              "title": "ReceiptCumulativeGasUsed",
+              "description": "The gas units used by the transaction",
+              "$ref": "#/components/schemas/Integer"
+            },
+            "from": {
+              "$ref": "#/components/schemas/From"
+            },
+            "gasUsed": {
+              "title": "ReceiptGasUsed",
+              "description": "The total gas used by the transaction",
+              "$ref": "#/components/schemas/Integer"
+            },
+            "logs": {
+              "title": "logs",
+              "type": "array",
+              "description": "An array of all the logs triggered during the transaction",
+              "items": {
+                "$ref": "#/components/schemas/Log"
+              }
+            },
+            "logsBloom": {
+              "$ref": "#/components/schemas/BloomFilter"
+            },
+            "to": {
+              "$ref": "#/components/schemas/To"
+            },
+            "transactionHash": {
+              "$ref": "#/components/schemas/TransactionHash"
+            },
+            "transactionIndex": {
+              "$ref": "#/components/schemas/TransactionIndex"
+            },
+            "postTransactionState": {
+              "title": "ReceiptPostTransactionState",
+              "description": "The intermediate stateRoot directly after transaction execution.",
+              "$ref": "#/components/schemas/Keccak"
+            },
+            "status": {
+              "title": "ReceiptStatus",
+              "description": "Whether or not the transaction threw an error.",
+              "type": "boolean"
+            }
+          }
+        },
+        "BloomFilter": {
+          "title": "bloomFilter",
+          "type": "string",
+          "description": "A 2048 bit bloom filter from the logs of the transaction. Each log sets 3 bits though taking the low-order 11 bits of each of the first three pairs of bytes in a Keccak 256 hash of the log's byte series"
+        },
+        "Log": {
+          "title": "log",
+          "type": "object",
+          "description": "An indexed event generated during a transaction",
+          "properties": {
+            "address": {
+              "title": "LogAddress",
+              "description": "Sender of the transaction",
+              "$ref": "#/components/schemas/Address"
+            },
+            "blockHash": {
+              "$ref": "#/components/schemas/BlockHash"
+            },
+            "blockNumber": {
+              "$ref": "#/components/schemas/BlockNumber"
+            },
+            "data": {
+              "title": "LogData",
+              "description": "The data/input string sent along with the transaction",
+              "$ref": "#/components/schemas/Bytes"
+            },
+            "logIndex": {
+              "title": "LogIndex",
+              "description": "The index of the event within its transaction, null when its pending",
+              "$ref": "#/components/schemas/Integer"
+            },
+            "removed": {
+              "title": "logIsRemoved",
+              "description": "Whether or not the log was orphaned off the main chain",
+              "type": "boolean"
+            },
+            "topics": {
+              "$ref": "#/components/schemas/Topics"
+            },
+            "transactionHash": {
+              "$ref": "#/components/schemas/TransactionHash"
+            },
+            "transactionIndex": {
+              "$ref": "#/components/schemas/TransactionIndex"
+            }
+          }
+        },
+        "Topics": {
+          "title": "LogTopics",
+          "description": "Topics are order-dependent. Each topic can also be an array of DATA with 'or' options.",
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Topic"
+          }
+        },
+        "Topic": {
+          "title": "topic",
+          "description": "32 Bytes DATA of indexed log arguments. (In solidity: The first topic is the hash of the signature of the event (e.g. Deposit(address,bytes32,uint256))",
+          "$ref": "#/components/schemas/DataWord"
+        },
+        "TransactionIndex": {
+          "title": "transactionIndex",
+          "description": "The index of the transaction. null when its pending",
+          "$ref": "#/components/schemas/IntegerOrNull"
+        },
+        "BlockNumberOrNull": {
+          "title": "blockNumberOrNull",
+          "description": "The block number or null when its the pending block",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/BlockNumber"
+            },
+            {
+              "$ref": "#/components/schemas/Null"
+            }
+          ]
+        },
+        "BlockHashOrNull": {
+          "title": "blockHashOrNull",
+          "description": "The block hash or null when its the pending block",
+          "$ref": "#/components/schemas/KeccakOrPending"
+        },
+        "NonceOrNull": {
+          "title": "nonceOrNull",
+          "description": "Randomly selected number to satisfy the proof-of-work or null when its the pending block",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Nonce"
+            },
+            {
+              "$ref": "#/components/schemas/Null"
+            }
+          ]
+        },
+        "From": {
+          "title": "From",
+          "description": "The sender of the transaction",
+          "$ref": "#/components/schemas/Address"
+        },
+        "To": {
+          "title": "To",
+          "description": "Destination address of the transaction. Null if it was a contract create.",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Address"
+            },
+            {
+              "$ref": "#/components/schemas/Null"
+            }
+          ]
+        },
+        "Block": {
+          "title": "Block",
+          "description": "The Block is the collection of relevant pieces of information (known as the block header), together with information corresponding to the comprised transactions, and a set of other block headers that are known to have a parent equal to the present block’s parent’s parent.",
+          "type": "object",
+          "properties": {
+            "number": {
+              "$ref": "#/components/schemas/BlockNumberOrNull"
+            },
+            "hash": {
+              "$ref": "#/components/schemas/BlockHashOrNull"
+            },
+            "parentHash": {
+              "$ref": "#/components/schemas/BlockHash"
+            },
+            "nonce": {
+              "$ref": "#/components/schemas/NonceOrNull"
+            },
+            "sha3Uncles": {
+              "title": "blockShaUncles",
+              "description": "Keccak hash of the uncles data in the block",
+              "$ref": "#/components/schemas/Keccak"
+            },
+            "logsBloom": {
+              "title": "blockLogsBloom",
+              "type": "string",
+              "description": "The bloom filter for the logs of the block or null when its the pending block",
+              "pattern": "^0x[a-fA-F\\d]+$"
+            },
+            "transactionsRoot": {
+              "title": "blockTransactionsRoot",
+              "description": "The root of the transactions trie of the block.",
+              "$ref": "#/components/schemas/Keccak"
+            },
+            "stateRoot": {
+              "title": "blockStateRoot",
+              "description": "The root of the final state trie of the block",
+              "$ref": "#/components/schemas/Keccak"
+            },
+            "receiptsRoot": {
+              "title": "blockReceiptsRoot",
+              "description": "The root of the receipts trie of the block",
+              "$ref": "#/components/schemas/Keccak"
+            },
+            "miner": {
+              "$ref": "#/components/schemas/AddressOrNull"
+            },
+            "difficulty": {
+              "title": "blockDifficulty",
+              "type": "string",
+              "description": "Integer of the difficulty for this block"
+            },
+            "totalDifficulty": {
+              "title": "blockTotalDifficulty",
+              "description": "Integer of the total difficulty of the chain until this block",
+              "$ref": "#/components/schemas/IntegerOrNull"
+            },
+            "extraData": {
+              "title": "blockExtraData",
+              "type": "string",
+              "description": "The 'extra data' field of this block"
+            },
+            "size": {
+              "title": "blockSize",
+              "type": "string",
+              "description": "Integer the size of this block in bytes"
+            },
+            "gasLimit": {
+              "title": "blockGasLimit",
+              "type": "string",
+              "description": "The maximum gas allowed in this block"
+            },
+            "gasUsed": {
+              "title": "blockGasUsed",
+              "type": "string",
+              "description": "The total used gas by all transactions in this block"
+            },
+            "timestamp": {
+              "title": "blockTimeStamp",
+              "type": "string",
+              "description": "The unix timestamp for when the block was collated"
+            },
+            "transactions": {
+              "title": "transactionsOrHashes",
+              "description": "Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter",
+              "type": "array",
+              "items": {
+                "title": "transactionOrTransactionHash",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Transaction"
+                  },
+                  {
+                    "$ref": "#/components/schemas/TransactionHash"
+                  }
+                ]
+              }
+            },
+            "uncles": {
+              "title": "uncleHashes",
+              "description": "Array of uncle hashes",
+              "type": "array",
+              "items": {
+                "title": "uncleHash",
+                "description": "Block hash of the RLP encoding of an uncle block",
+                "$ref": "#/components/schemas/Keccak"
+              }
+            }
+          }
+        },
+        "Transaction": {
+          "title": "transaction",
+          "type": "object",
+          "required": [
+            "gas",
+            "gasPrice",
+            "nonce"
+          ],
+          "properties": {
+            "blockHash": {
+              "$ref": "#/components/schemas/BlockHashOrNull"
+            },
+            "blockNumber": {
+              "$ref": "#/components/schemas/BlockNumberOrNull"
+            },
+            "from": {
+              "$ref": "#/components/schemas/From"
+            },
+            "gas": {
+              "title": "transactionGas",
+              "type": "string",
+              "description": "The gas limit provided by the sender in Wei"
+            },
+            "gasPrice": {
+              "title": "transactionGasPrice",
+              "type": "string",
+              "description": "The gas price willing to be paid by the sender in Wei"
+            },
+            "hash": {
+              "$ref": "#/components/schemas/TransactionHash"
+            },
+            "input": {
+              "title": "transactionInput",
+              "type": "string",
+              "description": "The data field sent with the transaction"
+            },
+            "nonce": {
+              "title": "transactionNonce",
+              "description": "The total number of prior transactions made by the sender",
+              "$ref": "#/components/schemas/Nonce"
+            },
+            "to": {
+              "$ref": "#/components/schemas/To"
+            },
+            "transactionIndex": {
+              "$ref": "#/components/schemas/TransactionIndex"
+            },
+            "value": {
+              "title": "transactionValue",
+              "description": "Value of Ether being transferred in Wei",
+              "$ref": "#/components/schemas/Keccak"
+            },
+            "v": {
+              "title": "transactionSigV",
+              "type": "string",
+              "description": "ECDSA recovery id"
+            },
+            "r": {
+              "title": "transactionSigR",
+              "type": "string",
+              "description": "ECDSA signature r"
+            },
+            "s": {
+              "title": "transactionSigS",
+              "type": "string",
+              "description": "ECDSA signature s"
+            }
+          }
+        },
+        "Transactions": {
+          "title": "transactions",
+          "description": "An array of transactions",
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Transaction"
+          }
+        },
+        "TransactionHash": {
+          "title": "transactionHash",
+          "type": "string",
+          "description": "Keccak 256 Hash of the RLP encoding of a transaction",
+          "$ref": "#/components/schemas/Keccak"
+        },
+        "KeccakOrPending": {
+          "title": "keccakOrPending",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Keccak"
+            },
+            {
+              "$ref": "#/components/schemas/Null"
+            }
+          ]
+        },
+        "Keccak": {
+          "title": "keccak",
+          "type": "string",
+          "description": "Hex representation of a Keccak 256 hash",
+          "pattern": "^0x[a-fA-F\\d]{64}$"
+        },
+        "Nonce": {
+          "title": "nonce",
+          "description": "A number only to be used once",
+          "$ref": "#/components/schemas/Integer"
+        },
+        "Null": {
+          "title": "null",
+          "type": "null",
+          "description": "Null"
+        },
+        "Integer": {
+          "title": "integer",
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]+$",
+          "description": "Hex representation of the integer"
+        },
+        "Address": {
+          "title": "address",
+          "type": "string",
+          "pattern": "^0x[a-fA-F\\d]{40}$"
+        },
+        "Addresses": {
+          "title": "addresses",
+          "type": "array",
+          "description": "List of contract addresses from which to monitor events",
+          "items": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        "Position": {
+          "title": "position",
+          "type": "string",
+          "description": "Hex representation of the storage slot where the variable exists",
+          "pattern": "^0x([a-fA-F0-9]?)+$"
+        },
+        "DataWord": {
+          "title": "dataWord",
+          "type": "string",
+          "description": "Hex representation of a 256 bit unit of data",
+          "pattern": "^0x([a-fA-F\\d]{64})?$"
+        },
+        "Bytes": {
+          "title": "bytes",
+          "type": "string",
+          "description": "Hex representation of a variable length byte array",
+          "pattern": "^0x([a-fA-F0-9]?)+$"
+        }
+      },
+      "contentDescriptors": {
+        "Block": {
+          "name": "block",
+          "summary": "A block",
+          "description": "A block object",
+          "schema": {
+            "$ref": "#/components/schemas/Block"
+          }
+        },
+        "Null": {
+          "name": "Null",
+          "description": "JSON Null value",
+          "summary": "Null value",
+          "schema": {
+            "$ref": "#/components/schemas/Null"
+          }
+        },
+        "Signature": {
+          "name": "signature",
+          "summary": "The signature.",
+          "required": true,
+          "schema": {
+            "title": "signatureBytes",
+            "type": "string",
+            "description": "Hex representation of byte array between 2 and 65 chars long",
+            "pattern": "0x^([A-Fa-f0-9]{2}){65}$"
+          }
+        },
+        "GasPrice": {
+          "name": "gasPrice",
+          "required": true,
+          "schema": {
+            "title": "gasPriceResult",
+            "description": "Integer of the current gas price",
+            "$ref": "#/components/schemas/Integer"
+          }
+        },
+        "Transaction": {
+          "required": true,
+          "name": "transaction",
+          "schema": {
+            "$ref": "#/components/schemas/Transaction"
+          }
+        },
+        "TransactionResult": {
+          "name": "transactionResult",
+          "description": "Returns a transaction or null",
+          "schema": {
+            "title": "TransactionOrNull",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Transaction"
+              },
+              {
+                "$ref": "#/components/schemas/Null"
+              }
+            ]
+          }
+        },
+        "UncleCountResult": {
+          "name": "uncleCountResult",
+          "description": "The Number of total uncles in the given block",
+          "schema": {
+            "$ref": "#/components/schemas/IntegerOrNull"
+          }
+        },
+        "Message": {
+          "name": "message",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Bytes"
+          }
+        },
+        "Filter": {
+          "name": "filter",
+          "required": true,
+          "schema": {
+            "title": "filter",
+            "type": "object",
+            "description": "A filter used to monitor the blockchain for log/events",
+            "properties": {
+              "fromBlock": {
+                "$ref": "#/components/schemas/BlockNumber"
+              },
+              "toBlock": {
+                "$ref": "#/components/schemas/BlockNumber"
+              },
+              "address": {
+                "title": "oneOrArrayOfAddresses",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Address"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Addresses"
+                  }
+                ]
+              },
+              "topics": {
+                "$ref": "#/components/schemas/Topics"
+              }
+            }
+          }
+        },
+        "Address": {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        "BlockHash": {
+          "name": "blockHash",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/BlockHash"
+          }
+        },
+        "Nonce": {
+          "name": "nonce",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Nonce"
+          }
+        },
+        "Position": {
+          "name": "key",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Position"
+          }
+        },
+        "Logs": {
+          "name": "logs",
+          "description": "An array of all logs matching filter with given id.",
+          "schema": {
+            "title": "setOfLogs",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Log"
+            }
+          }
+        },
+        "FilterId": {
+          "name": "filterId",
+          "schema": {
+            "$ref": "#/components/schemas/FilterId"
+          }
+        },
+        "BlockNumber": {
+          "name": "blockNumber",
+          "required": true,
+          "schema": {
+            "title": "blockNumberOrTag",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BlockNumber"
+              },
+              {
+                "$ref": "#/components/schemas/BlockNumberTag"
+              }
+            ]
+          }
+        },
+        "TransactionHash": {
+          "name": "transactionHash",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TransactionHash"
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block libs %}
+<script>
+	const latestWarningTrigger =
+		"{{config.extra.latest_version_warning.url_contains}}";
+</script>
+<link
+	rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+	crossorigin="anonymous"
+/>
+<script
+	src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"
+></script>
+<script
+	async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"
+></script>
+{% endblock %} {% block hero %} {# hero is not used, so use it for warning
+banner #}
+<div class="latest-warning">{{config.extra.latest_version_warning.text}}</div>
+{% endblock %} {% block analytics %} {% include
+"partials/integrations/analytics.html" %} {% endblock %} {% block config %} {%
+if config.plugins.search %}
+<script>
+	// Make the search query replace _-. by spaces to extend the search to all RPC methods
+	var search = {
+		transform: function (query) {
+			var transformedQuery = query.replace(/[\_\-\.]/g, " ").trim();
+			console.log(transformedQuery);
+			return transformedQuery;
+		}
+	};
+</script>
+{% endif %} {% endblock %} {% block content %} {% if page and page.meta %} {% if
+page.meta.git_revision_date_localized or page.meta.revision_date %} {% include
+"partials/source-date.html" %} {% endif %} {% endif %} {% if not "\x3ch1" in
+page.content %}
+<h1>{{ page.title | default(config.site_name, true)}}</h1>
+{% endif %} {{ page.content }} {% endblock %} {% block site_nav %} {% if nav %}
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+	<div class="md-sidebar__scrollwrap" style="scroll-snap-type: none">
+		<div class="md-sidebar__inner">{% include "partials/nav.html" %}</div>
+		<div
+			id="readthedocs-ethical-ads"
+			class="flat"
+			data-ea-publisher="readthedocs"
+			data-ea-type="image"
+			data-ea-campaign-types="community|house"
+		></div>
+	</div>
+</div>
+{% endif %} {% if page.toc %}
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+	<div class="md-sidebar__scrollwrap">
+		<div class="md-sidebar__inner">{% include "partials/toc.html" %}</div>
+	</div>
+</div>
+{% endif %} {% endblock %}

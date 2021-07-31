@@ -1,133 +1,58 @@
-# Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+site_name: Manifold Finance
+site_url: https://docs.manifoldfinance.com/
+site_description: Manifold Finance documentation.
+site_author: Manifold Finance
+copyright: Copyright 2021 - Manifold Finance All Rights Reserved
 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to
-# deal in the Software without restriction, including without limitation the
-# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-# sell copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
+nav:
+    - API:
+        - Command Line:
+          - Options: Reference/CLI/CLI-Syntax.md
+          - Subcommands: Reference/CLI/CLI-Subcommands.
+    - Rulebook:
+      - API Methods: Reference/API-Methods.md
+      - Rulebook: rulebook/directory.md
+      - Limit Orders: rulebook/limit_order_books.md
+      - Obligations: rulebook/obligations.md
+      - Clearing: rulebook/proposal.md
+      - Rulebook: rulebook/refunder.md
+      - Suspension: rulebook/suspensions.md
+      - Governance: rulebook/technical.md
+      - Settlement: rulebook/trade-settlement.md
 
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-# IN THE SOFTWARE.
 
-# Project information
-site_name: Material for MkDocs
-site_url: https://squidfunk.github.io/mkdocs-material/
-site_author: Martin Donath
-site_description: >-
-  Create a branded static site from a set of Markdown files to host the
-  documentation of your Open Source or commercial project
+extra:
+#  doc_site_edit_url: https://github.com/manifoldfinance/docs/
+  latest_version_warning:
+    url_contains: /latest/
+    text: 'You are reading m the development version documentation and
+    some displayed features may not be available in the stable release.
+    You can switch to stable version using the version box at screen bottom.'
+  support:
+    chat: https://t.me/manifoldfinance
+    email: community@lists.manifoldfinance.com
+    website: https://www.manifoldfinance.com
+    issues: https://github.com/manifoldfinance/boards/issues
+    doc_issues: https://github.com/manifoldfinance/mkdocs/issues/new/choose
+  google:
+    site_verification:
+      - ''
+  logo_regular: logo.svg
+  logo_reversed: &logo_reversed logo-reversed.svg
 
 # Repository
-repo_name: squidfunk/mkdocs-material
-repo_url: https://github.com/squidfunk/mkdocs-material
-edit_uri: ""
+repo_name: manifoldfinance/docs
+repo_url: https://github.com/manifoldfinance/mkdocs/
 
-# Copyright
-copyright: Copyright &copy; 2016 - 2021 Martin Donath
-
-# Configuration
 theme:
-  name: null
-  custom_dir: !ENV [THEME_DIR, "material"]
+    name: material
+    palette:
+        primary: black
+        accent: teal
+    favicon: favicon.svg
+    logo: *logo_reversed
 
-  # Static files
-  static_templates:
-    - 404.html
-
-  # Don't include MkDocs' JavaScript
-  include_search_page: false
-  search_index_only: true
-
-  # Default values, taken from mkdocs_theme.yml
-  language: en
-  features:
-    - content.code.annotate
-    - content.tabs.link
-    # - header.autohide
-    # - navigation.expand
-    # - navigation.indexes
-    # - navigation.instant
-    - navigation.sections
-    - navigation.tabs
-    # - navigation.tabs.sticky
-    - navigation.top
-    - navigation.tracking
-    - search.highlight
-    - search.share
-    - search.suggest
-    # - toc.integrate
-  palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/toggle-switch-off-outline
-        name: Switch to dark mode
-    - scheme: slate
-      primary: red
-      accent: red
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode
-  font:
-    text: Roboto
-    code: Roboto Mono
-  favicon: assets/favicon.png
-  icon:
-    logo: logo
-
-# Plugins
-plugins:
-  - search
-  - social
-  - redirects:
-      redirect_maps:
-        changelog/insiders.md: insiders/changelog.md
-        extensions/admonition.md: reference/admonitions.md
-        extensions/codehilite.md: reference/code-blocks.md
-        extensions/footnotes.md: reference/footnotes.md
-        extensions/metadata.md: reference/meta-tags.md
-        extensions/permalinks.md: setup/setting-up-navigation.md #permalink
-        extensions/pymdown.md: reference/admonitions.md
-        plugins/revision-date.md: setup/adding-a-git-repository.md #revision-date
-        plugins/search.md: setup/setting-up-site-search.md
-        releases/4.md: upgrading.md #upgrading-from-4x-to-5x
-        releases/5.md: upgrading.md #upgrading-from-3x-to-4x
-        releases/changelog.md: changelog.md
-        setup/adding-social-links.md: setup/setting-up-the-footer.md
-        sponsorship.md: insiders/index.md
-  - minify:
-      minify_html: true
-
-# Customization
-extra:
-  analytics:
-    provider: google
-    property: !ENV GOOGLE_ANALYTICS_KEY
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/squidfunk
-    - icon: fontawesome/brands/gitter
-      link: https://gitter.im/squidfunk/mkdocs-material
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/squidfunk/mkdocs-material/
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/squidfunk
-    - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/squidfunk/
-    - icon: fontawesome/brands/instagram
-      link: https://instagram.com/squidfunk
-
-# Extensions
 markdown_extensions:
   - admonition
   - abbr
@@ -167,54 +92,12 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 
-# Page tree
-nav:
-  - Home: index.md
-  - Getting started:
-    - Installation: getting-started.md
-    - Creating your site: creating-your-site.md
-    - Publishing your site: publishing-your-site.md
-    - Customization: customization.md
-    - Troubleshooting: troubleshooting.md
-    - Data privacy: data-privacy.md
-    - License: license.md
-    - Releases:
-      - Changelog: changelog.md
-      - Upgrade guide: upgrading.md
-      - Deprecations: deprecations.md
-  - Setup:
-    - Changing the colors: setup/changing-the-colors.md
-    - Changing the fonts: setup/changing-the-fonts.md
-    - Changing the language: setup/changing-the-language.md
-    - Changing the logo and icons: setup/changing-the-logo-and-icons.md
-    - Setting up navigation: setup/setting-up-navigation.md
-    - Setting up site search: setup/setting-up-site-search.md
-    - Setting up site analytics: setup/setting-up-site-analytics.md
-    - Setting up social cards: setup/setting-up-social-cards.md
-    - Setting up tags: setup/setting-up-tags.md
-    - Setting up versioning: setup/setting-up-versioning.md
-    - Setting up the header: setup/setting-up-the-header.md
-    - Setting up the footer: setup/setting-up-the-footer.md
-    - Adding a git repository: setup/adding-a-git-repository.md
-    - Adding a comment system: setup/adding-a-comment-system.md
-  - Reference:
-    - Abbreviations: reference/abbreviations.md
-    - Admonitions: reference/admonitions.md
-    - Buttons: reference/buttons.md
-    - Code blocks: reference/code-blocks.md
-    - Content tabs: reference/content-tabs.md
-    - Data tables: reference/data-tables.md
-    - Diagrams: reference/diagrams.md
-    - Footnotes: reference/footnotes.md
-    - Formatting: reference/formatting.md
-    - Icons + Emojis: reference/icons-emojis.md
-    - Images: reference/images.md
-    - Lists: reference/lists.md
-    - MathJax: reference/mathjax.md
-    - Meta tags: reference/meta-tags.md
-    - Variables: reference/variables.md
-  - Insiders:
-    - Sponsorship: insiders/index.md
-    - Getting started:
-      - Installation: insiders/getting-started.md
-      - Changelog: insiders/changelog.md
+plugins:
+    - search:
+        lang: 'en'
+        separator: '[\s\-\.\_]+'
+    - minify:
+        minify_html: true
+        minify_js: true
+        htmlmin_opts:
+          remove_comments: true
