@@ -6,7 +6,6 @@ sort: 3
 
 > Documentation for Order Book API
 
-{% include list.liquid all=true %}
 
 ## Documentation for API Endpoints
 
