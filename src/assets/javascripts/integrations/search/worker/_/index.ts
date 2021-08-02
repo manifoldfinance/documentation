@@ -20,23 +20,20 @@
  * IN THE SOFTWARE.
  */
 
-import { ObservableInput, Subject, from } from "rxjs"
-import { map, share } from "rxjs/operators"
+import { ObservableInput, Subject, from } from 'rxjs';
+import { map, share } from 'rxjs/operators';
 
-import { configuration, feature, translation } from "~/_"
-import { WorkerHandler, watchWorker } from "~/browser"
+import { configuration, feature, translation } from '~/_';
+import { WorkerHandler, watchWorker } from '~/browser';
 
-import { SearchIndex } from "../../_"
-import {
-  SearchOptions,
-  SearchPipeline
-} from "../../options"
+import { SearchIndex } from '../../_';
+import { SearchOptions, SearchPipeline } from '../../options';
 import {
   SearchMessage,
   SearchMessageType,
   SearchSetupMessage,
-  isSearchResultMessage
-} from "../message"
+  isSearchResultMessage,
+} from '../message';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -45,7 +42,7 @@ import {
 /**
  * Search worker
  */
-export type SearchWorker = WorkerHandler<SearchMessage>
+export type SearchWorker = WorkerHandler<SearchMessage>;
 
 /* ----------------------------------------------------------------------------
  * Helper functions
@@ -58,33 +55,28 @@ export type SearchWorker = WorkerHandler<SearchMessage>
  *
  * @returns Search index
  */
-function setupSearchIndex(
-  { config, docs, index }: SearchIndex
-): SearchIndex {
-
+function setupSearchIndex({ config, docs, index }: SearchIndex): SearchIndex {
   /* Override default language with value from translation */
-  if (config.lang.length === 1 && config.lang[0] === "en")
-    config.lang = [
-      translation("search.config.lang")
-    ]
+  if (config.lang.length === 1 && config.lang[0] === 'en')
+    config.lang = [translation('search.config.lang')];
 
   /* Override default separator with value from translation */
-  if (config.separator === "[\\s\\-]+")
-    config.separator = translation("search.config.separator")
+  if (config.separator === '[\\s\\-]+')
+    config.separator = translation('search.config.separator');
 
   /* Set pipeline from translation */
-  const pipeline = translation("search.config.pipeline")
+  const pipeline = translation('search.config.pipeline')
     .split(/\s*,\s*/)
-    .filter(Boolean) as SearchPipeline
+    .filter(Boolean) as SearchPipeline;
 
   /* Determine search options */
   const options: SearchOptions = {
     pipeline,
-    suggestions: feature("search.suggest")
-  }
+    suggestions: feature('search.suggest'),
+  };
 
   /* Return search index after defaulting */
-  return { config, docs, index, options }
+  return { config, docs, index, options };
 }
 
 /* ----------------------------------------------------------------------------
@@ -104,36 +96,36 @@ function setupSearchIndex(
  * @returns Search worker
  */
 export function setupSearchWorker(
-  url: string, index: ObservableInput<SearchIndex>
+  url: string,
+  index: ObservableInput<SearchIndex>,
 ): SearchWorker {
-  const config = configuration()
-  const worker = new Worker(url)
+  const config = configuration();
+  const worker = new Worker(url);
 
   /* Create communication channels and resolve relative links */
-  const tx$ = new Subject<SearchMessage>()
-  const rx$ = watchWorker(worker, { tx$ })
-    .pipe(
-      map(message => {
-        if (isSearchResultMessage(message)) {
-          for (const result of message.data.items)
-            for (const document of result)
-              document.location = `${config.base}/${document.location}`
-        }
-        return message
-      }),
-      share()
-    )
+  const tx$ = new Subject<SearchMessage>();
+  const rx$ = watchWorker(worker, { tx$ }).pipe(
+    map((message) => {
+      if (isSearchResultMessage(message)) {
+        for (const result of message.data.items)
+          for (const document of result)
+            document.location = `${config.base}/${document.location}`;
+      }
+      return message;
+    }),
+    share(),
+  );
 
   /* Set up search index */
   from(index)
     .pipe(
-      map<SearchIndex, SearchSetupMessage>(data => ({
+      map<SearchIndex, SearchSetupMessage>((data) => ({
         type: SearchMessageType.SETUP,
-        data: setupSearchIndex(data)
+        data: setupSearchIndex(data),
       })),
     )
-      .subscribe(tx$.next.bind(tx$))
+    .subscribe(tx$.next.bind(tx$));
 
   /* Return search worker */
-  return { tx$, rx$ }
+  return { tx$, rx$ };
 }

@@ -4,6 +4,6 @@ link: https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collection
 level: error
 nonword: true
 tokens:
-    - '\d{1,2}[AP]M'
-    - '\d{1,2} ?[ap]m'
-    - '\d{1,2} ?[aApP]\.[mM]\.'
+  - '\d{1,2}[AP]M'
+  - '\d{1,2} ?[ap]m'
+  - '\d{1,2} ?[aApP]\.[mM]\.'

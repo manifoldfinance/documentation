@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { getElementOrThrow, getElements } from "~/browser"
+import { getElementOrThrow, getElements } from '~/browser';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -30,12 +30,12 @@ import { getElementOrThrow, getElements } from "~/browser"
  * Component
  */
 export type ComponentType =
-  | "iconsearch"                       /* Icon search */
-  | "iconsearch-query"                 /* Icon search input */
-  | "iconsearch-result"                /* Icon search results */
-  | "sponsorship"                      /* Sponsorship */
-  | "sponsorship-count"                /* Sponsorship count */
-  | "sponsorship-total"                /* Sponsorship total */
+  | 'iconsearch' /* Icon search */
+  | 'iconsearch-query' /* Icon search input */
+  | 'iconsearch-result' /* Icon search results */
+  | 'sponsorship' /* Sponsorship */
+  | 'sponsorship-count' /* Sponsorship count */
+  | 'sponsorship-total'; /* Sponsorship total */
 
 /**
  * A component
@@ -45,11 +45,10 @@ export type ComponentType =
  */
 export type Component<
   T extends {} = {},
-  U extends HTMLElement = HTMLElement
-> =
-  T & {
-    ref: U                             /* Component reference */
-  }
+  U extends HTMLElement = HTMLElement,
+> = T & {
+  ref: U /* Component reference */;
+};
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -59,12 +58,12 @@ export type Component<
  * Component type map
  */
 interface ComponentTypeMap {
-  "iconsearch": HTMLElement            /* Icon search */
-  "iconsearch-query": HTMLInputElement /* Icon search input */
-  "iconsearch-result": HTMLElement     /* Icon search results */
-  "sponsorship": HTMLElement           /* Sponsorship */
-  "sponsorship-count": HTMLElement     /* Sponsorship count */
-  "sponsorship-total": HTMLElement     /* Sponsorship total */
+  iconsearch: HTMLElement /* Icon search */;
+  'iconsearch-query': HTMLInputElement /* Icon search input */;
+  'iconsearch-result': HTMLElement /* Icon search results */;
+  sponsorship: HTMLElement /* Sponsorship */;
+  'sponsorship-count': HTMLElement /* Sponsorship count */;
+  'sponsorship-total': HTMLElement /* Sponsorship total */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -82,9 +81,10 @@ interface ComponentTypeMap {
  * @returns Element
  */
 export function getComponentElement<T extends ComponentType>(
-  type: T, node: ParentNode = document
+  type: T,
+  node: ParentNode = document,
 ): ComponentTypeMap[T] {
-  return getElementOrThrow(`[data-mdx-component=${type}]`, node)
+  return getElementOrThrow(`[data-mdx-component=${type}]`, node);
 }
 
 /**
@@ -98,7 +98,8 @@ export function getComponentElement<T extends ComponentType>(
  * @returns Elements
  */
 export function getComponentElements<T extends ComponentType>(
-  type: T, node: ParentNode = document
+  type: T,
+  node: ParentNode = document,
 ): ComponentTypeMap[T][] {
-  return getElements(`[data-mdx-component=${type}]`, node)
+  return getElements(`[data-mdx-component=${type}]`, node);
 }

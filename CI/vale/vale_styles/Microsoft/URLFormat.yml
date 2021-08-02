@@ -3,7 +3,7 @@ message: "Use '%s' instead of '%s'."
 ignorecase: true
 level: error
 action:
-    name: replace
+  name: replace
 swap:
-    URL for: URL of
-    an URL: a URL
+  URL for: URL of
+  an URL: a URL

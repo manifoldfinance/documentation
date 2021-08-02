@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { SearchIndex, SearchResult } from "../../_"
+import { SearchIndex, SearchResult } from '../../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -30,10 +30,10 @@ import { SearchIndex, SearchResult } from "../../_"
  * Search message type
  */
 export const enum SearchMessageType {
-  SETUP,                               /* Search index setup */
-  READY,                               /* Search index ready */
-  QUERY,                               /* Search query */
-  RESULT                               /* Search results */
+  SETUP /* Search index setup */,
+  READY /* Search index ready */,
+  QUERY /* Search query */,
+  RESULT /* Search results */,
 }
 
 /* ------------------------------------------------------------------------- */
@@ -42,31 +42,31 @@ export const enum SearchMessageType {
  * A message containing the data necessary to setup the search index
  */
 export interface SearchSetupMessage {
-  type: SearchMessageType.SETUP        /* Message type */
-  data: SearchIndex                    /* Message data */
+  type: SearchMessageType.SETUP /* Message type */;
+  data: SearchIndex /* Message data */;
 }
 
 /**
  * A message indicating the search index is ready
  */
 export interface SearchReadyMessage {
-  type: SearchMessageType.READY        /* Message type */
+  type: SearchMessageType.READY /* Message type */;
 }
 
 /**
  * A message containing a search query
  */
 export interface SearchQueryMessage {
-  type: SearchMessageType.QUERY        /* Message type */
-  data: string                         /* Message data */
+  type: SearchMessageType.QUERY /* Message type */;
+  data: string /* Message data */;
 }
 
 /**
  * A message containing results for a search query
  */
 export interface SearchResultMessage {
-  type: SearchMessageType.RESULT       /* Message type */
-  data: SearchResult                   /* Message data */
+  type: SearchMessageType.RESULT /* Message type */;
+  data: SearchResult /* Message data */;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -78,7 +78,7 @@ export type SearchMessage =
   | SearchSetupMessage
   | SearchReadyMessage
   | SearchQueryMessage
-  | SearchResultMessage
+  | SearchResultMessage;
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -92,9 +92,9 @@ export type SearchMessage =
  * @returns Test result
  */
 export function isSearchSetupMessage(
-  message: SearchMessage
+  message: SearchMessage,
 ): message is SearchSetupMessage {
-  return message.type === SearchMessageType.SETUP
+  return message.type === SearchMessageType.SETUP;
 }
 
 /**
@@ -105,9 +105,9 @@ export function isSearchSetupMessage(
  * @returns Test result
  */
 export function isSearchReadyMessage(
-  message: SearchMessage
+  message: SearchMessage,
 ): message is SearchReadyMessage {
-  return message.type === SearchMessageType.READY
+  return message.type === SearchMessageType.READY;
 }
 
 /**
@@ -118,9 +118,9 @@ export function isSearchReadyMessage(
  * @returns Test result
  */
 export function isSearchQueryMessage(
-  message: SearchMessage
+  message: SearchMessage,
 ): message is SearchQueryMessage {
-  return message.type === SearchMessageType.QUERY
+  return message.type === SearchMessageType.QUERY;
 }
 
 /**
@@ -131,7 +131,7 @@ export function isSearchQueryMessage(
  * @returns Test result
  */
 export function isSearchResultMessage(
-  message: SearchMessage
+  message: SearchMessage,
 ): message is SearchResultMessage {
-  return message.type === SearchMessageType.RESULT
+  return message.type === SearchMessageType.RESULT;
 }

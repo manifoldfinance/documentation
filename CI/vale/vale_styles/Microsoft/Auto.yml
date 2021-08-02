@@ -4,8 +4,8 @@ link: https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collection
 ignorecase: true
 level: error
 action:
-    name: convert
-    params:
-        - simple
+  name: convert
+  params:
+    - simple
 tokens:
-    - 'auto-\w+'
+  - 'auto-\w+'

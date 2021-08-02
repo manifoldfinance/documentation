@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { translation } from "~/_"
+import { translation } from '~/_';
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -33,9 +33,10 @@ import { translation } from "~/_"
  * @param value - Placeholder
  */
 export function setSearchQueryPlaceholder(
-  el: HTMLInputElement, value: string
+  el: HTMLInputElement,
+  value: string,
 ): void {
-  el.placeholder = value
+  el.placeholder = value;
 }
 
 /**
@@ -43,8 +44,6 @@ export function setSearchQueryPlaceholder(
  *
  * @param el - Search query element
  */
-export function resetSearchQueryPlaceholder(
-  el: HTMLInputElement
-): void {
-  el.placeholder = translation("search.placeholder")
+export function resetSearchQueryPlaceholder(el: HTMLInputElement): void {
+  el.placeholder = translation('search.placeholder');
 }

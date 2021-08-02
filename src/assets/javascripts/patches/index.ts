@@ -20,6 +20,6 @@
  * IN THE SOFTWARE.
  */
 
-export * from "./indeterminate"
-export * from "./scrollfix"
-export * from "./scrolllock"
+export * from './indeterminate';
+export * from './scrollfix';
+export * from './scrolllock';

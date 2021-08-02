@@ -4,8 +4,8 @@ link: https://docs.microsoft.com/en-us/style-guide/grammar/person#avoid-first-pe
 level: warning
 ignorecase: true
 tokens:
-    - we
-    - we'(?:ve|re)
-    - ours?
-    - us
-    - let's
+  - we
+  - we'(?:ve|re)
+  - ours?
+  - us
+  - let's

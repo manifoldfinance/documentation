@@ -20,13 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, from } from "rxjs"
-import {
-  filter,
-  map,
-  shareReplay,
-  switchMap
-} from "rxjs/operators"
+import { Observable, from } from 'rxjs';
+import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -41,12 +36,12 @@ import {
  * @returns Response observable
  */
 export function request(
-  url: URL | string, options: RequestInit = { credentials: "same-origin" }
+  url: URL | string,
+  options: RequestInit = { credentials: 'same-origin' },
 ): Observable<Response> {
-  return from(fetch(`${url}`, options))
-    .pipe(
-      filter(res => res.status === 200),
-    )
+  return from(fetch(`${url}`, options)).pipe(
+    filter((res) => res.status === 200),
+  );
 }
 
 /**
@@ -60,13 +55,13 @@ export function request(
  * @returns Data observable
  */
 export function requestJSON<T>(
-  url: URL | string, options?: RequestInit
+  url: URL | string,
+  options?: RequestInit,
 ): Observable<T> {
-  return request(url, options)
-    .pipe(
-      switchMap(res => res.json()),
-      shareReplay(1)
-    )
+  return request(url, options).pipe(
+    switchMap((res) => res.json()),
+    shareReplay(1),
+  );
 }
 
 /**
@@ -78,13 +73,13 @@ export function requestJSON<T>(
  * @returns Data observable
  */
 export function requestXML(
-  url: URL | string, options?: RequestInit
+  url: URL | string,
+  options?: RequestInit,
 ): Observable<Document> {
-  const dom = new DOMParser()
-  return request(url, options)
-    .pipe(
-      switchMap(res => res.text()),
-      map(res => dom.parseFromString(res, "text/xml")),
-      shareReplay(1)
-    )
+  const dom = new DOMParser();
+  return request(url, options).pipe(
+    switchMap((res) => res.text()),
+    map((res) => dom.parseFromString(res, 'text/xml')),
+    shareReplay(1),
+  );
 }

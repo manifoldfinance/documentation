@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { JSX as JSXInternal } from "preact"
+import { JSX as JSXInternal } from 'preact';
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -29,19 +29,14 @@ import { JSX as JSXInternal } from "preact"
 /**
  * HTML attributes
  */
-type Attributes =
-  & JSXInternal.HTMLAttributes
-  & JSXInternal.SVGAttributes
-  & Record<string, any>
+type Attributes = JSXInternal.HTMLAttributes &
+  JSXInternal.SVGAttributes &
+  Record<string, any>;
 
 /**
  * Child element
  */
-type Child =
-  | HTMLElement
-  | Text
-  | string
-  | number
+type Child = HTMLElement | Text | string | number;
 
 /* ----------------------------------------------------------------------------
  * Helper functions
@@ -54,19 +49,17 @@ type Child =
  * @param child - Child node(s)
  */
 function appendChild(el: HTMLElement, child: Child | Child[]): void {
-
   /* Handle primitive types (including raw HTML) */
-  if (typeof child === "string" || typeof child === "number") {
-    el.innerHTML += child.toString()
+  if (typeof child === 'string' || typeof child === 'number') {
+    el.innerHTML += child.toString();
 
-  /* Handle nodes */
+    /* Handle nodes */
   } else if (child instanceof Node) {
-    el.appendChild(child)
+    el.appendChild(child);
 
-  /* Handle nested children */
+    /* Handle nested children */
   } else if (Array.isArray(child)) {
-    for (const node of child)
-      appendChild(el, node)
+    for (const node of child) appendChild(el, node);
   }
 }
 
@@ -84,24 +77,24 @@ function appendChild(el: HTMLElement, child: Child | Child[]): void {
  * @returns Element
  */
 export function h(
-  tag: string, attributes: Attributes | null, ...children: Child[]
+  tag: string,
+  attributes: Attributes | null,
+  ...children: Child[]
 ): HTMLElement {
-  const el = document.createElement(tag)
+  const el = document.createElement(tag);
 
   /* Set attributes, if any */
   if (attributes)
     for (const attr of Object.keys(attributes))
-      if (typeof attributes[attr] !== "boolean")
-        el.setAttribute(attr, attributes[attr])
-      else if (attributes[attr])
-        el.setAttribute(attr, "")
+      if (typeof attributes[attr] !== 'boolean')
+        el.setAttribute(attr, attributes[attr]);
+      else if (attributes[attr]) el.setAttribute(attr, '');
 
   /* Append child nodes */
-  for (const child of children)
-    appendChild(el, child)
+  for (const child of children) appendChild(el, child);
 
   /* Return element */
-  return el
+  return el;
 }
 
 /* ----------------------------------------------------------------------------
@@ -110,7 +103,7 @@ export function h(
 
 export declare namespace h {
   namespace JSX {
-    type Element = HTMLElement
-    type IntrinsicElements = JSXInternal.IntrinsicElements
+    type Element = HTMLElement;
+    type IntrinsicElements = JSXInternal.IntrinsicElements;
   }
 }

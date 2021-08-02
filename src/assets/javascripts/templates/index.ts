@@ -20,9 +20,9 @@
  * IN THE SOFTWARE.
  */
 
-export * from "./clipboard"
-export * from "./code"
-export * from "./search"
-export * from "./source"
-export * from "./table"
-export * from "./version"
+export * from './clipboard';
+export * from './code';
+export * from './search';
+export * from './source';
+export * from './table';
+export * from './version';

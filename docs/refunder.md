@@ -4,10 +4,13 @@ sort: 4
 
 # Proxy Gas Refunder
 
-A generic contract system for reliably refunding the gas costs of transactions. The purpose of the project is to:
+A generic contract system for reliably refunding the gas costs of transactions.
+The purpose of the project is to:
 
-- Enable Protocols to specify what contract calls they are willing to sponsor with a set of limitations (e.g gas price)
-- Enable anyone to submit transactions that are eligible for refunding and get their transaction costs reimbursed.
+- Enable Protocols to specify what contract calls they are willing to sponsor
+  with a set of limitations (e.g gas price)
+- Enable anyone to submit transactions that are eligible for refunding and get
+  their transaction costs reimbursed.
 
 ## Contracts
 
@@ -19,27 +22,39 @@ There are 3 major contracts:
 
 ### Refunder Factory
 
-Factory contract used for the deployment of `Refunder` contracts. Anyone is able to deploy a refunder contract and configure it for its own needs.
+Factory contract used for the deployment of `Refunder` contracts. Anyone is able
+to deploy a refunder contract and configure it for its own needs.
 
 - `RefunderFactory` is aware of the `GateWayProxy` and its interface.
 - On deployment:
   - `msg.sender` is the initial owner of the `Refunder` contract.
-  - the deployed `Refunder` contract is added to the set of registered `refunders` in the `GatewayProxy` via the `GatewayProxy.addRefunder` function.
+  - the deployed `Refunder` contract is added to the set of registered
+    `refunders` in the `GatewayProxy` via the `GatewayProxy.addRefunder`
+    function.
 
 ### Refunder
 
-Refunder contract is a standalone, completely independent contract that represents the interest of a given protocol/entity that wants to sponsor a set of function calls.
-The contract:
+Refunder contract is a standalone, completely independent contract that
+represents the interest of a given protocol/entity that wants to sponsor a set
+of function calls. The contract:
 
 - is `ownable`. Initially set to the `msg.sender` that calls the factory
 - Holds `ETH` for gas cost reimbursements
 - has a `map(address, bool)` of whitelisted `GatewayProxy` contracts
-- has a `map(address -> map(bytes4, uint256))` of whitelisted `refundableCalls`. The key of the outer map is a "whitelisted" contract `address`. Calls are represented by the function's signature. The keys of the inner map (`bytes4`) are calculated as `keccak256('functionName(params)')`. For example, if a given refunder contract allows for refunding of ERC20 `approve` tx, the key of the inner map would be `bytes4(keccak256(approve(address,uint256))`. The value (`uint256`) of the inner map (`map(bytes4, uint256)`) represents the `estimated` gas costs of refunding users for that specific contract call. NOTE: this is not the gas costs that will be reimbursed to the `msg.sender`, but the `expected` gas costs only for calling `refund` with those arguments.
+- has a `map(address -> map(bytes4, uint256))` of whitelisted `refundableCalls`.
+  The key of the outer map is a "whitelisted" contract `address`. Calls are
+  represented by the function's signature. The keys of the inner map (`bytes4`)
+  are calculated as `keccak256('functionName(params)')`. For example, if a given
+  refunder contract allows for refunding of ERC20 `approve` tx, the key of the
+  inner map would be `bytes4(keccak256(approve(address,uint256))`. The value
+  (`uint256`) of the inner map (`map(bytes4, uint256)`) represents the
+  `estimated` gas costs of refunding users for that specific contract call.
+  NOTE: this is not the gas costs that will be reimbursed to the `msg.sender`,
+  but the `expected` gas costs only for calling `refund` with those arguments.
 
 #### Interface
 
-Note:
-Function calls must be `nonReentrant`
+Note: Function calls must be `nonReentrant`
 
 ```Solidity
 // @param isEligible - Returns true/false whether the specified contract call is eligible for gas refund
@@ -72,11 +87,16 @@ abstract contract Context {
 
 ### GatewayProxy
 
-The GatewayProxy contract is a singleton contract used to forward the provided contract call data (e.g raw msg + signature) to the target contract and request a refund for the `msg.sender` afterwards from the responsible `Refunder` contract.
+The GatewayProxy contract is a singleton contract used to forward the provided
+contract call data (e.g raw msg + signature) to the target contract and request
+a refund for the `msg.sender` afterwards from the responsible `Refunder`
+contract.
 
 > Note v1 should implement the factory/registry pattern
 
-The contract has a `map(address, bool)` of the deployed `refunder` contracts. Anyone is able to add addresses to the `map` if they support the required `Refunder` interface.
+The contract has a `map(address, bool)` of the deployed `refunder` contracts.
+Anyone is able to add addresses to the `map` if they support the required
+`Refunder` interface.
 
 #### Interface
 
@@ -109,7 +129,8 @@ modifier netGasCost(targetContract, interfaceId) {
 }
 ```
 
-`getRefundCost` information is required in order for the `GatewayProxy` to know how much will be the additional cost for the actual refund call
+`getRefundCost` information is required in order for the `GatewayProxy` to know
+how much will be the additional cost for the actual refund call
 
 NOTE: `interfaceId` is the first 4 bytes of the provided `bytes data`
 

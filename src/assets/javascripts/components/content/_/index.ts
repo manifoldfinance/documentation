@@ -20,20 +20,20 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, merge } from "rxjs"
+import { Observable, merge } from 'rxjs';
 
-import { Viewport, getElements } from "~/browser"
+import { Viewport, getElements } from '~/browser';
 
-import { Component } from "../../_"
+import { Component } from '../../_';
 import {
   CodeBlock,
   MermaidCodeBlock,
   mountCodeBlock,
-  mountMermaidCodeBlock
-} from "../code"
-import { Details, mountDetails } from "../details"
-import { DataTable, mountDataTable } from "../table"
-import { ContentTabs, mountContentTabs } from "../tabs"
+  mountMermaidCodeBlock,
+} from '../code';
+import { Details, mountDetails } from '../details';
+import { DataTable, mountDataTable } from '../table';
+import { ContentTabs, mountContentTabs } from '../tabs';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -47,7 +47,7 @@ export type Content =
   | CodeBlock
   | MermaidCodeBlock
   | DataTable
-  | Details
+  | Details;
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -57,9 +57,9 @@ export type Content =
  * Mount options
  */
 interface MountOptions {
-  target$: Observable<HTMLElement>     /* Location target observable */
-  viewport$: Observable<Viewport>      /* Viewport observable */
-  print$: Observable<void>             /* Print mode observable */
+  target$: Observable<HTMLElement> /* Location target observable */;
+  viewport$: Observable<Viewport> /* Viewport observable */;
+  print$: Observable<void> /* Print mode observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -78,28 +78,31 @@ interface MountOptions {
  * @returns Content component observable
  */
 export function mountContent(
-  el: HTMLElement, { target$, viewport$, print$ }: MountOptions
+  el: HTMLElement,
+  { target$, viewport$, print$ }: MountOptions,
 ): Observable<Component<Content>> {
   return merge(
-
     /* Code blocks */
-    ...getElements("pre:not([class^=mermaid]) > code", el)
-      .map(child => mountCodeBlock(child, { viewport$ })),
+    ...getElements('pre:not([class^=mermaid]) > code', el).map((child) =>
+      mountCodeBlock(child, { viewport$ }),
+    ),
 
     /* Mermaid code blocks */
-    ...getElements(".mermaid, .mermaid-experimental", el)
-      .map(child => mountMermaidCodeBlock(child)),
+    ...getElements('.mermaid, .mermaid-experimental', el).map((child) =>
+      mountMermaidCodeBlock(child),
+    ),
 
     /* Data tables */
-    ...getElements("table:not([class])", el)
-      .map(child => mountDataTable(child)),
+    ...getElements('table:not([class])', el).map((child) =>
+      mountDataTable(child),
+    ),
 
     /* Details */
-    ...getElements("details", el)
-      .map(child => mountDetails(child, { target$, print$ })),
+    ...getElements('details', el).map((child) =>
+      mountDetails(child, { target$, print$ }),
+    ),
 
     /* Content tabs */
-    ...getElements("[data-tabs]", el)
-      .map(child => mountContentTabs(child))
-  )
+    ...getElements('[data-tabs]', el).map((child) => mountContentTabs(child)),
+  );
 }

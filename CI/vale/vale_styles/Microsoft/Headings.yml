@@ -5,24 +5,24 @@ level: suggestion
 scope: heading
 match: $sentence
 indicators:
-    - ":"
+  - ':'
 exceptions:
-    - Azure
-    - CLI
-    - Code
-    - Cosmos
-    - Docker
-    - Emmet
-    - I
-    - Kubernetes
-    - Linux
-    - macOS
-    - Marketplace
-    - MongoDB
-    - REPL
-    - Studio
-    - TypeScript
-    - URLs
-    - Visual
-    - VS
-    - Windows
+  - Azure
+  - CLI
+  - Code
+  - Cosmos
+  - Docker
+  - Emmet
+  - I
+  - Kubernetes
+  - Linux
+  - macOS
+  - Marketplace
+  - MongoDB
+  - REPL
+  - Studio
+  - TypeScript
+  - URLs
+  - Visual
+  - VS
+  - Windows

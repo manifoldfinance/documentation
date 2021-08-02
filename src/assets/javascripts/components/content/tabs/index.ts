@@ -20,20 +20,13 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject, fromEvent, of } from "rxjs"
-import {
-  finalize,
-  map,
-  mapTo,
-  mergeMap,
-  switchMap,
-  tap
-} from "rxjs/operators"
+import { Observable, Subject, fromEvent, of } from 'rxjs';
+import { finalize, map, mapTo, mergeMap, switchMap, tap } from 'rxjs/operators';
 
-import { feature } from "~/_"
-import { getElements } from "~/browser"
+import { feature } from '~/_';
+import { getElements } from '~/browser';
 
-import { Component } from "../../_"
+import { Component } from '../../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -43,7 +36,7 @@ import { Component } from "../../_"
  * Content tabs
  */
 export interface ContentTabs {
-  active: HTMLLabelElement             /* Active tab label */
+  active: HTMLLabelElement /* Active tab label */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -57,23 +50,17 @@ export interface ContentTabs {
  *
  * @returns Content tabs observable
  */
-export function watchContentTabs(
-  el: HTMLElement
-): Observable<ContentTabs> {
-  return of(getElements<HTMLLabelElement>(":scope > label", el))
-    .pipe(
-      switchMap(labels => of(...labels)
-        .pipe(
-          mergeMap(label => {
-            const input = label.previousElementSibling as HTMLInputElement
-            return fromEvent(input, "change")
-              .pipe(
-                mapTo({ active: label })
-              )
-          })
-        )
-      )
-    )
+export function watchContentTabs(el: HTMLElement): Observable<ContentTabs> {
+  return of(getElements<HTMLLabelElement>(':scope > label', el)).pipe(
+    switchMap((labels) =>
+      of(...labels).pipe(
+        mergeMap((label) => {
+          const input = label.previousElementSibling as HTMLInputElement;
+          return fromEvent(input, 'change').pipe(mapTo({ active: label }));
+        }),
+      ),
+    ),
+  );
 }
 
 /**
@@ -89,33 +76,31 @@ export function watchContentTabs(
  * @returns Content tabs component observable
  */
 export function mountContentTabs(
-  el: HTMLElement
+  el: HTMLElement,
 ): Observable<Component<ContentTabs>> {
-  const internal$ = new Subject<ContentTabs>()
+  const internal$ = new Subject<ContentTabs>();
   internal$.subscribe(({ active }) => {
-
     /* Set up linking of content tabs, if enabled */
-    if (feature("content.tabs.link")) {
-      const tab = active.innerText.trim()
-      for (const set of getElements("[data-tabs]"))
-        for (const label of getElements(":scope > label", set))
+    if (feature('content.tabs.link')) {
+      const tab = active.innerText.trim();
+      for (const set of getElements('[data-tabs]'))
+        for (const label of getElements(':scope > label', set))
           if (label.innerText.trim() === tab) {
-            const input = label.previousElementSibling as HTMLInputElement
-            input.checked = true
-            break
+            const input = label.previousElementSibling as HTMLInputElement;
+            input.checked = true;
+            break;
           }
 
       /* Persist active tabs in local storage */
-      const tabs = __md_get<string[]>("__tabs") || []
-      __md_set("__tabs", [...new Set([tab, ...tabs])])
+      const tabs = __md_get<string[]>('__tabs') || [];
+      __md_set('__tabs', [...new Set([tab, ...tabs])]);
     }
-  })
+  });
 
   /* Create and return component */
-  return watchContentTabs(el)
-    .pipe(
-      tap(internal$),
-      finalize(() => internal$.complete()),
-      map(state => ({ ref: el, ...state }))
-    )
+  return watchContentTabs(el).pipe(
+    tap(internal$),
+    finalize(() => internal$.complete()),
+    map((state) => ({ ref: el, ...state })),
+  );
 }

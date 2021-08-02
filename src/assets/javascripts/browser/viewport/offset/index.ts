@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent, merge } from "rxjs"
-import { map, startWith } from "rxjs/operators"
+import { Observable, fromEvent, merge } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -31,8 +31,8 @@ import { map, startWith } from "rxjs/operators"
  * Viewport offset
  */
 export interface ViewportOffset {
-  x: number                            /* Horizontal offset */
-  y: number                            /* Vertical offset */
+  x: number /* Horizontal offset */;
+  y: number /* Vertical offset */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -50,8 +50,8 @@ export interface ViewportOffset {
 export function getViewportOffset(): ViewportOffset {
   return {
     x: Math.max(0, pageXOffset),
-    y: Math.max(0, pageYOffset)
-  }
+    y: Math.max(0, pageYOffset),
+  };
 }
 
 /**
@@ -59,10 +59,8 @@ export function getViewportOffset(): ViewportOffset {
  *
  * @param offset - Viewport offset
  */
-export function setViewportOffset(
-  { x, y }: Partial<ViewportOffset>
-): void {
-  window.scrollTo(x || 0, y || 0)
+export function setViewportOffset({ x, y }: Partial<ViewportOffset>): void {
+  window.scrollTo(x || 0, y || 0);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -74,11 +72,7 @@ export function setViewportOffset(
  */
 export function watchViewportOffset(): Observable<ViewportOffset> {
   return merge(
-    fromEvent(window, "scroll", { passive: true }),
-    fromEvent(window, "resize", { passive: true })
-  )
-    .pipe(
-      map(getViewportOffset),
-      startWith(getViewportOffset())
-    )
+    fromEvent(window, 'scroll', { passive: true }),
+    fromEvent(window, 'resize', { passive: true }),
+  ).pipe(map(getViewportOffset), startWith(getViewportOffset()));
 }

@@ -20,11 +20,11 @@
  * IN THE SOFTWARE.
  */
 
-import ClipboardJS from "clipboard"
-import { Observable, Subject } from "rxjs"
+import ClipboardJS from 'clipboard';
+import { Observable, Subject } from 'rxjs';
 
-import { translation } from "~/_"
-import { getElementOrThrow, getElements } from "~/browser"
+import { translation } from '~/_';
+import { getElementOrThrow, getElements } from '~/browser';
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -34,7 +34,7 @@ import { getElementOrThrow, getElements } from "~/browser"
  * Setup options
  */
 interface SetupOptions {
-  alert$: Subject<string>              /* Alert subject */
+  alert$: Subject<string> /* Alert subject */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -52,17 +52,15 @@ interface SetupOptions {
  * @returns Extracted text
  */
 function extract(el: HTMLElement): string {
-  const annotations = getElements(".md-annotation", el)
-  for (const annotation of annotations)
-    annotation.hidden = true
+  const annotations = getElements('.md-annotation', el);
+  for (const annotation of annotations) annotation.hidden = true;
 
   /* Extract text and show annotations */
-  const text = el.innerText
-  for (const annotation of annotations)
-    annotation.hidden = false
+  const text = el.innerText;
+  for (const annotation of annotations) annotation.hidden = false;
 
   /* Return extracted text */
-  return text
+  return text;
 }
 
 /* ----------------------------------------------------------------------------
@@ -74,21 +72,14 @@ function extract(el: HTMLElement): string {
  *
  * @param options - Options
  */
-export function setupClipboardJS(
-  { alert$ }: SetupOptions
-): void {
+export function setupClipboardJS({ alert$ }: SetupOptions): void {
   if (ClipboardJS.isSupported()) {
-    new Observable<ClipboardJS.Event>(subscriber => {
-      new ClipboardJS("[data-clipboard-target], [data-clipboard-text]", {
-        text: el => (
-          el.getAttribute("data-clipboard-text")! ||
-          extract(getElementOrThrow(
-            el.getAttribute("data-clipboard-target")!
-          ))
-        )
-      })
-        .on("success", ev => subscriber.next(ev))
-    })
-      .subscribe(() => alert$.next(translation("clipboard.copied")))
+    new Observable<ClipboardJS.Event>((subscriber) => {
+      new ClipboardJS('[data-clipboard-target], [data-clipboard-text]', {
+        text: (el) =>
+          el.getAttribute('data-clipboard-text')! ||
+          extract(getElementOrThrow(el.getAttribute('data-clipboard-target')!)),
+      }).on('success', (ev) => subscriber.next(ev));
+    }).subscribe(() => alert$.next(translation('clipboard.copied')));
   }
 }

@@ -20,23 +20,23 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable } from "rxjs"
+import { Observable } from 'rxjs';
 import {
   combineLatestWith,
   mapTo,
   shareReplay,
   switchMap,
-  tap
-} from "rxjs/operators"
+  tap,
+} from 'rxjs/operators';
 
 import {
   createElement,
   getElementOrThrow,
   request,
-  watchScript
-} from "~/browser"
+  watchScript,
+} from '~/browser';
 
-import { Component } from "../../../_"
+import { Component } from '../../../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -54,12 +54,12 @@ export interface MermaidCodeBlock {}
 /**
  * Mermaid instance observable
  */
-let mermaid$: Observable<void>
+let mermaid$: Observable<void>;
 
 /**
  * Global index for Mermaid integration
  */
-let index = 0
+let index = 0;
 
 /* ----------------------------------------------------------------------------
  * Helper functions
@@ -72,12 +72,9 @@ let index = 0
  */
 function fetchStyles(): Observable<string> {
   const style = getElementOrThrow<HTMLLinkElement>(
-    "[rel=preload][href*=mermaid]"
-  )
-  return request(style.href)
-    .pipe(
-      switchMap(res => res.text())
-    )
+    '[rel=preload][href*=mermaid]',
+  );
+  return request(style.href).pipe(switchMap((res) => res.text()));
 }
 
 /* ----------------------------------------------------------------------------
@@ -92,39 +89,36 @@ function fetchStyles(): Observable<string> {
  * @returns Mermaid code block component observable
  */
 export function mountMermaidCodeBlock(
-  el: HTMLElement
+  el: HTMLElement,
 ): Observable<Component<MermaidCodeBlock>> {
   mermaid$ ||= watchScript(
-    "https://unpkg.com/mermaid@8.8.4/dist/mermaid.min.js"
-  )
-    .pipe(
-      combineLatestWith(fetchStyles()),
-      tap(([, themeCSS]) => mermaid.initialize({
+    'https://unpkg.com/mermaid@8.8.4/dist/mermaid.min.js',
+  ).pipe(
+    combineLatestWith(fetchStyles()),
+    tap(([, themeCSS]) =>
+      mermaid.initialize({
         startOnLoad: false,
-        themeCSS
-      })),
-      mapTo(undefined),
-      shareReplay(1)
-    )
+        themeCSS,
+      }),
+    ),
+    mapTo(undefined),
+    shareReplay(1),
+  );
 
   /* Render diagram */
   mermaid$.subscribe(() => {
-    const id = `__mermaid_${index++}`
-    const host = createElement("div")
+    const id = `__mermaid_${index++}`;
+    const host = createElement('div');
     mermaid.mermaidAPI.render(id, el.innerText, (svg: string) => {
-
       /* Create a shadow root and inject diagram */
-      const shadow = host.attachShadow({ mode: "closed" })
-      shadow.innerHTML = svg
+      const shadow = host.attachShadow({ mode: 'closed' });
+      shadow.innerHTML = svg;
 
       /* Replace code block with diagram */
-      el.replaceWith(host)
-    })
-  })
+      el.replaceWith(host);
+    });
+  });
 
   /* Create and return component */
-  return mermaid$
-    .pipe(
-      mapTo({ ref: el })
-    )
+  return mermaid$.pipe(mapTo({ ref: el }));
 }

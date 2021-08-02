@@ -20,16 +20,10 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent, of } from "rxjs"
-import {
-  filter,
-  mapTo,
-  mergeMap,
-  switchMap,
-  tap
-} from "rxjs/operators"
+import { Observable, fromEvent, of } from 'rxjs';
+import { filter, mapTo, mergeMap, switchMap, tap } from 'rxjs/operators';
 
-import { getElements } from "~/browser"
+import { getElements } from '~/browser';
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -39,7 +33,7 @@ import { getElements } from "~/browser"
  * Patch options
  */
 interface PatchOptions {
-  document$: Observable<Document>      /* Document observable */
+  document$: Observable<Document> /* Document observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -52,7 +46,7 @@ interface PatchOptions {
  * @returns Test result
  */
 function isAppleDevice(): boolean {
-  return /(iPad|iPhone|iPod)/.test(navigator.userAgent)
+  return /(iPad|iPhone|iPod)/.test(navigator.userAgent);
 }
 
 /* ----------------------------------------------------------------------------
@@ -70,30 +64,24 @@ function isAppleDevice(): boolean {
  *
  * @param options - Options
  */
-export function patchScrollfix(
-  { document$ }: PatchOptions
-): void {
+export function patchScrollfix({ document$ }: PatchOptions): void {
   document$
     .pipe(
-      switchMap(() => of(...getElements("[data-md-scrollfix]"))),
-      tap(el => el.removeAttribute("data-md-scrollfix")),
+      switchMap(() => of(...getElements('[data-md-scrollfix]'))),
+      tap((el) => el.removeAttribute('data-md-scrollfix')),
       filter(isAppleDevice),
-      mergeMap(el => fromEvent(el, "touchstart")
-        .pipe(
-          mapTo(el)
-        )
-      )
+      mergeMap((el) => fromEvent(el, 'touchstart').pipe(mapTo(el))),
     )
-      .subscribe(el => {
-        const top = el.scrollTop
+    .subscribe((el) => {
+      const top = el.scrollTop;
 
-        /* We're at the top of the container */
-        if (top === 0) {
-          el.scrollTop = 1
+      /* We're at the top of the container */
+      if (top === 0) {
+        el.scrollTop = 1;
 
         /* We're at the bottom of the container */
-        } else if (top + el.offsetHeight === el.scrollHeight) {
-          el.scrollTop = top - 1
-        }
-      })
+      } else if (top + el.offsetHeight === el.scrollHeight) {
+        el.scrollTop = top - 1;
+      }
+    });
 }

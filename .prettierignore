@@ -8,4 +8,8 @@ build/
 *.scss
 *.png
 *.svg
+material/assets/javascripts/**/*
+*.min.js
+tmp/
+dist/
 

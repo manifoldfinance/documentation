@@ -5,9 +5,9 @@ ignorecase: true
 level: warning
 nonword: true
 tokens:
-    - (?:^|\s)I\s
-    - (?:^|\s)I,\s
-    - \bI'm\b
-    - \bme\b
-    - \bmy\b
-    - \bmine\b
+  - (?:^|\s)I\s
+  - (?:^|\s)I,\s
+  - \bI'm\b
+  - \bme\b
+  - \bmy\b
+  - \bmine\b

@@ -4,6 +4,6 @@ link: https://docs.microsoft.com/en-us/style-guide/punctuation/ellipses
 nonword: true
 level: warning
 action:
-    name: remove
+  name: remove
 tokens:
-    - '\.\.\.'
+  - '\.\.\.'

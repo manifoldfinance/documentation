@@ -20,20 +20,14 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, merge } from "rxjs"
+import { Observable, merge } from 'rxjs';
 
-import { configuration } from "~/_"
-import { requestJSON } from "~/browser"
+import { configuration } from '~/_';
+import { requestJSON } from '~/browser';
 
-import { Component, getComponentElement } from "../../_"
-import {
-  IconSearchQuery,
-  mountIconSearchQuery
-} from "../query"
-import {
-  IconSearchResult,
-  mountIconSearchResult
-} from "../result"
+import { Component, getComponentElement } from '../../_';
+import { IconSearchQuery, mountIconSearchQuery } from '../query';
+import { IconSearchResult, mountIconSearchResult } from '../result';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -43,16 +37,16 @@ import {
  * Icon category
  */
 export interface IconCategory {
-  base: string                         /* Category base URL */
-  data: Record<string, string>         /* Category data */
+  base: string /* Category base URL */;
+  data: Record<string, string> /* Category data */;
 }
 
 /**
  * Icon search index
  */
 export interface IconSearchIndex {
-  icons: IconCategory                  /* Icons */
-  emojis: IconCategory                 /* Emojis */
+  icons: IconCategory /* Icons */;
+  emojis: IconCategory /* Emojis */;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -60,9 +54,7 @@ export interface IconSearchIndex {
 /**
  * Icon search
  */
-export type IconSearch =
-  | IconSearchQuery
-  | IconSearchResult
+export type IconSearch = IconSearchQuery | IconSearchResult;
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -76,19 +68,19 @@ export type IconSearch =
  * @returns Icon search component observable
  */
 export function mountIconSearch(
-  el: HTMLElement
+  el: HTMLElement,
 ): Observable<Component<IconSearch>> {
-  const config = configuration()
+  const config = configuration();
   const index$ = requestJSON<IconSearchIndex>(
-    `${config.base}/overrides/assets/javascripts/iconsearch_index.json`
-  )
+    `${config.base}/overrides/assets/javascripts/iconsearch_index.json`,
+  );
 
   /* Retrieve query and result components */
-  const query  = getComponentElement("iconsearch-query", el)
-  const result = getComponentElement("iconsearch-result", el)
+  const query = getComponentElement('iconsearch-query', el);
+  const result = getComponentElement('iconsearch-result', el);
 
   /* Create and return component */
-  const query$  = mountIconSearchQuery(query)
-  const result$ = mountIconSearchResult(result, { index$, query$ })
-  return merge(query$, result$)
+  const query$ = mountIconSearchQuery(query);
+  const result$ = mountIconSearchResult(result, { index$, query$ });
+  return merge(query$, result$);
 }

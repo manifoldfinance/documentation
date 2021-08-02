@@ -20,29 +20,19 @@
  * IN THE SOFTWARE.
  */
 
-import {
-  Observable,
-  Subject,
-  animationFrameScheduler,
-  merge,
-  of
-} from "rxjs"
+import { Observable, Subject, animationFrameScheduler, merge, of } from 'rxjs';
 import {
   delay,
   finalize,
   map,
   observeOn,
   switchMap,
-  tap
-} from "rxjs/operators"
+  tap,
+} from 'rxjs/operators';
 
-import {
-  resetDialogState,
-  setDialogMessage,
-  setDialogState
-} from "~/actions"
+import { resetDialogState, setDialogMessage, setDialogState } from '~/actions';
 
-import { Component } from "../_"
+import { Component } from '../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -52,8 +42,8 @@ import { Component } from "../_"
  * Dialog
  */
 export interface Dialog {
-  message: string                      /* Dialog message */
-  open: boolean                        /* Dialog is visible */
+  message: string /* Dialog message */;
+  open: boolean /* Dialog is visible */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -64,14 +54,14 @@ export interface Dialog {
  * Watch options
  */
 interface WatchOptions {
-  alert$: Subject<string>              /* Alert subject */
+  alert$: Subject<string> /* Alert subject */;
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  alert$: Subject<string>              /* Alert subject */
+  alert$: Subject<string> /* Alert subject */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -87,19 +77,16 @@ interface MountOptions {
  * @returns Dialog observable
  */
 export function watchDialog(
-  _el: HTMLElement, { alert$ }: WatchOptions
+  _el: HTMLElement,
+  { alert$ }: WatchOptions,
 ): Observable<Dialog> {
-  return alert$
-    .pipe(
-      switchMap(message => merge(
-        of(true),
-        of(false).pipe(delay(2000))
-      )
-        .pipe(
-          map(open => ({ message, open }))
-        )
-      )
-    )
+  return alert$.pipe(
+    switchMap((message) =>
+      merge(of(true), of(false).pipe(delay(2000))).pipe(
+        map((open) => ({ message, open })),
+      ),
+    ),
+  );
 }
 
 /**
@@ -114,26 +101,22 @@ export function watchDialog(
  * @returns Dialog component observable
  */
 export function mountDialog(
-  el: HTMLElement, options: MountOptions
+  el: HTMLElement,
+  options: MountOptions,
 ): Observable<Component<Dialog>> {
-  const internal$ = new Subject<Dialog>()
+  const internal$ = new Subject<Dialog>();
   internal$
-    .pipe(
-      observeOn(animationFrameScheduler)
-    )
-      .subscribe(({ message, open }) => {
-        setDialogMessage(el, message)
-        if (open)
-          setDialogState(el, "open")
-        else
-          resetDialogState(el)
-      })
+    .pipe(observeOn(animationFrameScheduler))
+    .subscribe(({ message, open }) => {
+      setDialogMessage(el, message);
+      if (open) setDialogState(el, 'open');
+      else resetDialogState(el);
+    });
 
   /* Create and return component */
-  return watchDialog(el, options)
-    .pipe(
-      tap(internal$),
-      finalize(() => internal$.complete()),
-      map(state => ({ ref: el, ...state }))
-    )
+  return watchDialog(el, options).pipe(
+    tap(internal$),
+    finalize(() => internal$.complete()),
+    map((state) => ({ ref: el, ...state })),
+  );
 }

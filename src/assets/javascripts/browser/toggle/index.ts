@@ -20,10 +20,10 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent } from "rxjs"
-import { map, startWith } from "rxjs/operators"
+import { Observable, fromEvent } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
-import { getElementOrThrow } from "../element"
+import { getElementOrThrow } from '../element';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -33,8 +33,8 @@ import { getElementOrThrow } from "../element"
  * Toggle
  */
 export type Toggle =
-  | "drawer"                           /* Toggle for drawer */
-  | "search"                           /* Toggle for search */
+  | 'drawer' /* Toggle for drawer */
+  | 'search'; /* Toggle for search */
 
 /* ----------------------------------------------------------------------------
  * Data
@@ -44,9 +44,9 @@ export type Toggle =
  * Toggle map
  */
 const toggles: Record<Toggle, HTMLInputElement> = {
-  drawer: getElementOrThrow("[data-md-toggle=drawer]"),
-  search: getElementOrThrow("[data-md-toggle=search]")
-}
+  drawer: getElementOrThrow('[data-md-toggle=drawer]'),
+  search: getElementOrThrow('[data-md-toggle=search]'),
+};
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -60,7 +60,7 @@ const toggles: Record<Toggle, HTMLInputElement> = {
  * @returns Toggle value
  */
 export function getToggle(name: Toggle): boolean {
-  return toggles[name].checked
+  return toggles[name].checked;
 }
 
 /**
@@ -75,8 +75,7 @@ export function getToggle(name: Toggle): boolean {
  * @param value - Toggle value
  */
 export function setToggle(name: Toggle, value: boolean): void {
-  if (toggles[name].checked !== value)
-    toggles[name].click()
+  if (toggles[name].checked !== value) toggles[name].click();
 }
 
 /* ------------------------------------------------------------------------- */
@@ -89,10 +88,9 @@ export function setToggle(name: Toggle, value: boolean): void {
  * @returns Toggle value observable
  */
 export function watchToggle(name: Toggle): Observable<boolean> {
-  const el = toggles[name]
-  return fromEvent(el, "change")
-    .pipe(
-      map(() => el.checked),
-      startWith(el.checked)
-    )
+  const el = toggles[name];
+  return fromEvent(el, 'change').pipe(
+    map(() => el.checked),
+    startWith(el.checked),
+  );
 }

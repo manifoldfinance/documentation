@@ -20,6 +20,6 @@
  * IN THE SOFTWARE.
  */
 
-export * from "./_"
-export * from "./query"
-export * from "./result"
+export * from './_';
+export * from './query';
+export * from './result';

@@ -31,9 +31,10 @@
  * @param state - Header state
  */
 export function setHeaderState(
-  el: HTMLElement, state: "shadow" | "hidden"
+  el: HTMLElement,
+  state: 'shadow' | 'hidden',
 ): void {
-  el.setAttribute("data-md-state", state)
+  el.setAttribute('data-md-state', state);
 }
 
 /**
@@ -41,8 +42,6 @@ export function setHeaderState(
  *
  * @param el - Header element
  */
-export function resetHeaderState(
-  el: HTMLElement
-): void {
-  el.removeAttribute("data-md-state")
+export function resetHeaderState(el: HTMLElement): void {
+  el.removeAttribute('data-md-state');
 }

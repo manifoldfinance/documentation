@@ -20,21 +20,13 @@
  * IN THE SOFTWARE.
  */
 
-import {
-  Observable,
-  Subject,
-  fromEvent
-} from "rxjs"
-import {
-  finalize,
-  map,
-  tap
-} from "rxjs/operators"
+import { Observable, Subject, fromEvent } from 'rxjs';
+import { finalize, map, tap } from 'rxjs/operators';
 
-import { getLocation } from "~/browser"
+import { getLocation } from '~/browser';
 
-import { Component } from "../../_"
-import { SearchQuery } from "../query"
+import { Component } from '../../_';
+import { SearchQuery } from '../query';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -44,7 +36,7 @@ import { SearchQuery } from "../query"
  * Search sharing
  */
 export interface SearchShare {
-  url: URL                             /* Deep link for sharing */
+  url: URL /* Deep link for sharing */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -55,14 +47,14 @@ export interface SearchShare {
  * Watch options
  */
 interface WatchOptions {
-  query$: Observable<SearchQuery>      /* Search query observable */
+  query$: Observable<SearchQuery> /* Search query observable */;
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  query$: Observable<SearchQuery>      /* Search query observable */
+  query$: Observable<SearchQuery> /* Search query observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -78,18 +70,18 @@ interface MountOptions {
  * @returns Search sharing observable
  */
 export function watchSearchShare(
-  _el: HTMLElement, { query$ }: WatchOptions
+  _el: HTMLElement,
+  { query$ }: WatchOptions,
 ): Observable<SearchShare> {
-  return query$
-    .pipe(
-      map(({ value }) => {
-        const url = getLocation()
-        url.hash = ""
-        url.searchParams.delete("h")
-        url.searchParams.set("q", value)
-        return { url }
-      })
-    )
+  return query$.pipe(
+    map(({ value }) => {
+      const url = getLocation();
+      url.hash = '';
+      url.searchParams.delete('h');
+      url.searchParams.set('q', value);
+      return { url };
+    }),
+  );
 }
 
 /**
@@ -101,23 +93,22 @@ export function watchSearchShare(
  * @returns Search sharing component observable
  */
 export function mountSearchShare(
-  el: HTMLAnchorElement, options: MountOptions
+  el: HTMLAnchorElement,
+  options: MountOptions,
 ): Observable<Component<SearchShare>> {
-  const internal$ = new Subject<SearchShare>()
+  const internal$ = new Subject<SearchShare>();
   internal$.subscribe(({ url }) => {
-    el.setAttribute("data-clipboard-text", el.href)
-    el.href = `${url}`
-  })
+    el.setAttribute('data-clipboard-text', el.href);
+    el.href = `${url}`;
+  });
 
   /* Prevent following of link */
-  fromEvent(el, "click")
-    .subscribe(ev => ev.preventDefault())
+  fromEvent(el, 'click').subscribe((ev) => ev.preventDefault());
 
   /* Create and return component */
-  return watchSearchShare(el, options)
-    .pipe(
-      tap(internal$),
-      finalize(() => internal$.complete()),
-      map(state => ({ ref: el, ...state }))
-    )
+  return watchSearchShare(el, options).pipe(
+    tap(internal$),
+    finalize(() => internal$.complete()),
+    map((state) => ({ ref: el, ...state })),
+  );
 }

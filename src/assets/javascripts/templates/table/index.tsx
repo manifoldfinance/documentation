@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { h } from "~/utilities"
+import { h } from '~/utilities';
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -36,9 +36,7 @@ import { h } from "~/utilities"
 export function renderTable(table: HTMLElement): HTMLElement {
   return (
     <div class="md-typeset__scrollwrap">
-      <div class="md-typeset__table">
-        {table}
-      </div>
+      <div class="md-typeset__table">{table}</div>
     </div>
-  )
+  );
 }

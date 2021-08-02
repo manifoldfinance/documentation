@@ -20,5 +20,5 @@
  * IN THE SOFTWARE.
  */
 
-export * from "./iconsearch"
-export * from "./sponsorship"
+export * from './iconsearch';
+export * from './sponsorship';

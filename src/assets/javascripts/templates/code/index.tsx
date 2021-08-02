@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { h } from "~/utilities"
+import { h } from '~/utilities';
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -34,9 +34,7 @@ import { h } from "~/utilities"
  *
  * @returns Element
  */
-export function renderAnnotation(
-  id: number, content: Element
-): HTMLElement {
+export function renderAnnotation(id: number, content: Element): HTMLElement {
   return (
     <aside class="md-annotation" tabIndex={0}>
       <div class="md-tooltip">
@@ -46,5 +44,5 @@ export function renderAnnotation(
       </div>
       <span class="md-annotation__index">{id}</span>
     </aside>
-  )
+  );
 }

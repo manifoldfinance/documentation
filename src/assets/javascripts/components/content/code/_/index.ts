@@ -20,15 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import ClipboardJS from "clipboard"
-import {
-  NEVER,
-  Observable,
-  Subject,
-  fromEvent,
-  merge,
-  of
-} from "rxjs"
+import ClipboardJS from 'clipboard';
+import { NEVER, Observable, Subject, fromEvent, merge, of } from 'rxjs';
 import {
   combineLatestWith,
   distinctUntilKeyChanged,
@@ -39,25 +32,22 @@ import {
   take,
   takeWhile,
   tap,
-  withLatestFrom
-} from "rxjs/operators"
+  withLatestFrom,
+} from 'rxjs/operators';
 
-import { feature } from "~/_"
-import { resetFocusable, setFocusable } from "~/actions"
+import { feature } from '~/_';
+import { resetFocusable, setFocusable } from '~/actions';
 import {
   Viewport,
   getElementContentSize,
   getElementOrThrow,
   getElementSize,
   getElements,
-  watchMedia
-} from "~/browser"
-import {
-  renderAnnotation,
-  renderClipboardButton
-} from "~/templates"
+  watchMedia,
+} from '~/browser';
+import { renderAnnotation, renderClipboardButton } from '~/templates';
 
-import { Component } from "../../../_"
+import { Component } from '../../../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -67,8 +57,8 @@ import { Component } from "../../../_"
  * Code block
  */
 export interface CodeBlock {
-  scroll: boolean                      /* Code block overflows */
-  annotations?: HTMLElement[]          /* Code block annotations */
+  scroll: boolean /* Code block overflows */;
+  annotations?: HTMLElement[] /* Code block annotations */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -79,14 +69,14 @@ export interface CodeBlock {
  * Watch options
  */
 interface WatchOptions {
-  viewport$: Observable<Viewport>      /* Viewport observable */
+  viewport$: Observable<Viewport> /* Viewport observable */;
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  viewport$: Observable<Viewport>      /* Viewport observable */
+  viewport$: Observable<Viewport> /* Viewport observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -96,7 +86,7 @@ interface MountOptions {
 /**
  * Global index for Clipboard.js integration
  */
-let index = 0
+let index = 0;
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -114,64 +104,63 @@ let index = 0
  * @returns Code block observable
  */
 export function watchCodeBlock(
-  el: HTMLElement, { viewport$ }: WatchOptions
+  el: HTMLElement,
+  { viewport$ }: WatchOptions,
 ): Observable<CodeBlock> {
-  const container$ = of(el)
-    .pipe(
-      switchMap(child => {
-        const container = child.closest("[data-tabs]")
-        if (container instanceof HTMLElement) {
-          return merge(
-            ...getElements(":scope > input", container)
-              .map(input => fromEvent(input, "change"))
-          )
-        }
-        return NEVER
-      })
-    )
+  const container$ = of(el).pipe(
+    switchMap((child) => {
+      const container = child.closest('[data-tabs]');
+      if (container instanceof HTMLElement) {
+        return merge(
+          ...getElements(':scope > input', container).map((input) =>
+            fromEvent(input, 'change'),
+          ),
+        );
+      }
+      return NEVER;
+    }),
+  );
 
   /* Transform annotations */
-  const annotations: HTMLElement[] = []
-  const container =
-    el.closest(".highlighttable") ||
-    el.closest(".highlight")
+  const annotations: HTMLElement[] = [];
+  const container = el.closest('.highlighttable') || el.closest('.highlight');
   if (container) {
-    const list = container.nextElementSibling
-    if (list instanceof HTMLOListElement && (
-      container.classList.contains("annotate") ||
-      feature("content.code.annotate")
-    )) {
-      const items = Array.from(list.children)
-      list.remove()
+    const list = container.nextElementSibling;
+    if (
+      list instanceof HTMLOListElement &&
+      (container.classList.contains('annotate') ||
+        feature('content.code.annotate'))
+    ) {
+      const items = Array.from(list.children);
+      list.remove();
 
       /* Replace comments with annotations */
-      for (const comment of getElements(".c, .c1, .cm", el)) {
-        const [, j = -1] = comment.textContent!.match(/\((\d+)\)/) || []
-        const content = items[+j - 1]
-        if (typeof content !== "undefined") {
-          const annotation = renderAnnotation(+j, content)
-          comment.replaceWith(annotation)
-          annotations.push(annotation)
+      for (const comment of getElements('.c, .c1, .cm', el)) {
+        const [, j = -1] = comment.textContent!.match(/\((\d+)\)/) || [];
+        const content = items[+j - 1];
+        if (typeof content !== 'undefined') {
+          const annotation = renderAnnotation(+j, content);
+          comment.replaceWith(annotation);
+          annotations.push(annotation);
         }
       }
     }
   }
 
   /* Check overflow on resize and tab change */
-  return viewport$
-    .pipe(
-      distinctUntilKeyChanged("size"),
-      mergeWith(container$),
-      map(() => {
-        const visible = getElementSize(el)
-        const content = getElementContentSize(el)
-        return {
-          scroll: content.width > visible.width,
-          ...annotations.length && { annotations }
-        }
-      }),
-      distinctUntilKeyChanged("scroll")
-    )
+  return viewport$.pipe(
+    distinctUntilKeyChanged('size'),
+    mergeWith(container$),
+    map(() => {
+      const visible = getElementSize(el);
+      const content = getElementContentSize(el);
+      return {
+        scroll: content.width > visible.width,
+        ...(annotations.length && { annotations }),
+      };
+    }),
+    distinctUntilKeyChanged('scroll'),
+  );
 }
 
 /**
@@ -186,59 +175,48 @@ export function watchCodeBlock(
  * @returns Code block component observable
  */
 export function mountCodeBlock(
-  el: HTMLElement, options: MountOptions
+  el: HTMLElement,
+  options: MountOptions,
 ): Observable<Component<CodeBlock>> {
-  const internal$ = new Subject<CodeBlock>()
+  const internal$ = new Subject<CodeBlock>();
   internal$
-    .pipe(
-      withLatestFrom(watchMedia("(hover)"))
-    )
-      .subscribe(([{ scroll }, hover]) => {
-        if (scroll && hover)
-          setFocusable(el)
-        else
-          resetFocusable(el)
-      })
+    .pipe(withLatestFrom(watchMedia('(hover)')))
+    .subscribe(([{ scroll }, hover]) => {
+      if (scroll && hover) setFocusable(el);
+      else resetFocusable(el);
+    });
 
   /* Compute annotation position */
   internal$
     .pipe(
       take(1),
       takeWhile(({ annotations }) => !!annotations?.length),
-      map(({ annotations }) => annotations!
-        .map(annotation => getElementOrThrow(".md-tooltip", annotation))
+      map(({ annotations }) =>
+        annotations!.map((annotation) =>
+          getElementOrThrow('.md-tooltip', annotation),
+        ),
       ),
-      combineLatestWith(viewport$
-        .pipe(
-          distinctUntilKeyChanged("size")
-        )
-      )
+      combineLatestWith(viewport$.pipe(distinctUntilKeyChanged('size'))),
     )
-      .subscribe(([tooltips, { size }]) => {
-        for (const tooltip of tooltips) {
-          const { x, width } = tooltip.getBoundingClientRect()
-          if (x + width > size.width)
-            tooltip.classList.add("md-tooltip--end")
-          else
-            tooltip.classList.remove("md-tooltip--end")
-        }
-      })
+    .subscribe(([tooltips, { size }]) => {
+      for (const tooltip of tooltips) {
+        const { x, width } = tooltip.getBoundingClientRect();
+        if (x + width > size.width) tooltip.classList.add('md-tooltip--end');
+        else tooltip.classList.remove('md-tooltip--end');
+      }
+    });
 
   /* Render button for Clipboard.js integration */
   if (ClipboardJS.isSupported()) {
-    const parent = el.closest("pre")!
-    parent.id = `__code_${++index}`
-    parent.insertBefore(
-      renderClipboardButton(parent.id),
-      el
-    )
+    const parent = el.closest('pre')!;
+    parent.id = `__code_${++index}`;
+    parent.insertBefore(renderClipboardButton(parent.id), el);
   }
 
   /* Create and return component */
-  return watchCodeBlock(el, options)
-    .pipe(
-      tap(internal$),
-      finalize(() => internal$.complete()),
-      map(state => ({ ref: el, ...state }))
-    )
+  return watchCodeBlock(el, options).pipe(
+    tap(internal$),
+    finalize(() => internal$.complete()),
+    map((state) => ({ ref: el, ...state })),
+  );
 }

@@ -20,4 +20,4 @@
  * IN THE SOFTWARE.
  */
 
-export * from "./analytics"
+export * from './analytics';

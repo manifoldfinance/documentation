@@ -1,23 +1,21 @@
 $(document).ready(function () {
-	displayLatestWarning();
-	makeImagesZoomable();
+  displayLatestWarning();
+  makeImagesZoomable();
 });
 
-$(window).on("hashchange", function () {
-	displayLatestWarning();
+$(window).on('hashchange', function () {
+  displayLatestWarning();
 });
 
 function displayLatestWarning() {
-	$(".latest-warning").css(
-		"display",
-		$(location).attr("href").includes(latestWarningTrigger)
-			? "block"
-			: "none"
-	);
+  $('.latest-warning').css(
+    'display',
+    $(location).attr('href').includes(latestWarningTrigger) ? 'block' : 'none',
+  );
 }
 
 function makeImagesZoomable() {
-	$(":not(a) > img").each(function (index, value) {
-		$(this).zoomify();
-	});
+  $(':not(a) > img').each(function (index, value) {
+    $(this).zoomify();
+  });
 }

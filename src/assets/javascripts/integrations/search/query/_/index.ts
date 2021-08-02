@@ -28,8 +28,8 @@
  * Search query clause
  */
 export interface SearchQueryClause {
-  presence: lunr.Query.presence        /* Clause presence */
-  term: string                         /* Clause term */
+  presence: lunr.Query.presence /* Clause presence */;
+  term: string /* Clause term */;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -37,7 +37,7 @@ export interface SearchQueryClause {
 /**
  * Search query terms
  */
-export type SearchQueryTerms = Record<string, boolean>
+export type SearchQueryTerms = Record<string, boolean>;
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -50,15 +50,13 @@ export type SearchQueryTerms = Record<string, boolean>
  *
  * @returns Search query clauses
  */
-export function parseSearchQuery(
-  value: string
-): SearchQueryClause[] {
-  const query  = new (lunr as any).Query(["title", "text"])
-  const parser = new (lunr as any).QueryParser(value, query)
+export function parseSearchQuery(value: string): SearchQueryClause[] {
+  const query = new (lunr as any).Query(['title', 'text']);
+  const parser = new (lunr as any).QueryParser(value, query);
 
   /* Parse and return query clauses */
-  parser.parse()
-  return query.clauses
+  parser.parse();
+  return query.clauses;
 }
 
 /**
@@ -70,23 +68,23 @@ export function parseSearchQuery(
  * @returns Search query terms
  */
 export function getSearchQueryTerms(
-  query: SearchQueryClause[], terms: string[]
+  query: SearchQueryClause[],
+  terms: string[],
 ): SearchQueryTerms {
-  const clauses = new Set<SearchQueryClause>(query)
+  const clauses = new Set<SearchQueryClause>(query);
 
   /* Match query clauses against terms */
-  const result: SearchQueryTerms = {}
+  const result: SearchQueryTerms = {};
   for (let t = 0; t < terms.length; t++)
     for (const clause of clauses)
       if (terms[t].startsWith(clause.term)) {
-        result[clause.term] = true
-        clauses.delete(clause)
+        result[clause.term] = true;
+        clauses.delete(clause);
       }
 
   /* Annotate unmatched query clauses */
-  for (const clause of clauses)
-    result[clause.term] = false
+  for (const clause of clauses) result[clause.term] = false;
 
   /* Return query terms */
-  return result
+  return result;
 }

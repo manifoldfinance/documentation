@@ -20,12 +20,12 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, of } from "rxjs"
+import { Observable, of } from 'rxjs';
 
-import { createElement, replaceElement } from "~/browser"
-import { renderTable } from "~/templates"
+import { createElement, replaceElement } from '~/browser';
+import { renderTable } from '~/templates';
 
-import { Component } from "../../_"
+import { Component } from '../../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -43,7 +43,7 @@ export interface DataTable {}
 /**
  * Sentinel for replacement
  */
-const sentinel = createElement("table")
+const sentinel = createElement('table');
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -60,11 +60,11 @@ const sentinel = createElement("table")
  * @returns Data table component observable
  */
 export function mountDataTable(
-  el: HTMLElement
+  el: HTMLElement,
 ): Observable<Component<DataTable>> {
-  replaceElement(el, sentinel)
-  replaceElement(sentinel, renderTable(el))
+  replaceElement(el, sentinel);
+  replaceElement(sentinel, renderTable(el));
 
   /* Create and return component */
-  return of({ ref: el })
+  return of({ ref: el });
 }

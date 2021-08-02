@@ -30,10 +30,8 @@
  * @param el - Sidebar element
  * @param value - Sidebar offset
  */
-export function setSidebarOffset(
-  el: HTMLElement, value: number
-): void {
-  el.style.top = `${value}px`
+export function setSidebarOffset(el: HTMLElement, value: number): void {
+  el.style.top = `${value}px`;
 }
 
 /**
@@ -41,10 +39,8 @@ export function setSidebarOffset(
  *
  * @param el - Sidebar element
  */
-export function resetSidebarOffset(
-  el: HTMLElement
-): void {
-  el.style.top = ""
+export function resetSidebarOffset(el: HTMLElement): void {
+  el.style.top = '';
 }
 
 /* ------------------------------------------------------------------------- */
@@ -68,11 +64,9 @@ export function resetSidebarOffset(
  * @param el - Sidebar element
  * @param value - Sidebar height
  */
-export function setSidebarHeight(
-  el: HTMLElement, value: number
-): void {
-  const scrollwrap = el.firstElementChild as HTMLElement
-  scrollwrap.style.height = `${value - 2 * scrollwrap.offsetTop}px`
+export function setSidebarHeight(el: HTMLElement, value: number): void {
+  const scrollwrap = el.firstElementChild as HTMLElement;
+  scrollwrap.style.height = `${value - 2 * scrollwrap.offsetTop}px`;
 }
 
 /**
@@ -80,9 +74,7 @@ export function setSidebarHeight(
  *
  * @param el - Sidebar element
  */
-export function resetSidebarHeight(
-  el: HTMLElement
-): void {
-  const scrollwrap = el.firstElementChild as HTMLElement
-  scrollwrap.style.height = ""
+export function resetSidebarHeight(el: HTMLElement): void {
+  const scrollwrap = el.firstElementChild as HTMLElement;
+  scrollwrap.style.height = '';
 }

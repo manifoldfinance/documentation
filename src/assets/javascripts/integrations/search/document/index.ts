@@ -20,9 +20,9 @@
  * IN THE SOFTWARE.
  */
 
-import escapeHTML from "escape-html"
+import escapeHTML from 'escape-html';
 
-import { SearchIndexDocument } from "../_"
+import { SearchIndexDocument } from '../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -32,7 +32,7 @@ import { SearchIndexDocument } from "../_"
  * Search document
  */
 export interface SearchDocument extends SearchIndexDocument {
-  parent?: SearchIndexDocument         /* Parent article */
+  parent?: SearchIndexDocument /* Parent article */;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -40,7 +40,7 @@ export interface SearchDocument extends SearchIndexDocument {
 /**
  * Search document mapping
  */
-export type SearchDocumentMap = Map<string, SearchDocument>
+export type SearchDocumentMap = Map<string, SearchDocument>;
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -54,54 +54,54 @@ export type SearchDocumentMap = Map<string, SearchDocument>
  * @returns Search document map
  */
 export function setupSearchDocumentMap(
-  docs: SearchIndexDocument[]
+  docs: SearchIndexDocument[],
 ): SearchDocumentMap {
-  const documents = new Map<string, SearchDocument>()
-  const parents   = new Set<SearchDocument>()
+  const documents = new Map<string, SearchDocument>();
+  const parents = new Set<SearchDocument>();
   for (const doc of docs) {
-    const [path, hash] = doc.location.split("#")
+    const [path, hash] = doc.location.split('#');
 
     /* Extract location, title and tags */
-    const location = doc.location
-    const title    = doc.title
-    const tags     = doc.tags
+    const location = doc.location;
+    const title = doc.title;
+    const tags = doc.tags;
 
     /* Escape and cleanup text */
     const text = escapeHTML(doc.text)
-      .replace(/\s+(?=[,.:;!?])/g, "")
-      .replace(/\s+/g, " ")
+      .replace(/\s+(?=[,.:;!?])/g, '')
+      .replace(/\s+/g, ' ');
 
     /* Handle section */
     if (hash) {
-      const parent = documents.get(path)!
+      const parent = documents.get(path)!;
 
       /* Ignore first section, override article */
       if (!parents.has(parent)) {
-        parent.title = doc.title
-        parent.text  = text
+        parent.title = doc.title;
+        parent.text = text;
 
         /* Remember that we processed the article */
-        parents.add(parent)
+        parents.add(parent);
 
-      /* Add subsequent section */
+        /* Add subsequent section */
       } else {
         documents.set(location, {
           location,
           title,
           text,
-          parent
-        })
+          parent,
+        });
       }
 
-    /* Add article */
+      /* Add article */
     } else {
       documents.set(location, {
         location,
         title,
         text,
-        ...tags && { tags }
-      })
+        ...(tags && { tags }),
+      });
     }
   }
-  return documents
+  return documents;
 }

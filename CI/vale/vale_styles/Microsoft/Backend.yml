@@ -6,7 +6,7 @@ link: https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collection
 pos: 'back-end/NN|backend/(?:JJ|NN)|back/\w+ end/JJ|back/(?:JJ|RB) end/\w+'
 ignorecase: true
 action:
-    name: replace
+  name: replace
 swap:
-    back-end: back end
-    back end: back-end
+  back-end: back end
+  back end: back-end

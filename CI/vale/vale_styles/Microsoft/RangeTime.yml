@@ -4,10 +4,10 @@ link: https://docs.microsoft.com/en-us/style-guide/numbers
 nonword: true
 level: error
 action:
-    name: edit
-    params:
-        - replace
-        - "[-–]"
-        - "to"
+  name: edit
+  params:
+    - replace
+    - '[-–]'
+    - 'to'
 tokens:
-    - '\b(?:AM|PM)\s?[-–]\s?.+(?:AM|PM)\b'
+  - '\b(?:AM|PM)\s?[-–]\s?.+(?:AM|PM)\b'

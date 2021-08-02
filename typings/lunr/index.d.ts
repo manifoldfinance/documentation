@@ -20,12 +20,12 @@
  * IN THE SOFTWARE.
  */
 
-import lunr from "lunr"
+import lunr from 'lunr';
 
 /* ----------------------------------------------------------------------------
  * Global types
  * ------------------------------------------------------------------------- */
 
 declare global {
-  const lunr: typeof lunr                 /* Global Lunr.js namespace */
+  const lunr: typeof lunr; /* Global Lunr.js namespace */
 }

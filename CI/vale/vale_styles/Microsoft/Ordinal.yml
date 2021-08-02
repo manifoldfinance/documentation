@@ -3,11 +3,11 @@ message: "Don't add -ly to an ordinal number."
 link: https://docs.microsoft.com/en-us/style-guide/numbers
 level: error
 action:
-    name: edit
-    params:
-        - trim
-        - ly
+  name: edit
+  params:
+    - trim
+    - ly
 tokens:
-    - firstly
-    - secondly
-    - thirdly
+  - firstly
+  - secondly
+  - thirdly

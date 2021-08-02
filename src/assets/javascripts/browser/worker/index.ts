@@ -20,14 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject, fromEvent } from "rxjs"
-import {
-  map,
-  share,
-  switchMapTo,
-  tap,
-  throttle
-} from "rxjs/operators"
+import { Observable, Subject, fromEvent } from 'rxjs';
+import { map, share, switchMapTo, tap, throttle } from 'rxjs/operators';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -37,8 +31,8 @@ import {
  * Worker message
  */
 export interface WorkerMessage {
-  type: unknown                        /* Message type */
-  data?: unknown                       /* Message data */
+  type: unknown /* Message type */;
+  data?: unknown /* Message data */;
 }
 
 /**
@@ -46,11 +40,9 @@ export interface WorkerMessage {
  *
  * @template T - Message type
  */
-export interface WorkerHandler<
-  T extends WorkerMessage
-> {
-  tx$: Subject<T>                      /* Message transmission subject */
-  rx$: Observable<T>                   /* Message receive observable */
+export interface WorkerHandler<T extends WorkerMessage> {
+  tx$: Subject<T> /* Message transmission subject */;
+  rx$: Observable<T> /* Message receive observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -63,7 +55,7 @@ export interface WorkerHandler<
  * @template T - Worker message type
  */
 interface WatchOptions<T extends WorkerMessage> {
-  tx$: Observable<T>                   /* Message transmission observable */
+  tx$: Observable<T> /* Message transmission observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -84,21 +76,19 @@ interface WatchOptions<T extends WorkerMessage> {
  * @returns Worker message observable
  */
 export function watchWorker<T extends WorkerMessage>(
-  worker: Worker, { tx$ }: WatchOptions<T>
+  worker: Worker,
+  { tx$ }: WatchOptions<T>,
 ): Observable<T> {
-
   /* Intercept messages from worker-like objects */
-  const rx$ = fromEvent<MessageEvent>(worker, "message")
-    .pipe(
-      map(({ data }) => data as T)
-    )
+  const rx$ = fromEvent<MessageEvent>(worker, 'message').pipe(
+    map(({ data }) => data as T),
+  );
 
   /* Send and receive messages, return hot observable */
-  return tx$
-    .pipe(
-      throttle(() => rx$, { leading: true, trailing: true }),
-      tap(message => worker.postMessage(message)),
-      switchMapTo(rx$),
-      share()
-    )
+  return tx$.pipe(
+    throttle(() => rx$, { leading: true, trailing: true }),
+    tap((message) => worker.postMessage(message)),
+    switchMapTo(rx$),
+    share(),
+  );
 }

@@ -20,5 +20,5 @@
  * IN THE SOFTWARE.
  */
 
-export * from "./_"
-export * from "./title"
+export * from './_';
+export * from './title';

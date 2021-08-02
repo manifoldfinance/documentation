@@ -4,5 +4,5 @@ link: https://github.com/MicrosoftDocs/microsoft-style-guide/blob/master/stylegu
 level: error
 ignorecase: true
 tokens:
-    - he/she
-    - s/he
+  - he/she
+  - s/he

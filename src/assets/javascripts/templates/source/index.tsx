@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { SourceFacts } from "~/components"
-import { h, round } from "~/utilities"
+import { SourceFacts } from '~/components';
+import { h, round } from '~/utilities';
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -39,9 +39,9 @@ export function renderSourceFacts(facts: SourceFacts): HTMLElement {
     <ul class="md-source__facts">
       {Object.entries(facts).map(([key, value]) => (
         <li class={`md-source__fact md-source__fact--${key}`}>
-          {typeof value === "number" ? round(value) : value}
+          {typeof value === 'number' ? round(value) : value}
         </li>
       ))}
     </ul>
-  )
+  );
 }

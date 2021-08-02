@@ -20,5 +20,5 @@
  * IN THE SOFTWARE.
  */
 
-export * from "./query"
-export * from "./result"
+export * from './query';
+export * from './result';

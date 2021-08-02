@@ -5,12 +5,7 @@
     "esModuleInterop": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "lib": [
-      "dom",
-      "es2017",
-      "esnext",
-      "webworker"
-    ],
+    "lib": ["dom", "es2017", "esnext", "webworker"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,

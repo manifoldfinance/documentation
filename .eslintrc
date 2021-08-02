@@ -17,26 +17,14 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "settings": {
-    "import/extensions": [
-      ".ts",
-      ".tsx",
-      ".js",
-      ".jsx",
-      ".json"
-    ],
+    "import/extensions": [".ts", ".tsx", ".js", ".jsx", ".json"],
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     }
   },
   "rules": {
     "array-bracket-spacing": "warn",
-    "arrow-parens": [
-      "warn",
-      "as-needed"
-    ],
+    "arrow-parens": ["warn", "as-needed"],
     "block-spacing": "warn",
     "brace-style": [
       "warn",
@@ -45,18 +33,12 @@
         "allowSingleLine": true
       }
     ],
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
+    "comma-dangle": ["error", "never"],
     "comma-spacing": "warn",
     "comma-style": "error",
     "computed-property-spacing": "warn",
     "curly": "off",
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    "eqeqeq": ["error", "smart"],
     "func-call-spacing": "warn",
     "keyword-spacing": "warn",
     "lines-around-comment": [
@@ -116,17 +98,11 @@
     "no-var": "error",
     "no-whitespace-before-property": "warn",
     "object-shorthand": "error",
-    "one-var": [
-      "error",
-      "never"
-    ],
+    "one-var": ["error", "never"],
     "prefer-exponentiation-operator": "error",
     "prefer-object-spread": "error",
     "prefer-template": "error",
-    "quote-props": [
-      "error",
-      "consistent-as-needed"
-    ],
+    "quote-props": ["error", "consistent-as-needed"],
     "quotes": [
       "error",
       "double",
@@ -207,9 +183,7 @@
       "error",
       {
         "selector": "enumMember",
-        "format": [
-          "UPPER_CASE"
-        ]
+        "format": ["UPPER_CASE"]
       }
     ],
     "@typescript-eslint/no-empty-interface": "off",
@@ -231,10 +205,7 @@
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/prefer-for-of": "off",
     "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/semi": [
-      "error",
-      "never"
-    ],
+    "@typescript-eslint/semi": ["error", "never"],
     "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unbound-method": "error",
@@ -245,10 +216,7 @@
     "eslint-comments/no-use": [
       "warn",
       {
-        "allow": [
-          "eslint-disable-line",
-          "eslint-disable-next-line"
-        ]
+        "allow": ["eslint-disable-line", "eslint-disable-next-line"]
       }
     ],
 
@@ -267,22 +235,11 @@
         },
         "newlines-between": "always",
         "groups": [
-          [
-            "builtin",
-            "external"
-          ],
-          [
-            "internal"
-          ],
-          [
-            "index"
-          ],
-          [
-            "parent"
-          ],
-          [
-            "sibling"
-          ]
+          ["builtin", "external"],
+          ["internal"],
+          ["index"],
+          ["parent"],
+          ["sibling"]
         ],
         "pathGroups": [
           {
@@ -296,9 +253,7 @@
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "builtin"
-        ]
+        "pathGroupsExcludedImportTypes": ["builtin"]
       }
     ],
 
@@ -314,9 +269,7 @@
     "jsdoc/check-tag-names": [
       "warn",
       {
-        "definedTags": [
-          "internal"
-        ]
+        "definedTags": ["internal"]
       }
     ],
     "jsdoc/empty-tags": "warn",

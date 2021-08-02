@@ -20,35 +20,31 @@
  * IN THE SOFTWARE.
  */
 
-import { NEVER, Observable, ObservableInput, merge } from "rxjs"
-import { filter, mergeWith, sample, take } from "rxjs/operators"
+import { NEVER, Observable, ObservableInput, merge } from 'rxjs';
+import { filter, mergeWith, sample, take } from 'rxjs/operators';
 
-import { configuration } from "~/_"
+import { configuration } from '~/_';
 import {
   Keyboard,
   getActiveElement,
   getElements,
   setElementFocus,
   setElementSelection,
-  setToggle
-} from "~/browser"
+  setToggle,
+} from '~/browser';
 import {
   SearchIndex,
   SearchResult,
   isSearchQueryMessage,
   isSearchReadyMessage,
-  setupSearchWorker
-} from "~/integrations"
+  setupSearchWorker,
+} from '~/integrations';
 
-import {
-  Component,
-  getComponentElement,
-  getComponentElements
-} from "../../_"
-import { SearchQuery, mountSearchQuery } from "../query"
-import { mountSearchResult } from "../result"
-import { SearchShare, mountSearchShare } from "../share"
-import { SearchSuggest, mountSearchSuggest } from "../suggest"
+import { Component, getComponentElement, getComponentElements } from '../../_';
+import { SearchQuery, mountSearchQuery } from '../query';
+import { mountSearchResult } from '../result';
+import { SearchShare, mountSearchShare } from '../share';
+import { SearchSuggest, mountSearchSuggest } from '../suggest';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -57,11 +53,7 @@ import { SearchSuggest, mountSearchSuggest } from "../suggest"
 /**
  * Search
  */
-export type Search =
-  | SearchQuery
-  | SearchResult
-  | SearchShare
-  | SearchSuggest
+export type Search = SearchQuery | SearchResult | SearchShare | SearchSuggest;
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -71,8 +63,8 @@ export type Search =
  * Mount options
  */
 interface MountOptions {
-  index$: ObservableInput<SearchIndex> /* Search index observable */
-  keyboard$: Observable<Keyboard>      /* Keyboard observable */
+  index$: ObservableInput<SearchIndex> /* Search index observable */;
+  keyboard$: Observable<Keyboard> /* Keyboard observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -91,138 +83,130 @@ interface MountOptions {
  * @returns Search component observable
  */
 export function mountSearch(
-  el: HTMLElement, { index$, keyboard$ }: MountOptions
+  el: HTMLElement,
+  { index$, keyboard$ }: MountOptions,
 ): Observable<Component<Search>> {
-  const config = configuration()
+  const config = configuration();
   try {
-    const worker = setupSearchWorker(config.search, index$)
+    const worker = setupSearchWorker(config.search, index$);
 
     /* Retrieve query and result components */
-    const query  = getComponentElement("search-query", el)
-    const result = getComponentElement("search-result", el)
+    const query = getComponentElement('search-query', el);
+    const result = getComponentElement('search-result', el);
 
     /* Re-emit query when search is ready */
-    const { tx$, rx$ } = worker
+    const { tx$, rx$ } = worker;
     tx$
       .pipe(
         filter(isSearchQueryMessage),
-        sample(rx$
-          .pipe(
-            filter(isSearchReadyMessage),
-            take(1)
-          )
-        )
+        sample(rx$.pipe(filter(isSearchReadyMessage), take(1))),
       )
-        .subscribe(tx$.next.bind(tx$))
+      .subscribe(tx$.next.bind(tx$));
 
     /* Set up search keyboard handlers */
-    keyboard$
-      .pipe(
-        filter(({ mode }) => mode === "search")
-      )
-        .subscribe(key => {
-          const active = getActiveElement()
-          switch (key.type) {
+    keyboard$.pipe(filter(({ mode }) => mode === 'search')).subscribe((key) => {
+      const active = getActiveElement();
+      switch (key.type) {
+        /* Enter: go to first (best) result */
+        case 'Enter':
+          if (active === query) {
+            const anchors = new Map<HTMLAnchorElement, number>();
+            for (const anchor of getElements<HTMLAnchorElement>(
+              ':first-child [href]',
+              result,
+            )) {
+              const article = anchor.firstElementChild!;
+              anchors.set(
+                anchor,
+                parseFloat(article.getAttribute('data-md-score')!),
+              );
+            }
 
-            /* Enter: go to first (best) result */
-            case "Enter":
-              if (active === query) {
-                const anchors = new Map<HTMLAnchorElement, number>()
-                for (const anchor of getElements<HTMLAnchorElement>(
-                  ":first-child [href]", result
-                )) {
-                  const article = anchor.firstElementChild!
-                  anchors.set(anchor, parseFloat(
-                    article.getAttribute("data-md-score")!
-                  ))
-                }
+            /* Go to result with highest score, if any */
+            if (anchors.size) {
+              const [[best]] = [...anchors].sort(([, a], [, b]) => b - a);
+              best.click();
+            }
 
-                /* Go to result with highest score, if any */
-                if (anchors.size) {
-                  const [[best]] = [...anchors].sort(([, a], [, b]) => b - a)
-                  best.click()
-                }
-
-                /* Otherwise omit form submission */
-                key.claim()
-              }
-              break
-
-            /* Escape or Tab: close search */
-            case "Escape":
-            case "Tab":
-              setToggle("search", false)
-              setElementFocus(query, false)
-              break
-
-            /* Vertical arrows: select previous or next search result */
-            case "ArrowUp":
-            case "ArrowDown":
-              if (typeof active === "undefined") {
-                setElementFocus(query)
-              } else {
-                const els = [query, ...getElements(
-                  ":not(details) > [href], summary, details[open] [href]",
-                  result
-                )]
-                const i = Math.max(0, (
-                  Math.max(0, els.indexOf(active)) + els.length + (
-                    key.type === "ArrowUp" ? -1 : +1
-                  )
-                ) % els.length)
-                setElementFocus(els[i])
-              }
-
-              /* Prevent scrolling of page */
-              key.claim()
-              break
-
-            /* All other keys: hand to search query */
-            default:
-              if (query !== getActiveElement())
-                setElementFocus(query)
+            /* Otherwise omit form submission */
+            key.claim();
           }
-        })
+          break;
+
+        /* Escape or Tab: close search */
+        case 'Escape':
+        case 'Tab':
+          setToggle('search', false);
+          setElementFocus(query, false);
+          break;
+
+        /* Vertical arrows: select previous or next search result */
+        case 'ArrowUp':
+        case 'ArrowDown':
+          if (typeof active === 'undefined') {
+            setElementFocus(query);
+          } else {
+            const els = [
+              query,
+              ...getElements(
+                ':not(details) > [href], summary, details[open] [href]',
+                result,
+              ),
+            ];
+            const i = Math.max(
+              0,
+              (Math.max(0, els.indexOf(active)) +
+                els.length +
+                (key.type === 'ArrowUp' ? -1 : +1)) %
+                els.length,
+            );
+            setElementFocus(els[i]);
+          }
+
+          /* Prevent scrolling of page */
+          key.claim();
+          break;
+
+        /* All other keys: hand to search query */
+        default:
+          if (query !== getActiveElement()) setElementFocus(query);
+      }
+    });
 
     /* Set up global keyboard handlers */
-    keyboard$
-      .pipe(
-        filter(({ mode }) => mode === "global"),
-      )
-        .subscribe(key => {
-          switch (key.type) {
-
-            /* Open search and select query */
-            case "f":
-            case "s":
-            case "/":
-              setElementFocus(query)
-              setElementSelection(query)
-              key.claim()
-              break
-          }
-        })
+    keyboard$.pipe(filter(({ mode }) => mode === 'global')).subscribe((key) => {
+      switch (key.type) {
+        /* Open search and select query */
+        case 'f':
+        case 's':
+        case '/':
+          setElementFocus(query);
+          setElementSelection(query);
+          key.claim();
+          break;
+      }
+    });
 
     /* Create and return component */
-    const query$  = mountSearchQuery(query, worker)
-    const result$ = mountSearchResult(result, worker, { query$ })
-    return merge(query$, result$)
-      .pipe(
-        mergeWith(
+    const query$ = mountSearchQuery(query, worker);
+    const result$ = mountSearchResult(result, worker, { query$ });
+    return merge(query$, result$).pipe(
+      mergeWith(
+        /* Search sharing */
+        ...getComponentElements('search-share', el).map((child) =>
+          mountSearchShare(child, { query$ }),
+        ),
 
-          /* Search sharing */
-          ...getComponentElements("search-share", el)
-          .map(child => mountSearchShare(child, { query$ })),
+        /* Search suggestions */
+        ...getComponentElements('search-suggest', el).map((child) =>
+          mountSearchSuggest(child, worker, { keyboard$ }),
+        ),
+      ),
+    );
 
-          /* Search suggestions */
-          ...getComponentElements("search-suggest", el)
-            .map(child => mountSearchSuggest(child, worker, { keyboard$ }))
-        )
-      )
-
-  /* Gracefully handle broken search */
+    /* Gracefully handle broken search */
   } catch (err) {
-    el.hidden = true
-    return NEVER
+    el.hidden = true;
+    return NEVER;
   }
 }

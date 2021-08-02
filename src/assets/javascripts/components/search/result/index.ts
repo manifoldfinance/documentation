@@ -20,13 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import {
-  Observable,
-  Subject,
-  animationFrameScheduler,
-  merge,
-  of
-} from "rxjs"
+import { Observable, Subject, animationFrameScheduler, merge, of } from 'rxjs';
 import {
   bufferCount,
   filter,
@@ -37,29 +31,26 @@ import {
   take,
   tap,
   withLatestFrom,
-  zipWith
-} from "rxjs/operators"
+  zipWith,
+} from 'rxjs/operators';
 
 import {
   addToSearchResultList,
   resetSearchResultList,
   resetSearchResultMeta,
-  setSearchResultMeta
-} from "~/actions"
-import {
-  getElementOrThrow,
-  watchElementThreshold
-} from "~/browser"
+  setSearchResultMeta,
+} from '~/actions';
+import { getElementOrThrow, watchElementThreshold } from '~/browser';
 import {
   SearchResult,
   SearchWorker,
   isSearchReadyMessage,
-  isSearchResultMessage
-} from "~/integrations"
-import { renderSearchResultItem } from "~/templates"
+  isSearchResultMessage,
+} from '~/integrations';
+import { renderSearchResultItem } from '~/templates';
 
-import { Component } from "../../_"
-import { SearchQuery } from "../query"
+import { Component } from '../../_';
+import { SearchQuery } from '../query';
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -69,7 +60,7 @@ import { SearchQuery } from "../query"
  * Mount options
  */
 interface MountOptions {
-  query$: Observable<SearchQuery>      /* Search query observable */
+  query$: Observable<SearchQuery> /* Search query observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -89,72 +80,62 @@ interface MountOptions {
  * @returns Search result list component observable
  */
 export function mountSearchResult(
-  el: HTMLElement, { rx$ }: SearchWorker, { query$ }: MountOptions
+  el: HTMLElement,
+  { rx$ }: SearchWorker,
+  { query$ }: MountOptions,
 ): Observable<Component<SearchResult>> {
-  const internal$ = new Subject<SearchResult>()
-  const boundary$ = watchElementThreshold(el.parentElement!)
-    .pipe(
-      filter(Boolean)
-    )
+  const internal$ = new Subject<SearchResult>();
+  const boundary$ = watchElementThreshold(el.parentElement!).pipe(
+    filter(Boolean),
+  );
 
   /* Retrieve nested components */
-  const meta = getElementOrThrow(":scope > :first-child", el)
-  const list = getElementOrThrow(":scope > :last-child", el)
+  const meta = getElementOrThrow(':scope > :first-child', el);
+  const list = getElementOrThrow(':scope > :last-child', el);
 
   /* Update search result metadata when ready */
-  rx$
-    .pipe(
-      filter(isSearchReadyMessage),
-      take(1)
-    )
-      .subscribe(() => {
-        resetSearchResultMeta(meta)
-      })
+  rx$.pipe(filter(isSearchReadyMessage), take(1)).subscribe(() => {
+    resetSearchResultMeta(meta);
+  });
 
   /* Update search result metadata */
   internal$
-    .pipe(
-      observeOn(animationFrameScheduler),
-      withLatestFrom(query$)
-    )
-      .subscribe(([{ items }, { value }]) => {
-        if (value)
-          setSearchResultMeta(meta, items.length)
-        else
-          resetSearchResultMeta(meta)
-      })
+    .pipe(observeOn(animationFrameScheduler), withLatestFrom(query$))
+    .subscribe(([{ items }, { value }]) => {
+      if (value) setSearchResultMeta(meta, items.length);
+      else resetSearchResultMeta(meta);
+    });
 
   /* Update search result list */
   internal$
     .pipe(
       observeOn(animationFrameScheduler),
       tap(() => resetSearchResultList(list)),
-      switchMap(({ items }) => merge(
-        of(...items.slice(0, 10)),
-        of(...items.slice(10))
-          .pipe(
+      switchMap(({ items }) =>
+        merge(
+          of(...items.slice(0, 10)),
+          of(...items.slice(10)).pipe(
             bufferCount(4),
             zipWith(boundary$),
-            switchMap(([chunk]) => of(...chunk))
-          )
-      ))
+            switchMap(([chunk]) => of(...chunk)),
+          ),
+        ),
+      ),
     )
-      .subscribe(result => {
-        addToSearchResultList(list, renderSearchResultItem(result))
-      })
+    .subscribe((result) => {
+      addToSearchResultList(list, renderSearchResultItem(result));
+    });
 
   /* Filter search result message */
-  const result$ = rx$
-    .pipe(
-      filter(isSearchResultMessage),
-      map(({ data }) => data)
-    )
+  const result$ = rx$.pipe(
+    filter(isSearchResultMessage),
+    map(({ data }) => data),
+  );
 
   /* Create and return component */
-  return result$
-    .pipe(
-      tap(internal$),
-      finalize(() => internal$.complete()),
-      map(state => ({ ref: el, ...state }))
-    )
+  return result$.pipe(
+    tap(internal$),
+    finalize(() => internal$.complete()),
+    map((state) => ({ ref: el, ...state })),
+  );
 }

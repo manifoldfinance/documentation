@@ -20,13 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import {
-  Observable,
-  Subject,
-  combineLatest,
-  fromEvent,
-  merge
-} from "rxjs"
+import { Observable, Subject, combineLatest, fromEvent, merge } from 'rxjs';
 import {
   delay,
   distinctUntilChanged,
@@ -37,28 +31,28 @@ import {
   take,
   takeLast,
   takeUntil,
-  tap
-} from "rxjs/operators"
+  tap,
+} from 'rxjs/operators';
 
 import {
   resetSearchQueryPlaceholder,
-  setSearchQueryPlaceholder
-} from "~/actions"
+  setSearchQueryPlaceholder,
+} from '~/actions';
 import {
   getLocation,
   setElementFocus,
   setToggle,
-  watchElementFocus
-} from "~/browser"
+  watchElementFocus,
+} from '~/browser';
 import {
   SearchMessageType,
   SearchQueryMessage,
   SearchWorker,
   defaultTransform,
-  isSearchReadyMessage
-} from "~/integrations"
+  isSearchReadyMessage,
+} from '~/integrations';
 
-import { Component } from "../../_"
+import { Component } from '../../_';
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -68,8 +62,8 @@ import { Component } from "../../_"
  * Search query
  */
 export interface SearchQuery {
-  value: string                        /* Query value */
-  focus: boolean                       /* Query focus */
+  value: string /* Query value */;
+  focus: boolean /* Query focus */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -88,41 +82,35 @@ export interface SearchQuery {
  * @returns Search query observable
  */
 export function watchSearchQuery(
-  el: HTMLInputElement, { rx$ }: SearchWorker
+  el: HTMLInputElement,
+  { rx$ }: SearchWorker,
 ): Observable<SearchQuery> {
-  const fn = __search?.transform || defaultTransform
+  const fn = __search?.transform || defaultTransform;
 
   /* Intercept focus and input events */
-  const focus$ = watchElementFocus(el)
+  const focus$ = watchElementFocus(el);
   const value$ = merge(
-    fromEvent(el, "keyup"),
-    fromEvent(el, "focus").pipe(delay(1))
-  )
-    .pipe(
-      map(() => fn(el.value)),
-      distinctUntilChanged()
-    )
+    fromEvent(el, 'keyup'),
+    fromEvent(el, 'focus').pipe(delay(1)),
+  ).pipe(
+    map(() => fn(el.value)),
+    distinctUntilChanged(),
+  );
 
   /* Intercept deep links */
-  const location = getLocation()
-  if (location.searchParams.has("q")) {
-    setToggle("search", true)
-    rx$
-      .pipe(
-        filter(isSearchReadyMessage),
-        take(1)
-      )
-        .subscribe(() => {
-          el.value = location.searchParams.get("q")!
-          setElementFocus(el)
-        })
+  const location = getLocation();
+  if (location.searchParams.has('q')) {
+    setToggle('search', true);
+    rx$.pipe(filter(isSearchReadyMessage), take(1)).subscribe(() => {
+      el.value = location.searchParams.get('q')!;
+      setElementFocus(el);
+    });
   }
 
   /* Combine into single observable */
-  return combineLatest([value$, focus$])
-    .pipe(
-      map(([value, focus]) => ({ value, focus }))
-    )
+  return combineLatest([value$, focus$]).pipe(
+    map(([value, focus]) => ({ value, focus })),
+  );
 }
 
 /**
@@ -134,47 +122,43 @@ export function watchSearchQuery(
  * @returns Search query component observable
  */
 export function mountSearchQuery(
-  el: HTMLInputElement, { tx$, rx$ }: SearchWorker
+  el: HTMLInputElement,
+  { tx$, rx$ }: SearchWorker,
 ): Observable<Component<SearchQuery, HTMLInputElement>> {
-  const internal$ = new Subject<SearchQuery>()
+  const internal$ = new Subject<SearchQuery>();
 
   /* Handle value changes */
   internal$
     .pipe(
-      distinctUntilKeyChanged("value"),
-      map(({ value }): SearchQueryMessage => ({
-        type: SearchMessageType.QUERY,
-        data: value
-      }))
+      distinctUntilKeyChanged('value'),
+      map(
+        ({ value }): SearchQueryMessage => ({
+          type: SearchMessageType.QUERY,
+          data: value,
+        }),
+      ),
     )
-      .subscribe(tx$.next.bind(tx$))
+    .subscribe(tx$.next.bind(tx$));
 
   /* Handle focus changes */
-  internal$
-    .pipe(
-      distinctUntilKeyChanged("focus")
-    )
-      .subscribe(({ focus }) => {
-        if (focus) {
-          setToggle("search", focus)
-          setSearchQueryPlaceholder(el, "")
-        } else {
-          resetSearchQueryPlaceholder(el)
-        }
-      })
+  internal$.pipe(distinctUntilKeyChanged('focus')).subscribe(({ focus }) => {
+    if (focus) {
+      setToggle('search', focus);
+      setSearchQueryPlaceholder(el, '');
+    } else {
+      resetSearchQueryPlaceholder(el);
+    }
+  });
 
   /* Handle reset */
-  fromEvent(el.form!, "reset")
-    .pipe(
-      takeUntil(internal$.pipe(takeLast(1)))
-    )
-      .subscribe(() => setElementFocus(el))
+  fromEvent(el.form!, 'reset')
+    .pipe(takeUntil(internal$.pipe(takeLast(1))))
+    .subscribe(() => setElementFocus(el));
 
   /* Create and return component */
-  return watchSearchQuery(el, { tx$, rx$ })
-    .pipe(
-      tap(internal$),
-      finalize(() => internal$.complete()),
-      map(state => ({ ref: el, ...state }))
-    )
+  return watchSearchQuery(el, { tx$, rx$ }).pipe(
+    tap(internal$),
+    finalize(() => internal$.complete()),
+    map((state) => ({ ref: el, ...state })),
+  );
 }

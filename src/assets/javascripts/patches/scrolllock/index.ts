@@ -20,22 +20,17 @@
  * IN THE SOFTWARE.
  */
 
-import {
-  Observable,
-  animationFrameScheduler,
-  combineLatest,
-  of
-} from "rxjs"
+import { Observable, animationFrameScheduler, combineLatest, of } from 'rxjs';
 import {
   delay,
   map,
   observeOn,
   switchMap,
-  withLatestFrom
-} from "rxjs/operators"
+  withLatestFrom,
+} from 'rxjs/operators';
 
-import { resetScrollLock, setScrollLock } from "~/actions"
-import { Viewport, watchToggle } from "~/browser"
+import { resetScrollLock, setScrollLock } from '~/actions';
+import { Viewport, watchToggle } from '~/browser';
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -45,8 +40,8 @@ import { Viewport, watchToggle } from "~/browser"
  * Patch options
  */
 interface PatchOptions {
-  viewport$: Observable<Viewport>      /* Viewport observable */
-  tablet$: Observable<boolean>         /* Tablet breakpoint observable */
+  viewport$: Observable<Viewport> /* Viewport observable */;
+  tablet$: Observable<boolean> /* Tablet breakpoint observable */;
 }
 
 /* ----------------------------------------------------------------------------
@@ -63,24 +58,27 @@ interface PatchOptions {
  *
  * @param options - Options
  */
-export function patchScrolllock(
-  { viewport$, tablet$ }: PatchOptions
-): void {
-  combineLatest([watchToggle("search"), tablet$])
+export function patchScrolllock({ viewport$, tablet$ }: PatchOptions): void {
+  combineLatest([watchToggle('search'), tablet$])
     .pipe(
       map(([active, tablet]) => active && !tablet),
-      switchMap(active => of(active)
-        .pipe(
+      switchMap((active) =>
+        of(active).pipe(
           delay(active ? 400 : 100),
-          observeOn(animationFrameScheduler)
-        )
+          observeOn(animationFrameScheduler),
+        ),
       ),
-      withLatestFrom(viewport$)
+      withLatestFrom(viewport$),
     )
-      .subscribe(([active, { offset: { y }}]) => {
-        if (active)
-          setScrollLock(document.body, y)
-        else
-          resetScrollLock(document.body)
-      })
+    .subscribe(
+      ([
+        active,
+        {
+          offset: { y },
+        },
+      ]) => {
+        if (active) setScrollLock(document.body, y);
+        else resetScrollLock(document.body);
+      },
+    );
 }

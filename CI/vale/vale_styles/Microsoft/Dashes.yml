@@ -5,9 +5,9 @@ ignorecase: true
 nonword: true
 level: error
 action:
-    name: edit
-    params:
-        - remove
-        - " "
+  name: edit
+  params:
+    - remove
+    - ' '
 tokens:
-    - '\s[—–]\s'
+  - '\s[—–]\s'
