@@ -1,9 +1,6 @@
 # Vale Styles
 
-Styles in this directory are all from external sources except the Besu one.
-
-Each external style folder are licensed under the terms specified in the
-directory LICENCE or README.md file.
+Document Formatting
 
 ## Versions
 
