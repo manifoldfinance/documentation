@@ -4,6 +4,7 @@ site_description: Manifold Finance documentation.
 site_author: Manifold Finance
 copyright: Copyright 2021 - CommodityStream  All Rights Reserved
 
+
 extra:
 #  doc_site_edit_url: https://github.com/manifoldfinance/docs/
   latest_version_warning:
@@ -39,6 +40,7 @@ theme:
   # Don't include MkDocs' JavaScript
   include_search_page: false
   search_index_only: true
+
 
   # Default values, taken from mkdocs_theme.yml
   language: en
@@ -87,6 +89,11 @@ plugins:
   - minify:
       minify_html: true
 
+
+extra_javascript:
+  - js/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 # Customization
 extra:
   analytics:
@@ -143,10 +150,12 @@ markdown_extensions:
   - pymdownx.tilde
 
 
+
 # Page tree
 nav:
   - Home: index.md
   - Getting started:
+    - OpenMEV: formulas.md
     - Gas Rebating: refunder.md
     - Releases:
       - Changelog: changelog.md

@@ -32,7 +32,7 @@
         {% endfor %}
       {% endif %}
       <link rel="icon" href="{{ config.theme.favicon | url }}">
-      <meta name="generator" content="mkdocs-{{ mkdocs_version }}, mkdocs-material-7.2.1+insiders-2.12.0">
+      <meta name="generator" content="mkdocs-{{ mkdocs_version }}, @manifoldfinance/documentation-1.0.0">
     {% endblock %}
     {% block htmltitle %}
       {% if page and page.meta and page.meta.title %}
@@ -237,7 +237,7 @@
         "base": base_url,
         "features": features,
         "translations": {},
-        "search": "assets/javascripts/workers/search.74af7bc3.min.js" | url,
+        "search": "assets/javascripts/workers/search.83b6fe50.min.js" | url,
         "version": config.extra.version or None
       } -%}
       {%- set translations = app.translations -%}
@@ -264,7 +264,7 @@
       </script>
     {% endblock %}
     {% block scripts %}
-      <script src="{{ 'assets/javascripts/bundle.1afabad3.min.js' | url }}"></script>
+      <script src="{{ 'assets/javascripts/bundle.dd136830.min.js' | url }}"></script>
       {% for path in config["extra_javascript"] %}
         <script src="{{ path | url }}"></script>
       {% endfor %}
