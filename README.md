@@ -1,9 +1,10 @@
-# Manifold Finance Documentation 
+# Manifold Finance Documentation
 
-## Overview 
+## Overview
 
 - Concepts
 - Protocol
+
   - Staking
   - Strategies
   - Governance
