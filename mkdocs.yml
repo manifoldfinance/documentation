@@ -155,7 +155,8 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting started:
-    - OpenMEV: formulas.md
+    - OpenMEV: openmev.md
+    - SushiSwap: sushi-intro.md
     - Gas Rebating: refunder.md
     - Releases:
       - Changelog: changelog.md
@@ -164,8 +165,9 @@ nav:
               - Obligations: obligations.md
               - Suspensions: suspensions.md
               - Settlement: trade-settlement.md
-  - SushiSwap:
+  - Internal:
               - Overview: SushiSwap/README.md
+              - Formulas and Calculations: formulas.md
               - Fee Information: SushiSwap/FeeInformation.md
               - Orders: SushiSwap/Order.md
               - Order Cancellation: SushiSwap/OrderCancellation.md

@@ -6,7 +6,6 @@ sort: 3
 
 > Documentation for Order Book API
 
-
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.sushirelay.com*
