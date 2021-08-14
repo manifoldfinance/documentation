@@ -1,3 +1,14 @@
+## Trading for Free on Sushi.com
+
+1. `baseFee` amount is subject to transaction cost rebates
+
+2. Transactions with a slippage tolerance of 1% or higher are eligible for gas refunds
+
+3. Refunds are paid out in ETH/WETH/xSUSHI
+
+4. It can take up to 35 blocks to receive a refund
+
+
 ## Technical Overview
 
 ### User Example
