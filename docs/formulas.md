@@ -9,6 +9,17 @@
 
 [TOC]
 
+## MEV 
+
+- Call $T_{MEV}$ the transaction fees netted by MEV transactions (in Gwei)
+- MEV transactions use an amount of gas $g_{MEV}$
+- Non-MEV transactions pay a miner fee $\delta$ (in Gwei per gas unit)
+- Non-MEV transactions use $g_N$ gas
+- The whole block (MEV + non-MEV) uses $g = g_{MEV} + g_N$ gas
+- The block reward is $R$ (in Gwei)
+- The uncle reward is $U$ (in Gwei)
+- There is a rate $p$ such that for each unit of gas added in the block, the uncle risk increases by $p$. It was once measured that 10M gas adds about 2.5% risk, so we take $p = 2.5 \times 10^{-9}$
+
 
 ## Rebate Calculations 
 
@@ -95,6 +106,8 @@ $$ Hhf = BC / ∑︁  𝑉𝑎𝑙𝑢𝑒 𝑜𝑓 𝐷𝑒𝑏𝑡t $$
 **Execution Price**: $P$ During the time difference between a liquidity taker issuing a transaction, and the transaction being executed (e.g. mined in a block), the state of the AMM market $X / Y$ may change. This state change may induce unexpected slippage resulting in an execution price $P \neq E [P]$. 
 
 **Unexpected Price Slippage**: $P- E [P]$ is the difference between $P$ and $E [P]$. Unexpected Slippage Rate $\left(\frac{P- E [P]}{ E [P]}\right)$ is $\quad$ the unexpected slippage over the expected price.
+
+
 
 
 
