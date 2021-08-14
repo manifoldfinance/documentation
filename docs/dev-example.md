@@ -124,10 +124,10 @@ If someone front runs the transaction sent by the Cabal:
    order1 goes to the relayer in the signed order.
 2. They lose 5% in slippage as our real user does.
 
-## Engine
+## Transaction Engine
 
-YCabal uses a batch auction-based matching engine to execute orders. Batch
-auctions were chosen to reduce the impact of frontrunning on the exchange.
+The OpenMEV Engine uses a batch auction-based matching engine to execute orders.
+Batch auctions were chosen to reduce the impact of frontrunning on the exchange.
 
 1. All orders for the given market are collected.
 
@@ -151,3 +151,138 @@ Orders are sorted based on their price, and order ID. Order IDs are generated at
 post time and is the only part of the matching engine that is time-dependent.
 However, the oldest order IDs are matched first so there is no incentive to post
 an order ahead of someone else’s.
+
+
+## Endpoints v1
+
+### `POST `
+
+```
+/v1/quote
+```
+
+A user can get a quote based on the current market conditions and potentially
+the other transactions that are queued. The only reason for this to be on the
+backend is if we find value in quoting based on the other transactions in the
+queue. Details of this quote calculation formula need to be researched.
+
+### `POST`
+
+```
+/v1/transact
+```
+
+A user submits their transaction call after signing it. This is an asynchronous
+request that will insert the swap transaction in a queue. The call returns a
+TransactionId. The user can then listen for the result of their transaction via
+the websocket feed which will report all completed and failed transactions.
+
+## Sequencing
+
+On any additions to the queue, the server runs a sequencing algorithm to
+optimize MEV, then decides if it is time to submit the transactions to a miner
+for the current block.
+
+Garbage collection will have to be run on the queues periodically to remove
+transactions that are not going to be successful due to timeout or slippage.
+
+On successful and failed (garbage collected) transactions, the backend will send
+WebSocket messages to the frontend to notify users.
+
+## Gwei Service
+
+The Gwei Service is an important part of the overall system. Since Gwei pricing
+is the most important portion of the overall system efficacy it is decoupled
+from the application itself and run in a separate stack entirely. We inject the
+Gwei pricing service by loading at runtime via `startGasWorker()`. _note_ we use
+the term GasWorker to draw a distinction between `gwei` and `gas`. Whereas
+`gwei` is understood as a specific SI unit, gas is more abstract.
+
+## Gas Pricing Service
+
+**Note**: EIP1559 Gas Pricing Compatible
+
+For accurate pricing, we trim off the lowest price with the fastest time and
+highest price with the slowest times until 80% of the data is represented; these
+are _outliers_.
+
+See the API Service here: [https://api.txprice.com](https://api.txprice.com)
+
+```js
+/**
+*
+* @summary filters transactions from blocks
+* @note transaction wait duration and gas price taken into consideration
+*/
+blocks.forEach((block) => {
+       block.transactions.forEach((tx) => {
+           const price = parseFloat(ethers.utils.formatUnits(tx.gasPrice, "gwei"));
+           const duration = tx.waitDuration;
+ /**
+ *
+ *  @summary Purge anything that takes over 5 minutes
+ *  @param duration
+ *  @type {seconds}
+ *  @exports TransactionTimeDuration
+ */
+   if (duration > (60 * 60)) { return; }
+
+   if (duration < (1 * 60)) {
+               data.fast.push(price);
+       } else if (duration < (5 * 60)) {
+               data.medium.push(price);
+       } else {
+               data.slow.push(price);
+       }
+```
+
+### Transaction Details
+
+```js
+/**
+ * Add the transaction details
+ *  @const diff
+ *  @param waitDuration
+ *  @param dataLength
+ *  @param gasLimit
+ *  @param value
+ */
+const diff = timestamp - seenTime;
+txs.push({
+  w: diff, // waitDuration, not a delta but difference
+  d: ethers.utils.hexDataLength(tx.data), // dataLength
+  l: tx.gasLimit.toString(), // gasLimit
+  p: ethers.utils.formatUnits(tx.gasPrice, 'gwei'), // gasPrice
+  v: ethers.utils.formatUnits(tx.value), // value
+});
+```
+
+### Canary Scanning
+
+> Failsafe guard
+
+```js
+// Canary scanning (check every second)
+// If we go too long without a ne block or a new transaction, it indicates the
+// underlying connection to a backend has probably disconnected.
+setInterval(() => {
+  const delta = getTime() - canaryTimer;
+  if (delta > MAX_DISCONNECT) {
+    console.log(`Canary: forcing restart...`);
+    process.exit();
+  }
+}, 1000).unref();
+```
+
+> How to subscribe to gas price changes
+
+```ts
+import { Container } from 'typedi';
+import EventConstants from '@constants/events';
+import EventEmitter from 'events';
+
+const { GAS_CHANGE } = EventConstants;
+
+const events: EventEmitter = Container.get('eventEmitter');
+events.on(GAS_CHANGE, (newGasPrice) => {});
+```
