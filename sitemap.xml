@@ -26,6 +26,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.manifoldfinance.com/mev-risks/</loc>
+         <lastmod>2021-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.manifoldfinance.com/obligations/</loc>
          <lastmod>2021-08-14</lastmod>
          <changefreq>daily</changefreq>
