@@ -158,6 +158,7 @@ nav:
     - Overview: openmev.md
     - SushiSwap: sushi-intro.md
     - Gas Rebating: refunder.md
+    - Specification: dev-example.md
   - SushiSwap: 
     - How it works: sushi-intro.md
     - Overview: sushi-overview.md
