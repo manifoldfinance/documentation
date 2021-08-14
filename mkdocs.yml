@@ -14,19 +14,19 @@ extra:
     You can switch to stable version using the version box at screen bottom.'
   support:
     chat: https://t.me/manifoldfinance
-    email: community@lists.manifoldfinance.com
+    email: ops@manifoldfinance.com
     website: https://www.manifoldfinance.com
     issues: https://github.com/manifoldfinance/boards/issues
-    doc_issues: https://github.com/manifoldfinance/mkdocs/issues/new/choose
+    doc_issues: https://github.com/manifoldfinance/documentation/issues/new/choose
   google:
     site_verification:
       - ''
   logo_regular: custom_theme/logo.svg
-  logo_reversed: &logo_reversed custom_theme/logo-reversed.svg
+  logo_reversed: &logo_reversed custom_theme/manifold.svg
 
 # Repository
-repo_name: manifoldfinance/docs
-repo_url: https://github.com/manifoldfinance/mkdocs/
+repo_name: manifoldfinance/documentation
+repo_url: https://github.com/manifoldfinance/documentation/
 
 # Configuration
 theme:
@@ -151,13 +151,20 @@ markdown_extensions:
 
 
 
-# Page tree
+# Navigation 
 nav:
-  - Home: index.md
-  - Getting started:
-    - OpenMEV: openmev.md
+  - Index: index.md
+  - OpenMEV:
+    - Overview: openmev.md
     - SushiSwap: sushi-intro.md
     - Gas Rebating: refunder.md
+    - Specification: dev-example.md
+  - SushiSwap: 
+    - How it works: sushi-intro.md
+    - Overview: sushi-overview.md
+    - Help and Support: sushi-help.md
+  - Manifold Finance:
+    - Stratagies: stratagies.md
     - Releases:
       - Changelog: changelog.md
   - Rulebook:
