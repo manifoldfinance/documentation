@@ -1,6 +1,6 @@
 # OpenMEV Technical Overview
 
-!!! note Diagrams
+!!! info This section is in active development
 
 ## Fork Mode
 

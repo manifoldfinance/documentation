@@ -10,21 +10,22 @@
 
 ## User Example
 
-Example end-user transaction example for interacting with the OpenMEV
 
-> NOTE: Since the JSON-RPC spec allows responses to be returned in a different
-> order than sent, we need a mechanism for choosing a canonical id from a list
-> that doesn't depend on the order. This chooses the "minimum" id by an
-> arbitrary ordering: the smallest string if possible, otherwise the smallest
-> number, otherwise null.
+!!! info Since the JSON-RPC spec allows responses to be returned in a different
+order than sent, we need a mechanism for choosing a canonical id from a list
+that doesn't depend on the order. This chooses the "minimum" id by an
+arbitrary ordering: the smallest string if possible, otherwise the smallest
+number, otherwise null.
 
-```jsx
+!!! example  end-user transaction example for interacting with the OpenMEV
+
+```js
 order = {
 	Give: ETH,
 	Want: DAI,
 	SlippageLimit: 10%,
 	Amount: 1000ETH,
-	Cabal: 0xabc...,
+	OpenMEV: 0xabc...,
 	FeesIn: DAI,
 	TargetDEX: SushiSwap,
 	Deadline: time.Now() + 1*time.Minute
@@ -32,19 +33,19 @@ order = {
 }
 ```
 
-Now if the Cabal broadcasts this transaction with an arbitrage order, the
+When we broadcast this transaction with an arbitrage order, the
 transaction contains 2 orders:
 
-> Note: the transaction below is a mock-up for the proposed _data fields_
+!!! example the transaction below is a mock-up for the proposed _data fields_
 
-```jsx
+```js
 transactions = [
 	{
 		Give: ETH,
 		Want: DAI,
 		SlippageLimit: 10%,
 		Amount: 1000ETH,
-		Cabal: 0xabc...,
+		OpenMEV: 0xabc...,
 		FeesIn: DAI,
 		TargetDEX: SushiSwap,
 		Deadline: time.Now() + 1*time.Minute
@@ -55,12 +56,12 @@ transactions = [
 		Want: ETH,
 		SlippageLimit: 1%,
 		Amount: 10ETH,
-		Cabal: 0xabc...,
+		OpenMEV: 0xabc...,
 		FeesIn: DAI,
 		TargetDEX: SushiSwap,
 		Deadline: time.Now() + 1*time.Minute
 		Signature: sign(order.SignBytes()),
-		IsBackbone Cabal: true,
+		IsFlashbots OpenMEV: true,
 		TransferProfitTo: transactions[0].signer
 	}
 ]
@@ -73,13 +74,15 @@ The first order will still lose 5%(assumption) in slippage.
 
 Arbitrage profits will rarely be more than the slippage loss.
 
-If someone front runs the transaction sent by the Cabal:
+If someone front runs the transaction sent by the OpenMEV:
 
 1. They pay for the gas while post confirmation of transaction the fees for
    order1 goes to the relayer in the signed order.
 2. They lose 5% in slippage as our real user does.
 
 ## Engine
+
+
 
 OpenMEV uses a batch auction-based matching engine to execute orders. Batch
 auctions were chosen to reduce the impact of frontrunning on the exchange.
