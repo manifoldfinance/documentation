@@ -152,7 +152,7 @@ markdown_extensions:
 
 
 
-# Navigation 
+# Navigation
 nav:
   - Index: index.md
   - OpenMEV:
@@ -160,14 +160,19 @@ nav:
     - SushiSwap: sushi-intro.md
     - Gas Rebating: refunder.md
     - Specification: dev-example.md
-  - SushiSwap: 
+    - Risks: mev-risks.md
+  - SushiSwap:
     - How it works: sushi-intro.md
     - Overview: sushi-overview.md
     - Help and Support: sushi-help.md
   - Manifold Finance:
-    - Stratagies: stratagies.md
+    - Strategies: strategies.md
     - Releases:
       - Changelog: changelog.md
+  - OpenMEV Technical:
+              - Platform Overview: openmev-diagrams.md
+              - Workflow: workflow/README.md
+              - Chain State: chain-state/README.md
   - Rulebook:
               - Limit Order Book: limit_order_books.md
               - Obligations: obligations.md
