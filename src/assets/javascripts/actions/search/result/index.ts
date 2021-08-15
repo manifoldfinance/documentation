@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { translation } from '~/_';
-import { round } from '~/utilities';
+import { translation } from "~/_"
+import { round } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -33,21 +33,24 @@ import { round } from '~/utilities';
  * @param el - Search result metadata element
  * @param value - Number of results
  */
-export function setSearchResultMeta(el: HTMLElement, value: number): void {
+export function setSearchResultMeta(
+  el: HTMLElement, value: number
+): void {
   switch (value) {
+
     /* No results */
     case 0:
-      el.textContent = translation('search.result.none');
-      break;
+      el.textContent = translation("search.result.none")
+      break
 
     /* One result */
     case 1:
-      el.textContent = translation('search.result.one');
-      break;
+      el.textContent = translation("search.result.one")
+      break
 
     /* Multiple result */
     default:
-      el.textContent = translation('search.result.other', round(value));
+      el.textContent = translation("search.result.other", round(value))
   }
 }
 
@@ -56,8 +59,10 @@ export function setSearchResultMeta(el: HTMLElement, value: number): void {
  *
  * @param el - Search result metadata element
  */
-export function resetSearchResultMeta(el: HTMLElement): void {
-  el.textContent = translation('search.result.placeholder');
+export function resetSearchResultMeta(
+  el: HTMLElement
+): void {
+  el.textContent = translation("search.result.placeholder")
 }
 
 /* ------------------------------------------------------------------------- */
@@ -68,8 +73,10 @@ export function resetSearchResultMeta(el: HTMLElement): void {
  * @param el - Search result list element
  * @param child - Search result element
  */
-export function addToSearchResultList(el: HTMLElement, child: Element): void {
-  el.appendChild(child);
+export function addToSearchResultList(
+  el: HTMLElement, child: Element
+): void {
+  el.appendChild(child)
 }
 
 /**
@@ -77,6 +84,8 @@ export function addToSearchResultList(el: HTMLElement, child: Element): void {
  *
  * @param el - Search result list element
  */
-export function resetSearchResultList(el: HTMLElement): void {
-  el.innerHTML = '';
+export function resetSearchResultList(
+  el: HTMLElement
+): void {
+  el.innerHTML = ""
 }

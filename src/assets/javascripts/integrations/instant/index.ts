@@ -20,7 +20,15 @@
  * IN THE SOFTWARE.
  */
 
-import { EMPTY, NEVER, Observable, Subject, fromEvent, merge, of } from 'rxjs';
+import {
+  EMPTY,
+  NEVER,
+  Observable,
+  Subject,
+  fromEvent,
+  merge,
+  of
+} from "rxjs"
 import {
   bufferCount,
   catchError,
@@ -34,10 +42,10 @@ import {
   share,
   skip,
   skipUntil,
-  switchMap,
-} from 'rxjs/operators';
+  switchMap
+} from "rxjs/operators"
 
-import { configuration } from '~/_';
+import { configuration, feature } from "~/_"
 import {
   Viewport,
   ViewportOffset,
@@ -48,11 +56,11 @@ import {
   request,
   setLocation,
   setLocationHash,
-  setViewportOffset,
-} from '~/browser';
-import { getComponentElement } from '~/components';
+  setViewportOffset
+} from "~/browser"
+import { getComponentElement } from "~/components"
 
-import { fetchSitemap } from '../sitemap';
+import { fetchSitemap } from "../sitemap"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -62,8 +70,8 @@ import { fetchSitemap } from '../sitemap';
  * History state
  */
 export interface HistoryState {
-  url: URL /* State URL */;
-  offset?: ViewportOffset /* State viewport offset */;
+  url: URL                             /* State URL */
+  offset?: ViewportOffset              /* State viewport offset */
 }
 
 /* ----------------------------------------------------------------------------
@@ -74,9 +82,9 @@ export interface HistoryState {
  * Setup options
  */
 interface SetupOptions {
-  document$: Subject<Document> /* Document subject */;
-  location$: Subject<URL> /* Location subject */;
-  viewport$: Observable<Viewport> /* Viewport observable */;
+  document$: Subject<Document>         /* Document subject */
+  location$: Subject<URL>              /* Location subject */
+  viewport$: Observable<Viewport>      /* Viewport observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -104,176 +112,212 @@ interface SetupOptions {
  *
  * @param options - Options
  */
-export function setupInstantLoading({
-  document$,
-  location$,
-  viewport$,
-}: SetupOptions): void {
-  const config = configuration();
-  if (location.protocol === 'file:') return;
+export function setupInstantLoading(
+  { document$, location$, viewport$ }: SetupOptions
+): void {
+  const config = configuration()
+  if (location.protocol === "file:")
+    return
 
   /* Disable automatic scroll restoration */
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual"
 
     /* Hack: ensure that reloads restore viewport offset */
-    fromEvent(window, 'beforeunload').subscribe(() => {
-      history.scrollRestoration = 'auto';
-    });
+    fromEvent(window, "beforeunload")
+      .subscribe(() => {
+        history.scrollRestoration = "auto"
+      })
   }
 
   /* Hack: ensure absolute favicon link to omit 404s when switching */
-  const favicon = getElement<HTMLLinkElement>('link[rel=icon]');
-  if (typeof favicon !== 'undefined') favicon.href = favicon.href;
+  const favicon = getElement<HTMLLinkElement>("link[rel=icon]")
+  if (typeof favicon !== "undefined")
+    favicon.href = favicon.href
 
   /* Intercept internal navigation */
-  const push$ = fetchSitemap().pipe(
-    map((paths) => paths.map((path) => `${config.base}/${path}`)),
-    switchMap((urls) =>
-      fromEvent<MouseEvent>(document.body, 'click').pipe(
-        filter((ev) => !ev.metaKey && !ev.ctrlKey),
-        switchMap((ev) => {
-          if (ev.target instanceof Element) {
-            const el = ev.target.closest('a');
-            if (el && !el.target && urls.includes(el.href)) {
-              ev.preventDefault();
-              return of({
-                url: new URL(el.href),
-              });
+  const push$ = fetchSitemap()
+    .pipe(
+      map(paths => paths.map(path => `${new URL(path, config.base)}`)),
+      switchMap(urls => fromEvent<MouseEvent>(document.body, "click")
+        .pipe(
+          filter(ev => !ev.metaKey && !ev.ctrlKey),
+          switchMap(ev => {
+            if (ev.target instanceof Element) {
+              const el = ev.target.closest("a")
+              if (el && !el.target) {
+                const url = new URL(el.href)
+
+                /* Canonicalize URL */
+                url.search = ""
+                url.hash = ""
+
+                /* Check if URL should be intercepted */
+                if (
+                  url.pathname !== location.pathname &&
+                  urls.includes(url.toString())
+                ) {
+                  ev.preventDefault()
+                  return of({
+                    url: new URL(el.href)
+                  })
+                }
+              }
             }
-          }
-          return NEVER;
-        }),
+            return NEVER
+          })
+        )
       ),
-    ),
-    share<HistoryState>(),
-  );
+      share<HistoryState>()
+    )
 
   /* Intercept history back and forward */
-  const pop$ = fromEvent<PopStateEvent>(window, 'popstate').pipe(
-    filter((ev) => ev.state !== null),
-    map((ev) => ({
-      url: new URL(location.href),
-      offset: ev.state,
-    })),
-    share<HistoryState>(),
-  );
+  const pop$ = fromEvent<PopStateEvent>(window, "popstate")
+    .pipe(
+      filter(ev => ev.state !== null),
+      map(ev => ({
+        url: new URL(location.href),
+        offset: ev.state
+      })),
+      share<HistoryState>()
+    )
 
   /* Emit location change */
   merge(push$, pop$)
     .pipe(
       distinctUntilChanged((a, b) => a.url.href === b.url.href),
-      map(({ url }) => url),
+      map(({ url }) => url)
     )
-    .subscribe(location$);
+      .subscribe(location$)
 
   /* Fetch document via `XMLHTTPRequest` */
-  const response$ = location$.pipe(
-    distinctUntilKeyChanged('pathname'),
-    switchMap((url) =>
-      request(url.href).pipe(
-        catchError(() => {
-          setLocation(url);
-          return NEVER;
-        }),
+  const response$ = location$
+    .pipe(
+      distinctUntilKeyChanged("pathname"),
+      switchMap(url => request(url.href)
+        .pipe(
+          catchError(() => {
+            setLocation(url)
+            return NEVER
+          })
+        )
       ),
-    ),
-    share(),
-  );
+      share()
+    )
 
   /* Set new location via `history.pushState` */
-  push$.pipe(sample(response$)).subscribe(({ url }) => {
-    history.pushState({}, '', `${url}`);
-  });
+  push$
+    .pipe(
+      sample(response$)
+    )
+      .subscribe(({ url }) => {
+        history.pushState({}, "", `${url}`)
+      })
 
   /* Parse and emit fetched document */
-  const dom = new DOMParser();
+  const dom = new DOMParser()
   response$
     .pipe(
-      switchMap((res) => res.text()),
-      map((res) => dom.parseFromString(res, 'text/html')),
+      switchMap(res => res.text()),
+      map(res => dom.parseFromString(res, "text/html"))
     )
-    .subscribe(document$);
-
-  /* Emit history state change */
-  merge(push$, pop$)
-    .pipe(sample(document$))
-    .subscribe(({ url, offset }) => {
-      if (url.hash && !offset) setLocationHash(url.hash);
-      else setViewportOffset(offset || { y: 0 });
-    });
+      .subscribe(document$)
 
   /* Replace meta tags and components */
-  document$.pipe(skip(1)).subscribe((replacement) => {
-    for (const selector of [
-      /* Meta tags */
-      'title',
-      'link[rel=canonical]',
-      'meta[name=author]',
-      'meta[name=description]',
+  document$
+    .pipe(
+      skip(1)
+    )
+      .subscribe(replacement => {
+        for (const selector of [
 
-      /* Components */
-      '[data-md-component=announce]',
-      '[data-md-component=container]',
-      '[data-md-component=header-topic]',
-      '[data-md-component=logo], .md-logo', // compat
-      '[data-md-component=skip]',
-    ]) {
-      const source = getElement(selector);
-      const target = getElement(selector, replacement);
-      if (typeof source !== 'undefined' && typeof target !== 'undefined') {
-        replaceElement(source, target);
-      }
-    }
-  });
+          /* Meta tags */
+          "title",
+          "link[rel=canonical]",
+          "meta[name=author]",
+          "meta[name=description]",
+
+          /* Components */
+          "[data-md-component=announce]",
+          "[data-md-component=container]",
+          "[data-md-component=header-topic]",
+          "[data-md-component=logo], .md-logo", // compat
+          "[data-md-component=skip]",
+          ...feature("navigation.tabs.sticky")
+            ? ["[data-md-component=tabs]"]
+            : []
+        ]) {
+          const source = getElement(selector)
+          const target = getElement(selector, replacement)
+          if (
+            typeof source !== "undefined" &&
+            typeof target !== "undefined"
+          ) {
+            replaceElement(source, target)
+          }
+        }
+      })
 
   /* Re-evaluate scripts */
   document$
     .pipe(
       skip(1),
-      map(() => getComponentElement('container')),
-      switchMap((el) => of(...getElements('script', el))),
-      concatMap((el) => {
-        const script = createElement('script');
+      map(() => getComponentElement("container")),
+      switchMap(el => of(...getElements("script", el))),
+      concatMap(el => {
+        const script = createElement("script")
         if (el.src) {
           for (const name of el.getAttributeNames())
-            script.setAttribute(name, el.getAttribute(name)!);
-          replaceElement(el, script);
+            script.setAttribute(name, el.getAttribute(name)!)
+          replaceElement(el, script)
 
           /* Complete when script is loaded */
-          return new Observable((observer) => {
-            script.onload = () => observer.complete();
-          });
+          return new Observable(observer => {
+            script.onload = () => observer.complete()
+          })
 
-          /* Complete immediately */
+        /* Complete immediately */
         } else {
-          script.textContent = el.textContent;
-          replaceElement(el, script);
-          return EMPTY;
+          script.textContent = el.textContent
+          replaceElement(el, script)
+          return EMPTY
         }
-      }),
+      })
     )
-    .subscribe();
+      .subscribe()
+
+  /* Emit history state change */
+  merge(push$, pop$)
+    .pipe(
+      sample(document$),
+    )
+      .subscribe(({ url, offset }) => {
+        if (url.hash && !offset) {
+          setLocationHash(url.hash)
+        } else {
+          setViewportOffset(offset || { y: 0 })
+        }
+      })
 
   /* Debounce update of viewport offset */
   viewport$
     .pipe(
       skipUntil(push$),
       debounceTime(250),
-      distinctUntilKeyChanged('offset'),
+      distinctUntilKeyChanged("offset")
     )
-    .subscribe(({ offset }) => {
-      history.replaceState(offset, '');
-    });
+      .subscribe(({ offset }) => {
+        history.replaceState(offset, "")
+      })
 
   /* Set viewport offset from history */
   merge(push$, pop$)
     .pipe(
       bufferCount(2, 1),
       filter(([a, b]) => a.url.pathname === b.url.pathname),
-      map(([, state]) => state),
+      map(([, state]) => state)
     )
-    .subscribe(({ offset }) => {
-      setViewportOffset(offset || { y: 0 });
-    });
+      .subscribe(({ offset }) => {
+        setViewportOffset(offset || { y: 0 })
+      })
 }

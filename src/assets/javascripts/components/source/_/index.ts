@@ -20,21 +20,20 @@
  * IN THE SOFTWARE.
  */
 
-import { NEVER, Observable, Subject, defer, of } from 'rxjs';
+import { NEVER, Observable, Subject, defer, of } from "rxjs"
 import {
   catchError,
   filter,
-  finalize,
   map,
   shareReplay,
-  tap,
-} from 'rxjs/operators';
+  tap
+} from "rxjs/operators"
 
-import { setSourceFacts, setSourceState } from '~/actions';
-import { renderSourceFacts } from '~/templates';
+import { setSourceFacts, setSourceState } from "~/actions"
+import { renderSourceFacts } from "~/templates"
 
-import { Component } from '../../_';
-import { SourceFacts, fetchSourceFacts } from '../facts';
+import { Component } from "../../_"
+import { SourceFacts, fetchSourceFacts } from "../facts"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -44,7 +43,7 @@ import { SourceFacts, fetchSourceFacts } from '../facts';
  * Repository information
  */
 export interface Source {
-  facts: SourceFacts /* Repository facts */;
+  facts: SourceFacts                   /* Repository facts */
 }
 
 /* ----------------------------------------------------------------------------
@@ -54,7 +53,7 @@ export interface Source {
 /**
  * Repository information observable
  */
-let fetch$: Observable<Source>;
+let fetch$: Observable<Source>
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -70,20 +69,25 @@ let fetch$: Observable<Source>;
  *
  * @returns Repository information observable
  */
-export function watchSource(el: HTMLAnchorElement): Observable<Source> {
-  return (fetch$ ||= defer(() => {
-    const cached = __md_get<SourceFacts>('__source', sessionStorage);
-    if (cached) return of(cached);
+export function watchSource(
+  el: HTMLAnchorElement
+): Observable<Source> {
+  return fetch$ ||= defer(() => {
+    const cached = __md_get<SourceFacts>("__source", sessionStorage)
+    if (cached)
+      return of(cached)
     else
-      return fetchSourceFacts(el.href).pipe(
-        tap((facts) => __md_set('__source', facts, sessionStorage)),
-      );
-  }).pipe(
-    catchError(() => NEVER),
-    filter((facts) => Object.keys(facts).length > 0),
-    map((facts) => ({ facts })),
-    shareReplay(1),
-  ));
+      return fetchSourceFacts(el.href)
+        .pipe(
+          tap(facts => __md_set("__source", facts, sessionStorage))
+        )
+  })
+    .pipe(
+      catchError(() => NEVER),
+      filter(facts => Object.keys(facts).length > 0),
+      map(facts => ({ facts })),
+      shareReplay(1)
+    )
 }
 
 /**
@@ -94,18 +98,18 @@ export function watchSource(el: HTMLAnchorElement): Observable<Source> {
  * @returns Repository information component observable
  */
 export function mountSource(
-  el: HTMLAnchorElement,
+  el: HTMLAnchorElement
 ): Observable<Component<Source>> {
-  const internal$ = new Subject<Source>();
+  const internal$ = new Subject<Source>()
   internal$.subscribe(({ facts }) => {
-    setSourceFacts(el, renderSourceFacts(facts));
-    setSourceState(el, 'done');
-  });
+    setSourceFacts(el, renderSourceFacts(facts))
+    setSourceState(el, "done")
+  })
 
   /* Create and return component */
-  return watchSource(el).pipe(
-    tap(internal$),
-    finalize(() => internal$.complete()),
-    map((state) => ({ ref: el, ...state })),
-  );
+  return watchSource(el)
+    .pipe(
+      tap(internal$),
+      map(state => ({ ref: el, ...state }))
+    )
 }

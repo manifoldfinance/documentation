@@ -20,10 +20,10 @@
  * IN THE SOFTWARE.
  */
 
-import { wrap } from 'fuzzaldrin-plus';
+import { wrap } from "fuzzaldrin-plus"
 
-import { translation } from '~/_';
-import { h } from '~/utilities';
+import { translation } from "~/_"
+import { h } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -33,8 +33,8 @@ import { h } from '~/utilities';
  * Icon
  */
 export interface Icon {
-  shortcode: string /* Icon shortcode */;
-  url: string /* Icon URL */;
+  shortcode: string                    /* Icon shortcode */
+  url: string                          /* Icon URL */
 }
 
 /* ----------------------------------------------------------------------------
@@ -52,10 +52,10 @@ export interface Icon {
 function highlight(icon: Icon, query: string): string {
   return wrap(icon.shortcode, query, {
     wrap: {
-      tagOpen: '<b>',
-      tagClose: '</b>',
-    },
-  });
+      tagOpen: "<b>",
+      tagClose: "</b>"
+    }
+  })
 }
 
 /* ----------------------------------------------------------------------------
@@ -70,7 +70,9 @@ function highlight(icon: Icon, query: string): string {
  *
  * @returns Element
  */
-export function renderIconSearchResult(icon: Icon, query: string): HTMLElement {
+export function renderIconSearchResult(
+  icon: Icon, query: string
+): HTMLElement {
   return (
     <li class="mdx-iconsearch-result__item">
       <span class="twemoji">
@@ -78,11 +80,11 @@ export function renderIconSearchResult(icon: Icon, query: string): HTMLElement {
       </span>
       <button
         class="md-clipboard--inline"
-        title={translation('clipboard.copy')}
+        title={translation("clipboard.copy")}
         data-clipboard-text={`:${icon.shortcode}:`}
       >
         <code>{`:${highlight(icon, query)}:`}</code>
       </button>
     </li>
-  );
+  )
 }

@@ -31,7 +31,7 @@
  *
  * @returns Transformed query value
  */
-export type SearchTransformFn = (value: string) => string;
+export type SearchTransformFn = (value: string) => string
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -60,11 +60,12 @@ export type SearchTransformFn = (value: string) => string;
  */
 export function defaultTransform(query: string): string {
   return query
-    .split(/"([^"]+)"/g) /* => 1 */
-    .map((terms, index) =>
-      index & 1 ? terms.replace(/^\b|^(?![^\x00-\x7F]|$)|\s+/g, ' +') : terms,
-    )
-    .join('')
-    .replace(/"|(?:^|\s+)[*+\-:^~]+(?=\s+|$)/g, '') /* => 2 */
-    .trim(); /* => 3 */
+    .split(/"([^"]+)"/g)                            /* => 1 */
+      .map((terms, index) => index & 1
+        ? terms.replace(/^\b|^(?![^\x00-\x7F]|$)|\s+/g, " +")
+        : terms
+      )
+      .join("")
+    .replace(/"|(?:^|\s+)[*+\-:^~]+(?=\s+|$)/g, "") /* => 2 */
+    .trim()                                         /* => 3 */
 }

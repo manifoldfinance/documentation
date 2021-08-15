@@ -20,10 +20,17 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent, merge } from 'rxjs';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { Observable, fromEvent, merge } from "rxjs"
+import {
+  distinctUntilChanged,
+  map,
+  startWith
+} from "rxjs/operators"
 
-import { getElementContentSize, getElementSize } from '../size';
+import {
+  getElementContentSize,
+  getElementSize
+} from "../size"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -33,8 +40,8 @@ import { getElementContentSize, getElementSize } from '../size';
  * Element offset
  */
 export interface ElementOffset {
-  x: number /* Horizontal offset */;
-  y: number /* Vertical offset */;
+  x: number                            /* Horizontal offset */
+  y: number                            /* Vertical offset */
 }
 
 /* ----------------------------------------------------------------------------
@@ -51,8 +58,8 @@ export interface ElementOffset {
 export function getElementOffset(el: HTMLElement): ElementOffset {
   return {
     x: el.scrollLeft,
-    y: el.scrollTop,
-  };
+    y: el.scrollTop
+  }
 }
 
 /* ------------------------------------------------------------------------- */
@@ -64,11 +71,17 @@ export function getElementOffset(el: HTMLElement): ElementOffset {
  *
  * @returns Element offset observable
  */
-export function watchElementOffset(el: HTMLElement): Observable<ElementOffset> {
-  return merge(fromEvent(el, 'scroll'), fromEvent(window, 'resize')).pipe(
-    map(() => getElementOffset(el)),
-    startWith(getElementOffset(el)),
-  );
+export function watchElementOffset(
+  el: HTMLElement
+): Observable<ElementOffset> {
+  return merge(
+    fromEvent(el, "scroll"),
+    fromEvent(window, "resize")
+  )
+    .pipe(
+      map(() => getElementOffset(el)),
+      startWith(getElementOffset(el))
+    )
 }
 
 /**
@@ -83,15 +96,17 @@ export function watchElementOffset(el: HTMLElement): Observable<ElementOffset> {
  * @returns Element threshold observable
  */
 export function watchElementThreshold(
-  el: HTMLElement,
-  threshold = 16,
+  el: HTMLElement, threshold = 16
 ): Observable<boolean> {
-  return watchElementOffset(el).pipe(
-    map(({ y }) => {
-      const visible = getElementSize(el);
-      const content = getElementContentSize(el);
-      return y >= content.height - visible.height - threshold;
-    }),
-    distinctUntilChanged(),
-  );
+  return watchElementOffset(el)
+    .pipe(
+      map(({ y }) => {
+        const visible = getElementSize(el)
+        const content = getElementContentSize(el)
+        return y >= (
+          content.height - visible.height - threshold
+        )
+      }),
+      distinctUntilChanged()
+    )
 }

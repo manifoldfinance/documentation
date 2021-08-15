@@ -20,8 +20,17 @@
  * IN THE SOFTWARE.
  */
 
-import { NEVER, Observable, fromEvent, fromEventPattern } from 'rxjs';
-import { mapTo, startWith, switchMap } from 'rxjs/operators';
+import {
+  NEVER,
+  Observable,
+  fromEvent,
+  fromEventPattern
+} from "rxjs"
+import {
+  mapTo,
+  startWith,
+  switchMap
+} from "rxjs/operators"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -40,10 +49,13 @@ import { mapTo, startWith, switchMap } from 'rxjs/operators';
  * @returns Media observable
  */
 export function watchMedia(query: string): Observable<boolean> {
-  const media = matchMedia(query);
-  return fromEventPattern<boolean>((next) =>
-    media.addListener(() => next(media.matches)),
-  ).pipe(startWith(media.matches));
+  const media = matchMedia(query)
+  return fromEventPattern<boolean>(next => (
+    media.addListener(() => next(media.matches))
+  ))
+    .pipe(
+      startWith(media.matches)
+    )
 }
 
 /**
@@ -52,7 +64,10 @@ export function watchMedia(query: string): Observable<boolean> {
  * @returns Print mode observable
  */
 export function watchPrint(): Observable<void> {
-  return fromEvent(window, 'beforeprint').pipe(mapTo(undefined));
+  return fromEvent(window, "beforeprint")
+    .pipe(
+      mapTo(undefined)
+    )
 }
 
 /* ------------------------------------------------------------------------- */
@@ -68,8 +83,10 @@ export function watchPrint(): Observable<void> {
  * @returns Toggled observable
  */
 export function at<T>(
-  query$: Observable<boolean>,
-  factory: () => Observable<T>,
+  query$: Observable<boolean>, factory: () => Observable<T>
 ): Observable<T> {
-  return query$.pipe(switchMap((active) => (active ? factory() : NEVER)));
+  return query$
+    .pipe(
+      switchMap(active => active ? factory() : NEVER)
+    )
 }

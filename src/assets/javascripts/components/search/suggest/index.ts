@@ -20,25 +20,29 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject, asyncScheduler, fromEvent } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  asyncScheduler,
+  fromEvent
+} from "rxjs"
 import {
   combineLatestWith,
   distinctUntilChanged,
   filter,
-  finalize,
   map,
   observeOn,
-  tap,
-} from 'rxjs/operators';
+  tap
+} from "rxjs/operators"
 
-import { Keyboard } from '~/browser';
+import { Keyboard } from "~/browser"
 import {
   SearchResult,
   SearchWorker,
-  isSearchResultMessage,
-} from '~/integrations';
+  isSearchResultMessage
+} from "~/integrations"
 
-import { Component, getComponentElement } from '../../_';
+import { Component, getComponentElement } from "../../_"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -57,7 +61,7 @@ export interface SearchSuggest {}
  * Mount options
  */
 interface MountOptions {
-  keyboard$: Observable<Keyboard> /* Keyboard observable */;
+  keyboard$: Observable<Keyboard>      /* Keyboard observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -77,61 +81,70 @@ interface MountOptions {
  * @returns Search result list component observable
  */
 export function mountSearchSuggest(
-  el: HTMLElement,
-  { rx$ }: SearchWorker,
-  { keyboard$ }: MountOptions,
+  el: HTMLElement, { rx$ }: SearchWorker, { keyboard$ }: MountOptions
 ): Observable<Component<SearchSuggest>> {
-  const internal$ = new Subject<SearchResult>();
+  const internal$ = new Subject<SearchResult>()
 
   /* Retrieve query component and track all changes */
-  const query = getComponentElement('search-query');
-  const query$ = fromEvent(query, 'keydown').pipe(
-    observeOn(asyncScheduler),
-    map(() => query.value),
-    distinctUntilChanged(),
-  );
+  const query  = getComponentElement("search-query")
+  const query$ = fromEvent(query, "keydown")
+    .pipe(
+      observeOn(asyncScheduler),
+      map(() => query.value),
+      distinctUntilChanged(),
+    )
 
   /* Update search suggestions */
   internal$
     .pipe(
       combineLatestWith(query$),
       map(([{ suggestions }, value]) => {
-        const words = value.split(/([\s-]+)/);
+        const words = value.split(/([\s-]+)/)
         if (suggestions?.length && words[words.length - 1]) {
-          const last = suggestions[suggestions.length - 1];
+          const last = suggestions[suggestions.length - 1]
           if (last.startsWith(words[words.length - 1]))
-            words[words.length - 1] = last;
+            words[words.length - 1] = last
         } else {
-          words.length = 0;
+          words.length = 0
         }
-        return words;
-      }),
+        return words
+      })
     )
-    .subscribe(
-      (words) => (el.innerHTML = words.join('').replace(/\s/g, '&nbsp;')),
-    );
+      .subscribe(words => el.innerHTML = words
+        .join("")
+        .replace(/\s/g, "&nbsp;")
+      )
 
   /* Set up search keyboard handlers */
-  keyboard$.pipe(filter(({ mode }) => mode === 'search')).subscribe((key) => {
-    switch (key.type) {
-      /* Right arrow: accept current suggestion */
-      case 'ArrowRight':
-        if (el.innerText.length && query.selectionStart === query.value.length)
-          query.value = el.innerText;
-        break;
-    }
-  });
+  keyboard$
+    .pipe(
+      filter(({ mode }) => mode === "search")
+    )
+      .subscribe(key => {
+        switch (key.type) {
+
+          /* Right arrow: accept current suggestion */
+          case "ArrowRight":
+            if (
+              el.innerText.length &&
+              query.selectionStart === query.value.length
+            )
+              query.value = el.innerText
+            break
+        }
+      })
 
   /* Filter search result message */
-  const result$ = rx$.pipe(
-    filter(isSearchResultMessage),
-    map(({ data }) => data),
-  );
+  const result$ = rx$
+    .pipe(
+      filter(isSearchResultMessage),
+      map(({ data }) => data)
+    )
 
   /* Create and return component */
-  return result$.pipe(
-    tap(internal$),
-    finalize(() => internal$.complete()),
-    map(() => ({ ref: el })),
-  );
+  return result$
+    .pipe(
+      tap(internal$),
+      map(() => ({ ref: el }))
+    )
 }

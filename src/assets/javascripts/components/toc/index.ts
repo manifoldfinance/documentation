@@ -26,38 +26,37 @@ import {
   animationFrameScheduler,
   combineLatest,
   defer,
-  of,
-} from 'rxjs';
+  of
+} from "rxjs"
 import {
   bufferCount,
   distinctUntilChanged,
   distinctUntilKeyChanged,
-  finalize,
   map,
   observeOn,
   scan,
   startWith,
   switchMap,
-  tap,
-} from 'rxjs/operators';
+  tap
+} from "rxjs/operators"
 
-import { feature } from '~/_';
+import { feature } from "~/_"
 import {
   resetAnchorActive,
   resetAnchorState,
   setAnchorActive,
-  setAnchorState,
-} from '~/actions';
+  setAnchorState
+} from "~/actions"
 import {
   Viewport,
   getElement,
   getElements,
   getLocation,
-  watchElementSize,
-} from '~/browser';
+  watchElementSize
+} from "~/browser"
 
-import { Component } from '../_';
-import { Header } from '../header';
+import { Component } from "../_"
+import { Header } from "../header"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -67,8 +66,8 @@ import { Header } from '../header';
  * Table of contents
  */
 export interface TableOfContents {
-  prev: HTMLAnchorElement[][] /* Anchors (previous) */;
-  next: HTMLAnchorElement[][] /* Anchors (next) */;
+  prev: HTMLAnchorElement[][]          /* Anchors (previous) */
+  next: HTMLAnchorElement[][]          /* Anchors (next) */
 }
 
 /* ----------------------------------------------------------------------------
@@ -79,16 +78,16 @@ export interface TableOfContents {
  * Watch options
  */
 interface WatchOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
-  header$: Observable<Header> /* Header observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
+  header$: Observable<Header>          /* Header observable */
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
-  header$: Observable<Header> /* Header observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
+  header$: Observable<Header>          /* Header observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -116,131 +115,130 @@ interface MountOptions {
  * @returns Table of contents observable
  */
 export function watchTableOfContents(
-  el: HTMLElement,
-  { viewport$, header$ }: WatchOptions,
+  el: HTMLElement, { viewport$, header$ }: WatchOptions
 ): Observable<TableOfContents> {
-  const table = new Map<HTMLAnchorElement, HTMLElement>();
+  const table = new Map<HTMLAnchorElement, HTMLElement>()
 
   /* Compute anchor-to-target mapping */
-  const anchors = getElements<HTMLAnchorElement>('[href^=\\#]', el);
+  const anchors = getElements<HTMLAnchorElement>("[href^=\\#]", el)
   for (const anchor of anchors) {
-    const id = decodeURIComponent(anchor.hash.substring(1));
-    const target = getElement(`[id="${id}"]`);
-    if (typeof target !== 'undefined') table.set(anchor, target);
+    const id = decodeURIComponent(anchor.hash.substring(1))
+    const target = getElement(`[id="${id}"]`)
+    if (typeof target !== "undefined")
+      table.set(anchor, target)
   }
 
   /* Compute necessary adjustment for header */
-  const adjust$ = header$.pipe(map((header) => 24 + header.height));
+  const adjust$ = header$
+    .pipe(
+      map(header => 24 + header.height)
+    )
 
   /* Compute partition of previous and next anchors */
-  const partition$ = watchElementSize(document.body).pipe(
-    distinctUntilKeyChanged('height'),
+  const partition$ = watchElementSize(document.body)
+    .pipe(
+      distinctUntilKeyChanged("height"),
 
-    /* Build index to map anchor paths to vertical offsets */
-    switchMap((body) =>
-      defer(() => {
-        let path: HTMLAnchorElement[] = [];
-        return of(
-          [...table].reduce((index, [anchor, target]) => {
-            while (path.length) {
-              const last = table.get(path[path.length - 1])!;
-              if (last.tagName >= target.tagName) {
-                path.pop();
-              } else {
-                break;
-              }
+      /* Build index to map anchor paths to vertical offsets */
+      switchMap(body => defer(() => {
+        let path: HTMLAnchorElement[] = []
+        return of([...table].reduce((index, [anchor, target]) => {
+          while (path.length) {
+            const last = table.get(path[path.length - 1])!
+            if (last.tagName >= target.tagName) {
+              path.pop()
+            } else {
+              break
             }
+          }
 
-            /* If the current anchor is hidden, continue with its parent */
-            let offset = target.offsetTop;
-            while (!offset && target.parentElement) {
-              target = target.parentElement;
-              offset = target.offsetTop;
-            }
+          /* If the current anchor is hidden, continue with its parent */
+          let offset = target.offsetTop
+          while (!offset && target.parentElement) {
+            target = target.parentElement
+            offset = target.offsetTop
+          }
 
-            /* Map reversed anchor path to vertical offset */
-            return index.set([...(path = [...path, anchor])].reverse(), offset);
-          }, new Map<HTMLAnchorElement[], number>()),
-        );
-      }).pipe(
-        /* Sort index by vertical offset (see https://bit.ly/30z6QSO) */
-        map((index) => new Map([...index].sort(([, a], [, b]) => a - b))),
+          /* Map reversed anchor path to vertical offset */
+          return index.set(
+            [...path = [...path, anchor]].reverse(),
+            offset
+          )
+        }, new Map<HTMLAnchorElement[], number>()))
+      })
+        .pipe(
 
-        /* Re-compute partition when viewport offset changes */
-        switchMap((index) =>
-          combineLatest([viewport$, adjust$]).pipe(
-            scan(
-              (
-                [prev, next],
-                [
-                  {
-                    offset: { y },
-                    size,
-                  },
-                  adjust,
-                ],
-              ) => {
-                const last = y + size.height >= Math.floor(body.height);
+          /* Sort index by vertical offset (see https://bit.ly/30z6QSO) */
+          map(index => new Map([...index].sort(([, a], [, b]) => a - b))),
+
+          /* Re-compute partition when viewport offset changes */
+          switchMap(index => combineLatest([viewport$, adjust$])
+            .pipe(
+              scan(([prev, next], [{ offset: { y }, size }, adjust]) => {
+                const last = y + size.height >= Math.floor(body.height)
 
                 /* Look forward */
                 while (next.length) {
-                  const [, offset] = next[0];
+                  const [, offset] = next[0]
                   if (offset - adjust < y || last) {
-                    prev = [...prev, next.shift()!];
+                    prev = [...prev, next.shift()!]
                   } else {
-                    break;
+                    break
                   }
                 }
 
                 /* Look backward */
                 while (prev.length) {
-                  const [, offset] = prev[prev.length - 1];
+                  const [, offset] = prev[prev.length - 1]
                   if (offset - adjust >= y && !last) {
-                    next = [prev.pop()!, ...next];
+                    next = [prev.pop()!, ...next]
                   } else {
-                    break;
+                    break
                   }
                 }
 
                 /* Return partition */
-                return [prev, next];
-              },
-              [[], [...index]],
-            ),
-            distinctUntilChanged((a, b) => a[0] === b[0] && a[1] === b[1]),
-          ),
-        ),
-      ),
-    ),
-  );
+                return [prev, next]
+              }, [[], [...index]]),
+              distinctUntilChanged((a, b) => (
+                a[0] === b[0] &&
+                a[1] === b[1]
+              ))
+            )
+          )
+        )
+      )
+    )
 
   /* Compute and return anchor list migrations */
-  return partition$.pipe(
-    map(([prev, next]) => ({
-      prev: prev.map(([path]) => path),
-      next: next.map(([path]) => path),
-    })),
+  return partition$
+    .pipe(
+      map(([prev, next]) => ({
+        prev: prev.map(([path]) => path),
+        next: next.map(([path]) => path)
+      })),
 
-    /* Extract anchor list migrations */
-    startWith({ prev: [], next: [] }),
-    bufferCount(2, 1),
-    map(([a, b]) => {
-      /* Moving down */
-      if (a.prev.length < b.prev.length) {
-        return {
-          prev: b.prev.slice(Math.max(0, a.prev.length - 1), b.prev.length),
-          next: [],
-        };
+      /* Extract anchor list migrations */
+      startWith({ prev: [], next: [] }),
+      bufferCount(2, 1),
+      map(([a, b]) => {
+
+        /* Moving down */
+        if (a.prev.length < b.prev.length) {
+          return {
+            prev: b.prev.slice(Math.max(0, a.prev.length - 1), b.prev.length),
+            next: []
+          }
 
         /* Moving up */
-      } else {
-        return {
-          prev: b.prev.slice(-1),
-          next: b.next.slice(0, b.next.length - a.next.length),
-        };
-      }
-    }),
-  );
+        } else {
+          return {
+            prev: b.prev.slice(-1),
+            next: b.next.slice(0, b.next.length - a.next.length)
+          }
+        }
+      })
+    )
 }
 
 /* ------------------------------------------------------------------------- */
@@ -254,51 +252,53 @@ export function watchTableOfContents(
  * @returns Table of contents component observable
  */
 export function mountTableOfContents(
-  el: HTMLElement,
-  options: MountOptions,
+  el: HTMLElement, options: MountOptions
 ): Observable<Component<TableOfContents>> {
-  const internal$ = new Subject<TableOfContents>();
+  const internal$ = new Subject<TableOfContents>()
   internal$
-    .pipe(observeOn(animationFrameScheduler))
-    .subscribe(({ prev, next }) => {
-      /* Look forward */
-      for (const [anchor] of next) {
-        resetAnchorActive(anchor);
-        resetAnchorState(anchor);
-      }
+    .pipe(
+      observeOn(animationFrameScheduler),
+    )
+      .subscribe(({ prev, next }) => {
 
-      /* Look backward */
-      for (const [index, [anchor]] of prev.entries()) {
-        setAnchorActive(anchor, index === prev.length - 1);
-        setAnchorState(anchor, 'blur');
-      }
+        /* Look forward */
+        for (const [anchor] of next) {
+          resetAnchorActive(anchor)
+          resetAnchorState(anchor)
+        }
 
-      /* Set up anchor tracking, if enabled */
-      if (feature('navigation.tracking')) {
-        const url = getLocation();
+        /* Look backward */
+        for (const [index, [anchor]] of prev.entries()) {
+          setAnchorActive(anchor, index === prev.length - 1)
+          setAnchorState(anchor, "blur")
+        }
 
-        /* Set hash fragment to active anchor */
-        const anchor = prev[prev.length - 1];
-        if (anchor && anchor.length) {
-          const [active] = anchor;
-          const { hash } = new URL(active.href);
-          if (url.hash !== hash) {
-            url.hash = hash;
-            history.replaceState({}, '', `${url}`);
-          }
+        /* Set up anchor tracking, if enabled */
+        if (feature("navigation.tracking")) {
+          const url = getLocation()
+
+          /* Set hash fragment to active anchor */
+          const anchor = prev[prev.length - 1]
+          if (anchor && anchor.length) {
+            const [active] = anchor
+            const { hash } = new URL(active.href)
+            if (url.hash !== hash) {
+              url.hash = hash
+              history.replaceState({}, "", `${url}`)
+            }
 
           /* Reset anchor when at the top */
-        } else {
-          url.hash = '';
-          history.replaceState({}, '', `${url}`);
+          } else {
+            url.hash = ""
+            history.replaceState({}, "", `${url}`)
+          }
         }
-      }
-    });
+      })
 
   /* Create and return component */
-  return watchTableOfContents(el, options).pipe(
-    tap(internal$),
-    finalize(() => internal$.complete()),
-    map((state) => ({ ref: el, ...state })),
-  );
+  return watchTableOfContents(el, options)
+    .pipe(
+      tap(internal$),
+      map(state => ({ ref: el, ...state }))
+    )
 }

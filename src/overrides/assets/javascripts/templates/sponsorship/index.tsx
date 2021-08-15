@@ -20,9 +20,9 @@
  * IN THE SOFTWARE.
  */
 
-import { h } from '~/utilities';
+import { h } from "~/utilities"
 
-import { SponsorUser } from '_/components';
+import { SponsorUser } from "_/components"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -35,13 +35,15 @@ import { SponsorUser } from '_/components';
  *
  * @returns Element
  */
-export function renderPublicSponsor(user: SponsorUser): HTMLElement {
-  const title = `@${user.name}`;
+export function renderPublicSponsor(
+  user: SponsorUser
+): HTMLElement {
+  const title = `@${user.name}`
   return (
     <a href={user.url} title={title} class="mdx-sponsorship__item">
       <img src={user.image} />
     </a>
-  );
+  )
 }
 
 /**
@@ -51,7 +53,9 @@ export function renderPublicSponsor(user: SponsorUser): HTMLElement {
  *
  * @returns Element
  */
-export function renderPrivateSponsor(count: number): HTMLElement {
+export function renderPrivateSponsor(
+  count: number
+): HTMLElement {
   return (
     <a
       href="https://github.com/sponsors/squidfunk"
@@ -59,5 +63,5 @@ export function renderPrivateSponsor(count: number): HTMLElement {
     >
       +{count}
     </a>
-  );
+  )
 }

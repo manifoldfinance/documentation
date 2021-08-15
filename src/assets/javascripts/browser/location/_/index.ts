@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { Subject } from 'rxjs';
+import { Subject } from "rxjs"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -37,7 +37,7 @@ import { Subject } from 'rxjs';
  * @returns URL
  */
 export function getLocation(): URL {
-  return new URL(location.href);
+  return new URL(location.href)
 }
 
 /**
@@ -46,7 +46,7 @@ export function getLocation(): URL {
  * @param url - URL to change to
  */
 export function setLocation(url: URL): void {
-  location.href = url.href;
+  location.href = url.href
 }
 
 /* ------------------------------------------------------------------------- */
@@ -57,5 +57,5 @@ export function setLocation(url: URL): void {
  * @returns Location subject
  */
 export function watchLocation(): Subject<URL> {
-  return new Subject<URL>();
+  return new Subject<URL>()
 }

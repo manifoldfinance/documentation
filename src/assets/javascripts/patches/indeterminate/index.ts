@@ -20,17 +20,17 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent, of } from 'rxjs';
+import { Observable, fromEvent, of } from "rxjs"
 import {
   mapTo,
   mergeMap,
   switchMap,
   takeWhile,
   tap,
-  withLatestFrom,
-} from 'rxjs/operators';
+  withLatestFrom
+} from "rxjs/operators"
 
-import { getElements } from '~/browser';
+import { getElements } from "~/browser"
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -40,8 +40,8 @@ import { getElements } from '~/browser';
  * Patch options
  */
 interface PatchOptions {
-  document$: Observable<Document> /* Document observable */;
-  tablet$: Observable<boolean> /* Tablet breakpoint observable */;
+  document$: Observable<Document>      /* Document observable */
+  tablet$: Observable<boolean>         /* Tablet breakpoint observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -56,26 +56,29 @@ interface PatchOptions {
  *
  * @param options - Options
  */
-export function patchIndeterminate({ document$, tablet$ }: PatchOptions): void {
+export function patchIndeterminate(
+  { document$, tablet$ }: PatchOptions
+): void {
   document$
     .pipe(
-      switchMap(() =>
-        of(...getElements<HTMLInputElement>('[data-md-state=indeterminate]')),
-      ),
-      tap((el) => {
-        el.indeterminate = true;
-        el.checked = false;
+      switchMap(() => of(...getElements<HTMLInputElement>(
+        "[data-md-state=indeterminate]"
+      ))),
+      tap(el => {
+        el.indeterminate = true
+        el.checked = false
       }),
-      mergeMap((el) =>
-        fromEvent(el, 'change').pipe(
-          takeWhile(() => el.hasAttribute('data-md-state')),
-          mapTo(el),
-        ),
+      mergeMap(el => fromEvent(el, "change")
+        .pipe(
+          takeWhile(() => el.hasAttribute("data-md-state")),
+          mapTo(el)
+        )
       ),
-      withLatestFrom(tablet$),
+      withLatestFrom(tablet$)
     )
-    .subscribe(([el, tablet]) => {
-      el.removeAttribute('data-md-state');
-      if (tablet) el.checked = false;
-    });
+      .subscribe(([el, tablet]) => {
+        el.removeAttribute("data-md-state")
+        if (tablet)
+          el.checked = false
+      })
 }

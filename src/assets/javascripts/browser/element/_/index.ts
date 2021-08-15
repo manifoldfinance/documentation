@@ -35,20 +35,17 @@
  * @returns Element or nothing
  */
 export function getElement<T extends keyof HTMLElementTagNameMap>(
-  selector: T,
-  node?: ParentNode,
-): HTMLElementTagNameMap[T];
+  selector: T, node?: ParentNode
+): HTMLElementTagNameMap[T]
 
 export function getElement<T extends HTMLElement>(
-  selector: string,
-  node?: ParentNode,
-): T | undefined;
+  selector: string, node?: ParentNode
+): T | undefined
 
 export function getElement<T extends HTMLElement>(
-  selector: string,
-  node: ParentNode = document,
+  selector: string, node: ParentNode = document
 ): T | undefined {
-  return node.querySelector<T>(selector) || undefined;
+  return node.querySelector<T>(selector) || undefined
 }
 
 /**
@@ -62,25 +59,22 @@ export function getElement<T extends HTMLElement>(
  * @returns Element
  */
 export function getElementOrThrow<T extends keyof HTMLElementTagNameMap>(
-  selector: T,
-  node?: ParentNode,
-): HTMLElementTagNameMap[T];
+  selector: T, node?: ParentNode
+): HTMLElementTagNameMap[T]
 
 export function getElementOrThrow<T extends HTMLElement>(
-  selector: string,
-  node?: ParentNode,
-): T;
+  selector: string, node?: ParentNode
+): T
 
 export function getElementOrThrow<T extends HTMLElement>(
-  selector: string,
-  node: ParentNode = document,
+  selector: string, node: ParentNode = document
 ): T {
-  const el = getElement<T>(selector, node);
-  if (typeof el === 'undefined')
+  const el = getElement<T>(selector, node)
+  if (typeof el === "undefined")
     throw new ReferenceError(
-      `Missing element: expected "${selector}" to be present`,
-    );
-  return el;
+      `Missing element: expected "${selector}" to be present`
+    )
+  return el
 }
 
 /**
@@ -91,7 +85,7 @@ export function getElementOrThrow<T extends HTMLElement>(
 export function getActiveElement(): HTMLElement | undefined {
   return document.activeElement instanceof HTMLElement
     ? document.activeElement
-    : undefined;
+    : undefined
 }
 
 /**
@@ -105,20 +99,17 @@ export function getActiveElement(): HTMLElement | undefined {
  * @returns Elements
  */
 export function getElements<T extends keyof HTMLElementTagNameMap>(
-  selector: T,
-  node?: ParentNode,
-): HTMLElementTagNameMap[T][];
+  selector: T, node?: ParentNode
+): HTMLElementTagNameMap[T][]
 
 export function getElements<T extends HTMLElement>(
-  selector: string,
-  node?: ParentNode,
-): T[];
+  selector: string, node?: ParentNode
+): T[]
 
 export function getElements<T extends HTMLElement>(
-  selector: string,
-  node: ParentNode = document,
+  selector: string, node: ParentNode = document
 ): T[] {
-  return Array.from(node.querySelectorAll<T>(selector));
+  return Array.from(node.querySelectorAll<T>(selector))
 }
 
 /* ------------------------------------------------------------------------- */
@@ -133,9 +124,9 @@ export function getElements<T extends HTMLElement>(
  * @returns Element
  */
 export function createElement<T extends keyof HTMLElementTagNameMap>(
-  tagName: T,
+  tagName: T
 ): HTMLElementTagNameMap[T] {
-  return document.createElement(tagName);
+  return document.createElement(tagName)
 }
 
 /**
@@ -144,6 +135,8 @@ export function createElement<T extends keyof HTMLElementTagNameMap>(
  * @param el - Element
  * @param nodes - Replacement nodes
  */
-export function replaceElement(el: HTMLElement, ...nodes: Node[]): void {
-  el.replaceWith(...nodes);
+export function replaceElement(
+  el: HTMLElement, ...nodes: Node[]
+): void {
+  el.replaceWith(...nodes)
 }

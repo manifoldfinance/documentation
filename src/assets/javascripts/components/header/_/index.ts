@@ -26,8 +26,8 @@ import {
   animationFrameScheduler,
   combineLatest,
   defer,
-  of,
-} from 'rxjs';
+  of
+} from "rxjs"
 import {
   bufferCount,
   combineLatestWith,
@@ -38,15 +38,19 @@ import {
   observeOn,
   shareReplay,
   startWith,
-  switchMap,
-} from 'rxjs/operators';
+  switchMap
+} from "rxjs/operators"
 
-import { feature } from '~/_';
-import { resetHeaderState, setHeaderState } from '~/actions';
-import { Viewport, watchElementSize, watchToggle } from '~/browser';
+import { feature } from "~/_"
+import { resetHeaderState, setHeaderState } from "~/actions"
+import {
+  Viewport,
+  watchElementSize,
+  watchToggle
+} from "~/browser"
 
-import { Component } from '../../_';
-import { Main } from '../../main';
+import { Component } from "../../_"
+import { Main } from "../../main"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -56,9 +60,9 @@ import { Main } from '../../main';
  * Header
  */
 export interface Header {
-  height: number /* Header visible height */;
-  sticky: boolean /* Header stickyness */;
-  hidden: boolean /* User scrolled past threshold */;
+  height: number                       /* Header visible height */
+  sticky: boolean                      /* Header stickyness */
+  hidden: boolean                      /* User scrolled past threshold */
 }
 
 /* ----------------------------------------------------------------------------
@@ -69,16 +73,16 @@ export interface Header {
  * Watch options
  */
 interface WatchOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
-  header$: Observable<Header> /* Header observable */;
-  main$: Observable<Main> /* Main area observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
+  header$: Observable<Header>          /* Header observable */
+  main$: Observable<Main>              /* Main area observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -96,31 +100,35 @@ interface MountOptions {
  * @returns Toggle observable
  */
 function isHidden({ viewport$ }: WatchOptions): Observable<boolean> {
-  if (!feature('header.autohide')) return of(false);
+  if (!feature("header.autohide"))
+    return of(false)
 
   /* Compute direction and turning point */
-  const direction$ = viewport$.pipe(
-    map(({ offset: { y } }) => y),
-    bufferCount(2, 1),
-    map(([a, b]) => [a < b, b] as const),
-    distinctUntilKeyChanged(0),
-  );
+  const direction$ = viewport$
+    .pipe(
+      map(({ offset: { y } }) => y),
+      bufferCount(2, 1),
+      map(([a, b]) => [a < b, b] as const),
+      distinctUntilKeyChanged(0)
+    )
 
   /* Compute whether header should be hidden */
-  const hidden$ = combineLatest([viewport$, direction$]).pipe(
-    filter(([{ offset }, [, y]]) => Math.abs(y - offset.y) > 100),
-    map(([, [direction]]) => direction),
-    distinctUntilChanged(),
-  );
+  const hidden$ = combineLatest([viewport$, direction$])
+    .pipe(
+      filter(([{ offset }, [, y]]) => Math.abs(y - offset.y) > 100),
+      map(([, [direction]]) => direction),
+      distinctUntilChanged()
+    )
 
   /* Compute threshold for hiding */
-  const search$ = watchToggle('search');
-  return combineLatest([viewport$, search$]).pipe(
-    map(([{ offset }, search]) => offset.y > 400 && !search),
-    distinctUntilChanged(),
-    switchMap((active) => (active ? hidden$ : of(false))),
-    startWith(false),
-  );
+  const search$ = watchToggle("search")
+  return combineLatest([viewport$, search$])
+    .pipe(
+      map(([{ offset }, search]) => offset.y > 400 && !search),
+      distinctUntilChanged(),
+      switchMap(active => active ? hidden$ : of(false)),
+      startWith(false)
+    )
 }
 
 /* ----------------------------------------------------------------------------
@@ -136,27 +144,29 @@ function isHidden({ viewport$ }: WatchOptions): Observable<boolean> {
  * @returns Header observable
  */
 export function watchHeader(
-  el: HTMLElement,
-  options: WatchOptions,
+  el: HTMLElement, options: WatchOptions
 ): Observable<Header> {
   return defer(() => {
-    const styles = getComputedStyle(el);
+    const styles = getComputedStyle(el)
     return of(
-      styles.position === 'sticky' || styles.position === '-webkit-sticky',
-    );
-  }).pipe(
-    combineLatestWith(watchElementSize(el), isHidden(options)),
-    map(([sticky, { height }, hidden]) => ({
-      height: sticky ? height : 0,
-      sticky,
-      hidden,
-    })),
-    distinctUntilChanged(
-      (a, b) =>
-        a.sticky === b.sticky && a.height === b.height && a.hidden === b.hidden,
-    ),
-    shareReplay(1),
-  );
+      styles.position === "sticky" ||
+      styles.position === "-webkit-sticky"
+    )
+  })
+    .pipe(
+      combineLatestWith(watchElementSize(el), isHidden(options)),
+      map(([sticky, { height }, hidden]) => ({
+        height: sticky ? height : 0,
+        sticky,
+        hidden
+      })),
+      distinctUntilChanged((a, b) => (
+        a.sticky === b.sticky &&
+        a.height === b.height &&
+        a.hidden === b.hidden
+      )),
+      shareReplay(1)
+    )
 }
 
 /**
@@ -171,22 +181,26 @@ export function watchHeader(
  * @returns Header component observable
  */
 export function mountHeader(
-  el: HTMLElement,
-  { header$, main$ }: MountOptions,
+  el: HTMLElement, { header$, main$ }: MountOptions
 ): Observable<Component<Header>> {
-  const internal$ = new Subject<Main>();
+  const internal$ = new Subject<Main>()
   internal$
     .pipe(
-      distinctUntilKeyChanged('active'),
+      distinctUntilKeyChanged("active"),
       combineLatestWith(header$),
-      observeOn(animationFrameScheduler),
+      observeOn(animationFrameScheduler)
     )
-    .subscribe(([{ active }, { hidden }]) => {
-      if (active) setHeaderState(el, hidden ? 'hidden' : 'shadow');
-      else resetHeaderState(el);
-    });
+      .subscribe(([{ active }, { hidden }]) => {
+        if (active)
+          setHeaderState(el, hidden ? "hidden" : "shadow")
+        else
+          resetHeaderState(el)
+      })
 
   /* Connect to long-living subject and return component */
-  main$.subscribe((main) => internal$.next(main));
-  return header$.pipe(map((state) => ({ ref: el, ...state })));
+  main$.subscribe(main => internal$.next(main))
+  return header$
+    .pipe(
+      map(state => ({ ref: el, ...state }))
+    )
 }

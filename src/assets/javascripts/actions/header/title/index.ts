@@ -30,8 +30,10 @@
  * @param el - Header title element
  * @param state - Header title state
  */
-export function setHeaderTitleState(el: HTMLElement, state: 'active'): void {
-  el.setAttribute('data-md-state', state);
+export function setHeaderTitleState(
+  el: HTMLElement, state: "active"
+): void {
+  el.setAttribute("data-md-state", state)
 }
 
 /**
@@ -39,6 +41,8 @@ export function setHeaderTitleState(el: HTMLElement, state: 'active'): void {
  *
  * @param el - Header title element
  */
-export function resetHeaderTitleState(el: HTMLElement): void {
-  el.removeAttribute('data-md-state');
+export function resetHeaderTitleState(
+  el: HTMLElement
+): void {
+  el.removeAttribute("data-md-state")
 }

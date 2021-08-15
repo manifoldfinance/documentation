@@ -20,22 +20,30 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject, animationFrameScheduler, of } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  animationFrameScheduler,
+  of
+} from "rxjs"
 import {
   distinctUntilKeyChanged,
-  finalize,
   map,
   observeOn,
   switchMap,
-  tap,
-} from 'rxjs/operators';
+  tap
+} from "rxjs/operators"
 
-import { feature } from '~/_';
-import { resetTabsState, setTabsState } from '~/actions';
-import { Viewport, watchElementSize, watchViewportAt } from '~/browser';
+import { feature } from "~/_"
+import { resetTabsState, setTabsState } from "~/actions"
+import {
+  Viewport,
+  watchElementSize,
+  watchViewportAt
+} from "~/browser"
 
-import { Component } from '../_';
-import { Header } from '../header';
+import { Component } from "../_"
+import { Header } from "../header"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -45,7 +53,7 @@ import { Header } from '../header';
  * Navigation tabs
  */
 export interface Tabs {
-  hidden: boolean /* User scrolled past tabs */;
+  hidden: boolean                      /* User scrolled past tabs */
 }
 
 /* ----------------------------------------------------------------------------
@@ -56,16 +64,16 @@ export interface Tabs {
  * Watch options
  */
 interface WatchOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
-  header$: Observable<Header> /* Header observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
+  header$: Observable<Header>          /* Header observable */
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
-  header$: Observable<Header> /* Header observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
+  header$: Observable<Header>          /* Header observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -81,18 +89,18 @@ interface MountOptions {
  * @returns Navigation tabs observable
  */
 export function watchTabs(
-  el: HTMLElement,
-  { viewport$, header$ }: WatchOptions,
+  el: HTMLElement, { viewport$, header$ }: WatchOptions
 ): Observable<Tabs> {
-  return watchElementSize(document.body).pipe(
-    switchMap(() => watchViewportAt(el, { header$, viewport$ })),
-    map(({ offset: { y } }) => {
-      return {
-        hidden: y >= 10,
-      };
-    }),
-    distinctUntilKeyChanged('hidden'),
-  );
+  return watchElementSize(document.body)
+    .pipe(
+      switchMap(() => watchViewportAt(el, { header$, viewport$ })),
+      map(({ offset: { y } }) => {
+        return {
+          hidden: y >= 10
+        }
+      }),
+      distinctUntilKeyChanged("hidden")
+    )
 }
 
 /**
@@ -107,31 +115,37 @@ export function watchTabs(
  * @returns Navigation tabs component observable
  */
 export function mountTabs(
-  el: HTMLElement,
-  options: MountOptions,
+  el: HTMLElement, options: MountOptions
 ): Observable<Component<Tabs>> {
-  const internal$ = new Subject<Tabs>();
-  internal$.pipe(observeOn(animationFrameScheduler)).subscribe({
-    /* Update state */
-    next({ hidden }) {
-      if (hidden) setTabsState(el, 'hidden');
-      else resetTabsState(el);
-    },
+  const internal$ = new Subject<Tabs>()
+  internal$
+    .pipe(
+      observeOn(animationFrameScheduler)
+    )
+      .subscribe({
 
-    /* Reset on complete */
-    complete() {
-      resetTabsState(el);
-    },
-  });
+        /* Update state */
+        next({ hidden }) {
+          if (hidden)
+            setTabsState(el, "hidden")
+          else
+            resetTabsState(el)
+        },
+
+        /* Reset on complete */
+        complete() {
+          resetTabsState(el)
+        }
+      })
 
   /* Create and return component */
   return (
-    feature('navigation.tabs.sticky')
+    feature("navigation.tabs.sticky")
       ? of({ hidden: false })
       : watchTabs(el, options)
-  ).pipe(
-    tap(internal$),
-    finalize(() => internal$.complete()),
-    map((state) => ({ ref: el, ...state })),
-  );
+  )
+    .pipe(
+      tap(internal$),
+      map(state => ({ ref: el, ...state }))
+    )
 }

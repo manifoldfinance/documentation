@@ -24,34 +24,33 @@ import {
   Observable,
   Subject,
   animationFrameScheduler,
-  combineLatest,
-} from 'rxjs';
+  combineLatest
+} from "rxjs"
 import {
   distinctUntilChanged,
-  finalize,
   map,
   observeOn,
   take,
   tap,
-  withLatestFrom,
-} from 'rxjs/operators';
+  withLatestFrom
+} from "rxjs/operators"
 
 import {
   resetSidebarHeight,
   resetSidebarOffset,
   setSidebarHeight,
-  setSidebarOffset,
-} from '~/actions';
+  setSidebarOffset
+} from "~/actions"
 import {
   Viewport,
   getElementContainer,
   getElementSize,
-  getElements,
-} from '~/browser';
+  getElements
+} from "~/browser"
 
-import { Component } from '../_';
-import { Header } from '../header';
-import { Main } from '../main';
+import { Component } from "../_"
+import { Header } from "../header"
+import { Main } from "../main"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -61,8 +60,8 @@ import { Main } from '../main';
  * Sidebar
  */
 export interface Sidebar {
-  height: number /* Sidebar height */;
-  locked: boolean /* User scrolled past header */;
+  height: number                       /* Sidebar height */
+  locked: boolean                      /* User scrolled past header */
 }
 
 /* ----------------------------------------------------------------------------
@@ -73,17 +72,17 @@ export interface Sidebar {
  * Watch options
  */
 interface WatchOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
-  main$: Observable<Main> /* Main area observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
+  main$: Observable<Main>              /* Main area observable */
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  viewport$: Observable<Viewport> /* Viewport observable */;
-  header$: Observable<Header> /* Header observable */;
-  main$: Observable<Main> /* Main area observable */;
+  viewport$: Observable<Viewport>      /* Viewport observable */
+  header$: Observable<Header>          /* Header observable */
+  main$: Observable<Main>              /* Main area observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -104,32 +103,29 @@ interface MountOptions {
  * @returns Sidebar observable
  */
 export function watchSidebar(
-  el: HTMLElement,
-  { viewport$, main$ }: WatchOptions,
+  el: HTMLElement, { viewport$, main$ }: WatchOptions
 ): Observable<Sidebar> {
   const adjust =
-    el.parentElement!.offsetTop - el.parentElement!.parentElement!.offsetTop;
+    el.parentElement!.offsetTop -
+    el.parentElement!.parentElement!.offsetTop
 
   /* Compute the sidebar's available height and if it should be locked */
-  return combineLatest([main$, viewport$]).pipe(
-    map(
-      ([
-        { offset, height },
-        {
-          offset: { y },
-        },
-      ]) => {
-        height = height + Math.min(adjust, Math.max(0, y - offset)) - adjust;
+  return combineLatest([main$, viewport$])
+    .pipe(
+      map(([{ offset, height }, { offset: { y } }]) => {
+        height = height
+          + Math.min(adjust, Math.max(0, y - offset))
+          - adjust
         return {
           height,
-          locked: y >= offset + adjust,
-        };
-      },
-    ),
-    distinctUntilChanged(
-      (a, b) => a.height === b.height && a.locked === b.locked,
-    ),
-  );
+          locked: y >= offset + adjust
+        }
+      }),
+      distinctUntilChanged((a, b) => (
+        a.height === b.height &&
+        a.locked === b.locked
+      ))
+    )
 }
 
 /**
@@ -141,43 +137,51 @@ export function watchSidebar(
  * @returns Sidebar component observable
  */
 export function mountSidebar(
-  el: HTMLElement,
-  { header$, ...options }: MountOptions,
+  el: HTMLElement, { header$, ...options }: MountOptions
 ): Observable<Component<Sidebar>> {
-  const internal$ = new Subject<Sidebar>();
+  const internal$ = new Subject<Sidebar>()
   internal$
-    .pipe(observeOn(animationFrameScheduler), withLatestFrom(header$))
-    .subscribe({
-      /* Update height and offset */
-      next([{ height }, { height: offset }]) {
-        setSidebarHeight(el, height);
-        setSidebarOffset(el, offset);
-      },
+    .pipe(
+      observeOn(animationFrameScheduler),
+      withLatestFrom(header$)
+    )
+      .subscribe({
 
-      /* Reset on complete */
-      complete() {
-        resetSidebarOffset(el);
-        resetSidebarHeight(el);
-      },
-    });
+        /* Update height and offset */
+        next([{ height }, { height: offset }]) {
+          setSidebarHeight(el, height)
+          setSidebarOffset(el, offset)
+        },
+
+        /* Reset on complete */
+        complete() {
+          resetSidebarOffset(el)
+          resetSidebarHeight(el)
+        }
+      })
 
   // TODO: generalize this, so we can also use it in the table of contents
-  internal$.pipe(observeOn(animationFrameScheduler), take(1)).subscribe(() => {
-    for (const item of getElements('.md-nav__link--active[href]', el)) {
-      const container = getElementContainer(item);
-      if (typeof container !== 'undefined') {
-        const offset = item.offsetTop - container.offsetTop;
-        const { height } = getElementSize(container);
-        if (offset - height + item.offsetHeight > 0)
-          container.scrollTo(0, offset - height / 2);
-      }
-    }
-  });
+  internal$
+    .pipe(
+      observeOn(animationFrameScheduler),
+      take(1)
+    )
+      .subscribe(() => {
+        for (const item of getElements(".md-nav__link--active[href]", el)) {
+          const container = getElementContainer(item)
+          if (typeof container !== "undefined") {
+            const offset = item.offsetTop - container.offsetTop
+            const { height } = getElementSize(container)
+            if (offset - height + item.offsetHeight > 0)
+              container.scrollTo(0, offset - height / 2)
+          }
+        }
+      })
 
   /* Create and return component */
-  return watchSidebar(el, options).pipe(
-    tap(internal$),
-    finalize(() => internal$.complete()),
-    map((state) => ({ ref: el, ...state })),
-  );
+  return watchSidebar(el, options)
+    .pipe(
+      tap(internal$),
+      map(state => ({ ref: el, ...state }))
+    )
 }

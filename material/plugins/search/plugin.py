@@ -33,7 +33,6 @@ class SearchPlugin(BasePlugin):
         super().on_pre_build(config)
         self.search_index = SearchIndex(**self.config)
 
-
 # -----------------------------------------------------------------------------
 
 # Search index with support for additional fields

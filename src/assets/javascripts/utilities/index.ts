@@ -20,5 +20,5 @@
  * IN THE SOFTWARE.
  */
 
-export * from './h';
-export * from './string';
+export * from "./h"
+export * from "./string"

@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { configuration, translation } from '~/_';
-import { h } from '~/utilities';
+import { configuration, translation } from "~/_"
+import { h } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -31,9 +31,9 @@ import { h } from '~/utilities';
  * Version
  */
 export interface Version {
-  version: string /* Version identifier */;
-  title: string /* Version title */;
-  aliases: string[] /* Version aliases */;
+  version: string                      /* Version identifier */
+  title: string                        /* Version title */
+  aliases: string[]                    /* Version aliases */
 }
 
 /* ----------------------------------------------------------------------------
@@ -48,17 +48,17 @@ export interface Version {
  * @returns Element
  */
 function renderVersion(version: Version): HTMLElement {
-  const config = configuration();
+  const config = configuration()
 
   /* Ensure trailing slash, see https://bit.ly/3rL5u3f */
-  const url = new URL(`${version.version}/`, config.base);
+  const url = new URL(`../${version.version}/`, config.base)
   return (
     <li class="md-version__item">
       <a href={`${url}`} class="md-version__link">
         {version.title}
       </a>
     </li>
-  );
+  )
 }
 
 /* ----------------------------------------------------------------------------
@@ -74,18 +74,19 @@ function renderVersion(version: Version): HTMLElement {
  * @returns Element
  */
 export function renderVersionSelector(
-  versions: Version[],
-  active: Version,
+  versions: Version[], active: Version
 ): HTMLElement {
   return (
     <div class="md-version">
       <button
         class="md-version__current"
-        aria-label={translation('select.version.title')}
+        aria-label={translation("select.version.title")}
       >
         {active.title}
       </button>
-      <ul class="md-version__list">{versions.map(renderVersion)}</ul>
+      <ul class="md-version__list">
+        {versions.map(renderVersion)}
+      </ul>
     </div>
-  );
+  )
 }

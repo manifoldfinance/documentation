@@ -20,11 +20,11 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, of } from 'rxjs';
-import { defaultIfEmpty, map, tap } from 'rxjs/operators';
+import { Observable, of } from "rxjs"
+import { defaultIfEmpty, map, tap } from "rxjs/operators"
 
-import { configuration } from '~/_';
-import { getElements, requestXML } from '~/browser';
+import { configuration } from "~/_"
+import { getElements, requestXML } from "~/browser"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -33,7 +33,7 @@ import { getElements, requestXML } from '~/browser';
 /**
  * A sitemap, i.e. a list of URLs
  */
-export type Sitemap = string[];
+export type Sitemap = string[]
 
 /* ----------------------------------------------------------------------------
  * Helper functions
@@ -50,20 +50,24 @@ export type Sitemap = string[];
  * @returns URL path parts
  */
 function preprocess(urls: Sitemap): Sitemap {
-  if (urls.length < 2) return [''];
+  if (urls.length < 2)
+    return [""]
 
   /* Take the first two URLs and remove everything after the last slash */
   const [root, next] = [...urls]
     .sort((a, b) => a.length - b.length)
-    .map((url) => url.replace(/[^/]+$/, ''));
+    .map(url => url.replace(/[^/]+$/, ""))
 
   /* Compute common prefix */
-  let index = 0;
-  if (root === next) index = root.length;
-  else while (root.charCodeAt(index) === next.charCodeAt(index)) index++;
+  let index = 0
+  if (root === next)
+    index = root.length
+  else
+    while (root.charCodeAt(index) === next.charCodeAt(index))
+      index++
 
   /* Remove common prefix and return in original order */
-  return urls.map((url) => url.replace(root.slice(0, index), ''));
+  return urls.map(url => url.replace(root.slice(0, index), ""))
 }
 
 /* ----------------------------------------------------------------------------
@@ -78,19 +82,18 @@ function preprocess(urls: Sitemap): Sitemap {
  * @returns Sitemap observable
  */
 export function fetchSitemap(base?: string): Observable<Sitemap> {
-  const cached = __md_get<Sitemap>('__sitemap', sessionStorage, base);
+  const cached = __md_get<Sitemap>("__sitemap", sessionStorage, base)
   if (cached) {
-    return of(cached);
+    return of(cached)
   } else {
-    const config = configuration();
-    return requestXML(new URL('sitemap.xml', base || config.base)).pipe(
-      map((sitemap) =>
-        preprocess(
-          getElements('loc', sitemap).map((node) => node.textContent!),
-        ),
-      ),
-      defaultIfEmpty([]),
-      tap((sitemap) => __md_set('__sitemap', sitemap, sessionStorage, base)),
-    );
+    const config = configuration()
+    return requestXML(new URL("sitemap.xml", base || config.base))
+      .pipe(
+        map(sitemap => preprocess(getElements("loc", sitemap)
+          .map(node => node.textContent!)
+        )),
+        defaultIfEmpty([]),
+        tap(sitemap => __md_set("__sitemap", sitemap, sessionStorage, base))
+      )
   }
 }

@@ -20,10 +20,14 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject, animationFrameScheduler } from 'rxjs';
-import { finalize, map, observeOn, tap } from 'rxjs/operators';
+import {
+  Observable,
+  Subject,
+  animationFrameScheduler
+} from "rxjs"
+import { map, observeOn, tap } from "rxjs/operators"
 
-import { Component } from '../_';
+import { Component } from "../_"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -33,7 +37,7 @@ import { Component } from '../_';
  * Consent
  */
 export interface Consent {
-  hidden: boolean /* User accepted consent */;
+  hidden: boolean                      /* User accepted consent */
 }
 
 /* ----------------------------------------------------------------------------
@@ -44,14 +48,14 @@ export interface Consent {
  * Watch options
  */
 interface WatchOptions {
-  target$: Observable<HTMLElement> /* Target observable */;
+  target$: Observable<HTMLElement>     /* Target observable */
 }
 
 /**
  * Mount options
  */
 interface MountOptions {
-  target$: Observable<HTMLElement> /* Target observable */;
+  target$: Observable<HTMLElement>     /* Target observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -67,14 +71,14 @@ interface MountOptions {
  * @returns Consent observable
  */
 export function watchConsent(
-  el: HTMLElement,
-  { target$ }: WatchOptions,
+  el: HTMLElement, { target$ }: WatchOptions
 ): Observable<Consent> {
-  return target$.pipe(
-    map((target) => ({
-      hidden: target !== el,
-    })),
-  );
+  return target$
+    .pipe(
+      map(target => ({
+        hidden: target !== el
+      }))
+    )
 }
 
 /* ------------------------------------------------------------------------- */
@@ -88,18 +92,21 @@ export function watchConsent(
  * @returns Consent component observable
  */
 export function mountConsent(
-  el: HTMLElement,
-  options: MountOptions,
+  el: HTMLElement, options: MountOptions
 ): Observable<Component<Consent>> {
-  const internal$ = new Subject<Consent>();
-  internal$.pipe(observeOn(animationFrameScheduler)).subscribe(({ hidden }) => {
-    el.hidden = hidden;
-  });
+  const internal$ = new Subject<Consent>()
+  internal$
+    .pipe(
+      observeOn(animationFrameScheduler)
+    )
+      .subscribe(({ hidden }) => {
+        el.hidden = hidden
+      })
 
   /* Create and return component */
-  return watchConsent(el, options).pipe(
-    tap(internal$),
-    finalize(() => internal$.complete()),
-    map((state) => ({ ref: el, ...state })),
-  );
+  return watchConsent(el, options)
+    .pipe(
+      tap(internal$),
+      map(state => ({ ref: el, ...state }))
+    )
 }

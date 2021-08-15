@@ -30,8 +30,10 @@
  * @param el - Dialog element
  * @param value - Dialog message
  */
-export function setDialogMessage(el: HTMLElement, value: string): void {
-  el.firstElementChild!.innerHTML = value;
+export function setDialogMessage(
+  el: HTMLElement, value: string
+): void {
+  el.firstElementChild!.innerHTML = value
 }
 
 /* ------------------------------------------------------------------------- */
@@ -42,8 +44,10 @@ export function setDialogMessage(el: HTMLElement, value: string): void {
  * @param el - Dialog element
  * @param state - Dialog state
  */
-export function setDialogState(el: HTMLElement, state: 'open'): void {
-  el.setAttribute('data-md-state', state);
+export function setDialogState(
+  el: HTMLElement, state: "open"
+): void {
+  el.setAttribute("data-md-state", state)
 }
 
 /**
@@ -51,6 +55,8 @@ export function setDialogState(el: HTMLElement, state: 'open'): void {
  *
  * @param el - Dialog element
  */
-export function resetDialogState(el: HTMLElement): void {
-  el.removeAttribute('data-md-state');
+export function resetDialogState(
+  el: HTMLElement
+): void {
+  el.removeAttribute("data-md-state")
 }

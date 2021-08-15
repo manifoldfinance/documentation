@@ -38,14 +38,12 @@
  * @returns Truncated value
  */
 export function truncate(value: string, n: number): string {
-  let i = n;
+  let i = n
   if (value.length > i) {
-    while (value[i] !== ' ' && --i > 0) {
-      /* keep eating */
-    }
-    return `${value.substring(0, i)}...`;
+    while (value[i] !== " " && --i > 0) { /* keep eating */ }
+    return `${value.substring(0, i)}...`
   }
-  return value;
+  return value
 }
 
 /**
@@ -66,10 +64,10 @@ export function truncate(value: string, n: number): string {
  */
 export function round(value: number): string {
   if (value > 999) {
-    const digits = +((value - 950) % 1000 > 99);
-    return `${((value + 0.000001) / 1000).toFixed(digits)}k`;
+    const digits = +((value - 950) % 1000 > 99)
+    return `${((value + 0.000001) / 1000).toFixed(digits)}k`
   } else {
-    return value.toString();
+    return value.toString()
   }
 }
 
@@ -83,10 +81,10 @@ export function round(value: number): string {
  * @returns Hash as 32bit integer
  */
 export function hash(value: string): number {
-  let h = 0;
+  let h = 0
   for (let i = 0, len = value.length; i < len; i++) {
-    h = (h << 5) - h + value.charCodeAt(i);
-    h |= 0; // Convert to 32bit integer
+    h  = ((h << 5) - h) + value.charCodeAt(i)
+    h |= 0 // Convert to 32bit integer
   }
-  return h;
+  return h
 }

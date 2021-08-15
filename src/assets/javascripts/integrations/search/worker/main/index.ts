@@ -20,10 +20,13 @@
  * IN THE SOFTWARE.
  */
 
-import lunr from 'lunr';
+import lunr from "lunr"
 
-import { Search, SearchIndexConfig } from '../../_';
-import { SearchMessage, SearchMessageType } from '../message';
+import { Search, SearchIndexConfig } from "../../_"
+import {
+  SearchMessage,
+  SearchMessageType
+} from "../message"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -40,7 +43,7 @@ import { SearchMessage, SearchMessageType } from '../message';
  * @see https://bit.ly/2PjDnXi - GitHub comment
  */
 declare global {
-  function importScripts(...urls: string[]): Promise<void> | void;
+  function importScripts(...urls: string[]): Promise<void> | void
 }
 
 /* ----------------------------------------------------------------------------
@@ -50,7 +53,7 @@ declare global {
 /**
  * Search index
  */
-let index: Search;
+let index: Search
 
 /* ----------------------------------------------------------------------------
  * Helper functions
@@ -71,44 +74,52 @@ let index: Search;
  *
  * @returns Promise resolving with no result
  */
-async function setupSearchLanguages(config: SearchIndexConfig): Promise<void> {
-  let base = '../lunr';
+async function setupSearchLanguages(
+  config: SearchIndexConfig
+): Promise<void> {
+  let base = "../lunr"
 
   /* Detect `iframe-worker` and fix base URL */
-  if (typeof parent !== 'undefined' && 'IFrameWorker' in parent) {
-    const worker = document.querySelector<HTMLScriptElement>('script[src]')!;
-    const [path] = worker.src.split('/worker');
+  if (typeof parent !== "undefined" && "IFrameWorker" in parent) {
+    const worker = document.querySelector<HTMLScriptElement>("script[src]")!
+    const [path] = worker.src.split("/worker")
 
     /* Prefix base with path */
-    base = base.replace('..', path);
+    base = base.replace("..", path)
   }
 
   /* Add scripts for languages */
-  const scripts = [];
+  const scripts = []
   for (const lang of config.lang) {
     switch (lang) {
+
       /* Add segmenter for Japanese */
-      case 'ja':
-        scripts.push(`${base}/tinyseg.js`);
-        break;
+      case "ja":
+        scripts.push(`${base}/tinyseg.js`)
+        break
 
       /* Add segmenter for Hindi and Thai */
-      case 'hi':
-      case 'th':
-        scripts.push(`${base}/wordcut.js`);
-        break;
+      case "hi":
+      case "th":
+        scripts.push(`${base}/wordcut.js`)
+        break
     }
 
     /* Add language support */
-    if (lang !== 'en') scripts.push(`${base}/min/lunr.${lang}.min.js`);
+    if (lang !== "en")
+      scripts.push(`${base}/min/lunr.${lang}.min.js`)
   }
 
   /* Add multi-language support */
-  if (config.lang.length > 1) scripts.push(`${base}/min/lunr.multi.min.js`);
+  if (config.lang.length > 1)
+    scripts.push(`${base}/min/lunr.multi.min.js`)
 
   /* Load scripts synchronously */
   if (scripts.length)
-    await importScripts(`${base}/min/lunr.stemmer.support.min.js`, ...scripts);
+    await importScripts(
+      `${base}/min/lunr.stemmer.support.min.js`,
+      ...scripts
+    )
 }
 
 /* ----------------------------------------------------------------------------
@@ -122,26 +133,29 @@ async function setupSearchLanguages(config: SearchIndexConfig): Promise<void> {
  *
  * @returns Target message
  */
-export async function handler(message: SearchMessage): Promise<SearchMessage> {
+export async function handler(
+  message: SearchMessage
+): Promise<SearchMessage> {
   switch (message.type) {
+
     /* Search setup message */
     case SearchMessageType.SETUP:
-      await setupSearchLanguages(message.data.config);
-      index = new Search(message.data);
+      await setupSearchLanguages(message.data.config)
+      index = new Search(message.data)
       return {
-        type: SearchMessageType.READY,
-      };
+        type: SearchMessageType.READY
+      }
 
     /* Search query message */
     case SearchMessageType.QUERY:
       return {
         type: SearchMessageType.RESULT,
-        data: index ? index.search(message.data) : { items: [] },
-      };
+        data: index ? index.search(message.data) : { items: [] }
+      }
 
     /* All other messages */
     default:
-      throw new TypeError('Invalid message type');
+      throw new TypeError("Invalid message type")
   }
 }
 
@@ -150,9 +164,9 @@ export async function handler(message: SearchMessage): Promise<SearchMessage> {
  * ------------------------------------------------------------------------- */
 
 /* @ts-ignore - expose Lunr.js in global scope, or stemmers will not work */
-self.lunr = lunr;
+self.lunr = lunr
 
 /* Handle messages */
-addEventListener('message', async (ev) => {
-  postMessage(await handler(ev.data));
-});
+addEventListener("message", async ev => {
+  postMessage(await handler(ev.data))
+})

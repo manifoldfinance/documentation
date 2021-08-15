@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-export * from './_';
-export * from './code';
-export * from './details';
-export * from './table';
-export * from './tabs';
+export * from "./_"
+export * from "./code"
+export * from "./details"
+export * from "./table"
+export * from "./tabs"

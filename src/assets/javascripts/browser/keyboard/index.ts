@@ -20,11 +20,11 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent } from 'rxjs';
-import { filter, map, share } from 'rxjs/operators';
+import { Observable, fromEvent } from "rxjs"
+import { filter, map, share } from "rxjs/operators"
 
-import { getActiveElement } from '../element';
-import { getToggle } from '../toggle';
+import { getActiveElement } from "../element"
+import { getToggle } from "../toggle"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -34,8 +34,8 @@ import { getToggle } from '../toggle';
  * Keyboard mode
  */
 export type KeyboardMode =
-  | 'global' /* Global */
-  | 'search'; /* Search is open */
+  | "global"                           /* Global */
+  | "search"                           /* Search is open */
 
 /* ------------------------------------------------------------------------- */
 
@@ -43,9 +43,9 @@ export type KeyboardMode =
  * Keyboard
  */
 export interface Keyboard {
-  mode: KeyboardMode /* Keyboard mode */;
-  type: string /* Key type */;
-  claim(): void /* Key claim */;
+  mode: KeyboardMode                   /* Keyboard mode */
+  type: string                         /* Key type */
+  claim(): void                        /* Key claim */
 }
 
 /* ----------------------------------------------------------------------------
@@ -61,15 +61,16 @@ export interface Keyboard {
  */
 function isSusceptibleToKeyboard(el: HTMLElement): boolean {
   switch (el.tagName) {
+
     /* Form elements */
-    case 'INPUT':
-    case 'SELECT':
-    case 'TEXTAREA':
-      return true;
+    case "INPUT":
+    case "SELECT":
+    case "TEXTAREA":
+      return true
 
     /* Everything else */
     default:
-      return el.isContentEditable;
+      return el.isContentEditable
   }
 }
 
@@ -83,27 +84,25 @@ function isSusceptibleToKeyboard(el: HTMLElement): boolean {
  * @returns Keyboard observable
  */
 export function watchKeyboard(): Observable<Keyboard> {
-  return fromEvent<KeyboardEvent>(window, 'keydown').pipe(
-    filter((ev) => !(ev.metaKey || ev.ctrlKey)),
-    map(
-      (ev) =>
-        ({
-          mode: getToggle('search') ? 'search' : 'global',
-          type: ev.key,
-          claim() {
-            ev.preventDefault();
-            ev.stopPropagation();
-          },
-        } as Keyboard),
-    ),
-    filter(({ mode }) => {
-      if (mode === 'global') {
-        const active = getActiveElement();
-        if (typeof active !== 'undefined')
-          return !isSusceptibleToKeyboard(active);
-      }
-      return true;
-    }),
-    share(),
-  );
+  return fromEvent<KeyboardEvent>(window, "keydown")
+    .pipe(
+      filter(ev => !(ev.metaKey || ev.ctrlKey)),
+      map(ev => ({
+        mode: getToggle("search") ? "search" : "global",
+        type: ev.key,
+        claim() {
+          ev.preventDefault()
+          ev.stopPropagation()
+        }
+      } as Keyboard)),
+      filter(({ mode }) => {
+        if (mode === "global") {
+          const active = getActiveElement()
+          if (typeof active !== "undefined")
+            return !isSusceptibleToKeyboard(active)
+        }
+        return true
+      }),
+      share()
+    )
 }

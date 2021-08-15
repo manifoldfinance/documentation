@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { translation } from '~/_';
-import { h } from '~/utilities';
+import { translation } from "~/_"
+import { h } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -38,8 +38,8 @@ export function renderClipboardButton(id: string): HTMLElement {
   return (
     <button
       class="md-clipboard md-icon"
-      title={translation('clipboard.copy')}
+      title={translation("clipboard.copy")}
       data-clipboard-target={`#${id} > code`}
     ></button>
-  );
+  )
 }

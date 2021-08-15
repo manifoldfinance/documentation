@@ -20,10 +20,21 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, defer, fromEvent, merge, throwError } from 'rxjs';
-import { finalize, mapTo, switchMap, take } from 'rxjs/operators';
+import {
+  Observable,
+  defer,
+  fromEvent,
+  merge,
+  throwError
+} from "rxjs"
+import {
+  finalize,
+  mapTo,
+  switchMap,
+  take
+} from "rxjs/operators"
 
-import { createElement } from '../element';
+import { createElement } from "../element"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -40,21 +51,23 @@ import { createElement } from '../element';
  * @returns Script observable
  */
 export function watchScript(src: string): Observable<void> {
-  const script = createElement('script');
-  script.src = src;
+  const script = createElement("script")
+  script.src = src
   return defer(() => {
-    document.head.appendChild(script);
+    document.head.appendChild(script)
     return merge(
-      fromEvent(script, 'load'),
-      fromEvent(script, 'error').pipe(
-        switchMap(() =>
-          throwError(() => new ReferenceError(`Invalid script: ${src}`)),
-        ),
-      ),
-    ).pipe(
-      mapTo(undefined),
-      finalize(() => document.head.removeChild(script)),
-      take(1),
-    );
-  });
+      fromEvent(script, "load"),
+      fromEvent(script, "error")
+        .pipe(
+          switchMap(() => (
+            throwError(() => new ReferenceError(`Invalid script: ${src}`))
+          ))
+        )
+    )
+      .pipe(
+        mapTo(undefined),
+        finalize(() => document.head.removeChild(script)),
+        take(1)
+      )
+  })
 }

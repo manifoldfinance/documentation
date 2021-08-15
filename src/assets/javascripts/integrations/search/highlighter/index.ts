@@ -20,7 +20,9 @@
  * IN THE SOFTWARE.
  */
 
-import { SearchIndexConfig } from '../_';
+import escapeHTML from "escape-html"
+
+import { SearchIndexConfig } from "../_"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -33,7 +35,7 @@ import { SearchIndexConfig } from '../_';
  *
  * @returns Highlighted value
  */
-export type SearchHighlightFn = (value: string) => string;
+export type SearchHighlightFn = (value: string) => string
 
 /**
  * Search highlight factory function
@@ -42,7 +44,7 @@ export type SearchHighlightFn = (value: string) => string;
  *
  * @returns Search highlight function
  */
-export type SearchHighlightFactoryFn = (query: string) => SearchHighlightFn;
+export type SearchHighlightFactoryFn = (query: string) => SearchHighlightFn
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -56,29 +58,29 @@ export type SearchHighlightFactoryFn = (query: string) => SearchHighlightFn;
  * @returns Search highlight factory function
  */
 export function setupSearchHighlighter(
-  config: SearchIndexConfig,
+  config: SearchIndexConfig
 ): SearchHighlightFactoryFn {
-  const separator = new RegExp(config.separator, 'img');
+  const separator = new RegExp(config.separator, "img")
   const highlight = (_: unknown, data: string, term: string) => {
-    return `${data}<mark data-md-highlight>${term}</mark>`;
-  };
+    return `${data}<mark data-md-highlight>${term}</mark>`
+  }
 
   /* Return factory function */
   return (query: string) => {
-    query = query.replace(/[\s*+\-:~^]+/g, ' ').trim();
+    query = query
+      .replace(/[\s*+\-:~^]+/g, " ")
+      .trim()
 
     /* Create search term match expression */
-    const match = new RegExp(
-      `(^|${config.separator})(${query
-        .replace(/[|\\{}()[\]^$+*?.-]/g, '\\$&')
-        .replace(separator, '|')})`,
-      'img',
-    );
+    const match = new RegExp(`(^|${config.separator})(${
+      query
+        .replace(/[|\\{}()[\]^$+*?.-]/g, "\\$&")
+        .replace(separator, "|")
+    })`, "img")
 
     /* Highlight string value */
-    return (value) =>
-      value
-        .replace(match, highlight)
-        .replace(/<\/mark>(\s+)<mark[^>]*>/gim, '$1');
-  };
+    return value => escapeHTML(value)
+      .replace(match, highlight)
+      .replace(/<\/mark>(\s+)<mark[^>]*>/img, "$1")
+  }
 }

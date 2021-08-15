@@ -20,7 +20,13 @@
  * IN THE SOFTWARE.
  */
 
-import { NEVER, Observable, Subject, defer, of } from 'rxjs';
+import {
+  NEVER,
+  Observable,
+  Subject,
+  defer,
+  of
+} from "rxjs"
 import {
   filter,
   finalize,
@@ -28,8 +34,8 @@ import {
   shareReplay,
   startWith,
   switchMap,
-  tap,
-} from 'rxjs/operators';
+  tap
+} from "rxjs/operators"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -39,8 +45,8 @@ import {
  * Element offset
  */
 export interface ElementSize {
-  width: number /* Element width */;
-  height: number /* Element height */;
+  width: number                        /* Element width */
+  height: number                       /* Element height */
 }
 
 /* ----------------------------------------------------------------------------
@@ -50,7 +56,7 @@ export interface ElementSize {
 /**
  * Resize observer entry subject
  */
-const entry$ = new Subject<ResizeObserverEntry>();
+const entry$ = new Subject<ResizeObserverEntry>()
 
 /**
  * Resize observer observable
@@ -62,18 +68,20 @@ const entry$ = new Subject<ResizeObserverEntry>();
  *
  * @see https://bit.ly/3iIYfEm - Google Groups on performance
  */
-const observer$ = defer(() =>
-  of(
-    new ResizeObserver((entries) => {
-      for (const entry of entries) entry$.next(entry);
-    }),
-  ),
-).pipe(
-  switchMap((resize) =>
-    NEVER.pipe(startWith(resize)).pipe(finalize(() => resize.disconnect())),
-  ),
-  shareReplay(1),
-);
+const observer$ = defer(() => of(
+  new ResizeObserver(entries => {
+    for (const entry of entries)
+      entry$.next(entry)
+  })
+))
+  .pipe(
+    switchMap(resize => NEVER.pipe(startWith(resize))
+      .pipe(
+        finalize(() => resize.disconnect())
+      )
+    ),
+    shareReplay(1)
+  )
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -88,9 +96,9 @@ const observer$ = defer(() =>
  */
 export function getElementSize(el: HTMLElement): ElementSize {
   return {
-    width: el.offsetWidth,
-    height: el.offsetHeight,
-  };
+    width:  el.offsetWidth,
+    height: el.offsetHeight
+  }
 }
 
 /**
@@ -102,9 +110,9 @@ export function getElementSize(el: HTMLElement): ElementSize {
  */
 export function getElementContentSize(el: HTMLElement): ElementSize {
   return {
-    width: el.scrollWidth,
-    height: el.scrollHeight,
-  };
+    width:  el.scrollWidth,
+    height: el.scrollHeight
+  }
 }
 
 /* ------------------------------------------------------------------------- */
@@ -116,17 +124,21 @@ export function getElementContentSize(el: HTMLElement): ElementSize {
  *
  * @returns Overflowing container or nothing
  */
-export function getElementContainer(el: HTMLElement): HTMLElement | undefined {
-  let container = el.parentElement;
+export function getElementContainer(
+  el: HTMLElement
+): HTMLElement | undefined {
+  let container = el.parentElement
   while (container && container !== el.offsetParent) {
-    const visible = getElementSize(container);
-    const content = getElementContentSize(container);
+    const visible = getElementSize(container)
+    const content = getElementContentSize(container)
 
     /* Check if container overflows */
-    if (content.height > visible.height) return container;
-    else container = container.parentElement;
+    if (content.height > visible.height)
+      return container
+    else
+      container = container.parentElement
   }
-  return undefined;
+  return undefined
 }
 
 /* ------------------------------------------------------------------------- */
@@ -150,16 +162,19 @@ export function getElementContainer(el: HTMLElement): HTMLElement | undefined {
  *
  * @returns Element size observable
  */
-export function watchElementSize(el: HTMLElement): Observable<ElementSize> {
-  return observer$.pipe(
-    tap((observer) => observer.observe(el)),
-    switchMap((observer) =>
-      entry$.pipe(
-        filter(({ target }) => target === el),
-        finalize(() => observer.unobserve(el)),
-        map(() => getElementSize(el)),
+export function watchElementSize(
+  el: HTMLElement
+): Observable<ElementSize> {
+  return observer$
+    .pipe(
+      tap(observer => observer.observe(el)),
+      switchMap(observer => entry$
+        .pipe(
+          filter(({ target }) => target === el),
+          finalize(() => observer.unobserve(el)),
+          map(() => getElementSize(el))
+        )
       ),
-    ),
-    startWith(getElementSize(el)),
-  );
+      startWith(getElementSize(el))
+    )
 }

@@ -30,7 +30,7 @@
   color: var(--md-footer-fg-color);
   background-color: var(--md-footer-bg-color);
 
-  // [print]: Hide announcement bar
+  // [print]: Hide banner
   @media print {
     display: none;
   }
@@ -41,7 +41,7 @@
     background: var(--md-typeset-mark-color);
   }
 
-  // Announcement wrapper
+  // Banner wrapper
   &__inner {
     margin: px2rem(12px) auto;
     padding: 0 px2rem(16px);

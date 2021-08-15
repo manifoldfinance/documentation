@@ -23,18 +23,18 @@
 import {
   SearchDocument,
   SearchDocumentMap,
-  setupSearchDocumentMap,
-} from '../document';
+  setupSearchDocumentMap
+} from "../document"
 import {
   SearchHighlightFactoryFn,
-  setupSearchHighlighter,
-} from '../highlighter';
-import { SearchOptions } from '../options';
+  setupSearchHighlighter
+} from "../highlighter"
+import { SearchOptions } from "../options"
 import {
   SearchQueryTerms,
   getSearchQueryTerms,
-  parseSearchQuery,
-} from '../query';
+  parseSearchQuery
+} from "../query"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -44,19 +44,19 @@ import {
  * Search index configuration
  */
 export interface SearchIndexConfig {
-  lang: string[] /* Search languages */;
-  separator: string /* Search separator */;
+  lang: string[]                       /* Search languages */
+  separator: string                    /* Search separator */
 }
 
 /**
  * Search index document
  */
 export interface SearchIndexDocument {
-  location: string /* Document location */;
-  title: string /* Document title */;
-  text: string /* Document text */;
-  tags?: string[] /* Document tags */;
-  boost?: number /* Document boost */;
+  location: string                     /* Document location */
+  title: string                        /* Document title */
+  text: string                         /* Document text */
+  tags?: string[]                      /* Document tags */
+  boost?: number                       /* Document boost */
 }
 
 /* ------------------------------------------------------------------------- */
@@ -68,10 +68,10 @@ export interface SearchIndexDocument {
  * is automatically built by the MkDocs search plugin.
  */
 export interface SearchIndex {
-  config: SearchIndexConfig /* Search index configuration */;
-  docs: SearchIndexDocument[] /* Search index documents */;
-  index?: object /* Prebuilt index */;
-  options: SearchOptions /* Search options */;
+  config: SearchIndexConfig            /* Search index configuration */
+  docs: SearchIndexDocument[]          /* Search index documents */
+  index?: object                       /* Prebuilt index */
+  options: SearchOptions               /* Search options */
 }
 
 /* ------------------------------------------------------------------------- */
@@ -80,8 +80,8 @@ export interface SearchIndex {
  * Search metadata
  */
 export interface SearchMetadata {
-  score: number /* Score (relevance) */;
-  terms: SearchQueryTerms /* Search query terms */;
+  score: number                        /* Score (relevance) */
+  terms: SearchQueryTerms              /* Search query terms */
 }
 
 /* ------------------------------------------------------------------------- */
@@ -89,12 +89,12 @@ export interface SearchMetadata {
 /**
  * Search result document
  */
-export type SearchResultDocument = SearchDocument & SearchMetadata;
+export type SearchResultDocument = SearchDocument & SearchMetadata
 
 /**
  * Search result item
  */
-export type SearchResultItem = SearchResultDocument[];
+export type SearchResultItem = SearchResultDocument[]
 
 /* ------------------------------------------------------------------------- */
 
@@ -102,8 +102,8 @@ export type SearchResultItem = SearchResultDocument[];
  * Search result
  */
 export interface SearchResult {
-  items: SearchResultItem[] /* Search result items */;
-  suggestions?: string[] /* Search suggestions */;
+  items: SearchResultItem[]            /* Search result items */
+  suggestions?: string[]               /* Search suggestions */
 }
 
 /* ----------------------------------------------------------------------------
@@ -119,8 +119,10 @@ export interface SearchResult {
  * @returns Difference
  */
 function difference(a: string[], b: string[]): string[] {
-  const [x, y] = [new Set(a), new Set(b)];
-  return [...new Set([...x].filter((value) => !y.has(value)))];
+  const [x, y] = [new Set(a), new Set(b)]
+  return [
+    ...new Set([...x].filter(value => !y.has(value)))
+  ]
 }
 
 /* ----------------------------------------------------------------------------
@@ -131,6 +133,7 @@ function difference(a: string[], b: string[]): string[] {
  * Search index
  */
 export class Search {
+
   /**
    * Search document mapping
    *
@@ -139,22 +142,22 @@ export class Search {
    * regardless of whether the index was prebuilt or not, as Lunr.js itself
    * only stores the actual index.
    */
-  protected documents: SearchDocumentMap;
+  protected documents: SearchDocumentMap
 
   /**
    * Search highlight factory function
    */
-  protected highlight: SearchHighlightFactoryFn;
+  protected highlight: SearchHighlightFactoryFn
 
   /**
    * The underlying Lunr.js search index
    */
-  protected index: lunr.Index;
+  protected index: lunr.Index
 
   /**
    * Search options
    */
-  protected options: SearchOptions;
+  protected options: SearchOptions
 
   /**
    * Create the search integration
@@ -162,56 +165,57 @@ export class Search {
    * @param data - Search index
    */
   public constructor({ config, docs, index, options }: SearchIndex) {
-    this.options = options;
+    this.options = options
 
     /* Set up document map and highlighter factory */
-    this.documents = setupSearchDocumentMap(docs);
-    this.highlight = setupSearchHighlighter(config);
+    this.documents = setupSearchDocumentMap(docs)
+    this.highlight = setupSearchHighlighter(config)
 
     /* Set separator for tokenizer */
-    lunr.tokenizer.separator = new RegExp(config.separator);
+    lunr.tokenizer.separator = new RegExp(config.separator)
 
     /* If no index was given, create it */
-    if (typeof index === 'undefined') {
+    if (typeof index === "undefined") {
       this.index = lunr(function () {
+
         /* Set up multi-language support */
-        if (config.lang.length === 1 && config.lang[0] !== 'en') {
-          this.use((lunr as any)[config.lang[0]]);
+        if (config.lang.length === 1 && config.lang[0] !== "en") {
+          this.use((lunr as any)[config.lang[0]])
         } else if (config.lang.length > 1) {
-          this.use((lunr as any).multiLanguage(...config.lang));
+          this.use((lunr as any).multiLanguage(...config.lang))
         }
 
         /* Compute functions to be removed from the pipeline */
-        const fns = difference(
-          ['trimmer', 'stopWordFilter', 'stemmer'],
-          options.pipeline,
-        );
+        const fns = difference([
+          "trimmer", "stopWordFilter", "stemmer"
+        ], options.pipeline)
 
         /* Remove functions from the pipeline for registered languages */
-        for (const lang of config.lang.map((language) =>
-          language === 'en' ? lunr : (lunr as any)[language],
-        )) {
+        for (const lang of config.lang.map(language => (
+          language === "en" ? lunr : (lunr as any)[language]
+        ))) {
           for (const fn of fns) {
-            this.pipeline.remove(lang[fn]);
-            this.searchPipeline.remove(lang[fn]);
+            this.pipeline.remove(lang[fn])
+            this.searchPipeline.remove(lang[fn])
           }
         }
 
         /* Set up reference */
-        this.ref('location');
+        this.ref("location")
 
         /* Set up fields */
-        this.field('title', { boost: 1e3 });
-        this.field('text');
-        this.field('tags', { boost: 1e6 });
+        this.field("title", { boost: 1e3 })
+        this.field("text")
+        this.field("tags", { boost: 1e6 })
 
         /* Index documents */
-        for (const doc of docs) this.add(doc, { boost: doc.boost });
-      });
+        for (const doc of docs)
+          this.add(doc, { boost: doc.boost })
+      })
 
-      /* Handle prebuilt index */
+    /* Handle prebuilt index */
     } else {
-      this.index = lunr.Index.load(index);
+      this.index = lunr.Index.load(index)
     }
   }
 
@@ -234,41 +238,41 @@ export class Search {
   public search(query: string): SearchResult {
     if (query) {
       try {
-        const highlight = this.highlight(query);
+        const highlight = this.highlight(query)
 
         /* Parse query to extract clauses for analysis */
-        const clauses = parseSearchQuery(query).filter(
-          (clause) => clause.presence !== lunr.Query.presence.PROHIBITED,
-        );
+        const clauses = parseSearchQuery(query)
+          .filter(clause => (
+            clause.presence !== lunr.Query.presence.PROHIBITED
+          ))
 
         /* Perform search and post-process results */
-        const groups = this.index
-          .search(`${query}*`)
+        const groups = this.index.search(`${query}*`)
 
           /* Apply post-query boosts based on title and search query terms */
           .reduce<SearchResultItem>((item, { ref, score, matchData }) => {
-            const document = this.documents.get(ref);
-            if (typeof document !== 'undefined') {
-              const { location, title, text, tags, parent } = document;
+            const document = this.documents.get(ref)
+            if (typeof document !== "undefined") {
+              const { location, title, text, tags, parent } = document
 
               /* Compute and analyze search query terms */
               const terms = getSearchQueryTerms(
                 clauses,
-                Object.keys(matchData.metadata),
-              );
+                Object.keys(matchData.metadata)
+              )
 
               /* Highlight title and text and apply post-query boosts */
-              const boost = +!parent + +Object.values(terms).every((t) => t);
+              const boost = +!parent + +Object.values(terms).every(t => t)
               item.push({
                 location,
                 title: highlight(title),
-                text: highlight(text),
-                ...(tags && { tags: tags.map(highlight) }),
+                text:  highlight(text),
+                ...tags && { tags: tags.map(highlight) },
                 score: score * (1 + boost),
-                terms,
-              });
+                terms
+              })
             }
-            return item;
+            return item
           }, [])
 
           /* Sort search results again after applying boosts */
@@ -276,48 +280,47 @@ export class Search {
 
           /* Group search results by page */
           .reduce((items, result) => {
-            const document = this.documents.get(result.location);
-            if (typeof document !== 'undefined') {
-              const ref =
-                'parent' in document
-                  ? document.parent!.location
-                  : document.location;
-              items.set(ref, [...(items.get(ref) || []), result]);
+            const document = this.documents.get(result.location)
+            if (typeof document !== "undefined") {
+              const ref = "parent" in document
+                ? document.parent!.location
+                : document.location
+              items.set(ref, [...items.get(ref) || [], result])
             }
-            return items;
-          }, new Map<string, SearchResultItem>());
+            return items
+          }, new Map<string, SearchResultItem>())
 
         /* Generate search suggestions, if desired */
-        let suggestions: string[] | undefined;
+        let suggestions: string[] | undefined
         if (this.options.suggestions) {
-          const titles = this.index.query((builder) => {
+          const titles = this.index.query(builder => {
             for (const clause of clauses)
               builder.term(clause.term, {
-                fields: ['title'],
+                fields: ["title"],
                 presence: lunr.Query.presence.REQUIRED,
-                wildcard: lunr.Query.wildcard.TRAILING,
-              });
-          });
+                wildcard: lunr.Query.wildcard.TRAILING
+              })
+          })
 
           /* Retrieve suggestions for best match */
           suggestions = titles.length
             ? Object.keys(titles[0].matchData.metadata)
-            : [];
+            : []
         }
 
         /* Return items and suggestions */
         return {
           items: [...groups.values()],
-          ...(typeof suggestions !== 'undefined' && { suggestions }),
-        };
+          ...typeof suggestions !== "undefined" && { suggestions }
+        }
 
-        /* Log errors to console (for now) */
+      /* Log errors to console (for now) */
       } catch {
-        console.warn(`Invalid query: ${query} – see https://bit.ly/2s3ChXG`);
+        console.warn(`Invalid query: ${query} – see https://bit.ly/2s3ChXG`)
       }
     }
 
     /* Return nothing in case of error or empty query */
-    return { items: [] };
+    return { items: [] }
   }
 }

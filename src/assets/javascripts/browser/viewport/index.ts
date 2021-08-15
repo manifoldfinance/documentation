@@ -20,6 +20,6 @@
  * IN THE SOFTWARE.
  */
 
-export * from './_';
-export * from './offset';
-export * from './size';
+export * from "./_"
+export * from "./offset"
+export * from "./size"
