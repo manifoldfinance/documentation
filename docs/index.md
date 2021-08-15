@@ -1,10 +1,15 @@
-# Manifold Finance
+# Omnibus
 
-This documentation is compromised of:
+This documentation outlines the imlementaiton of both the core and periphery protocols and applications that compromise the Manifold `stack`.
+
+### Sections:
 
 - OpenMEV
 - Manifold Stratagies
-- Associated Libraries
+- Associated Libraries/Development
+- Staking and FOLD
+- Registry
+
 
 ## OpenMEV
 
