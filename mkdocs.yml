@@ -2,7 +2,7 @@ site_name: Manifold Finance
 site_url: https://docs.manifoldfinance.com/
 site_description: Manifold Finance documentation.
 site_author: Manifold Finance
-copyright: Copyright 2021 - CommodityStream  All Rights Reserved
+copyright: Copyright 2021 - Manifold Finance, Inc.  All Rights Reserved
 
 
 extra:
@@ -49,7 +49,7 @@ theme:
     - content.code.annotate
     - content.tabs.link
     # - header.autohide
-    # - navigation.expand
+    - navigation.expand
     # - navigation.indexes
     # - navigation.instant
     - navigation.sections
