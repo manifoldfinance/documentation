@@ -16,6 +16,12 @@
       "pattern": "/postman/.+.json"
     },
     {
+      "pattern": "^http(s)?://.+.staging.+.*"
+    },
+    {
+      "pattern": "^http(s)?://.+.dev.+.*"
+    },
+    {
       "pattern": "^http(s)?://.+.zendesk.com"
     }
   ],
