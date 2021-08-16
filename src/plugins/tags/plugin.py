@@ -32,9 +32,7 @@ from mkdocs.plugins import BasePlugin
 class TagsPlugin(BasePlugin):
 
     # Configuration scheme
-    config_scheme = (
-        ("tags_file", Type(str, required = False)),
-    )
+    config_scheme = (("tags_file", Type(str, required=False)),)
 
     # Initialize plugin
     def __init__(self):
@@ -45,14 +43,12 @@ class TagsPlugin(BasePlugin):
     # Retrieve configuration for anchor generation
     def on_config(self, config):
         if "toc" in config["markdown_extensions"]:
-            toc = { "slugify": slugify, "separator": "-" }
+            toc = {"slugify": slugify, "separator": "-"}
             if "toc" in config["mdx_configs"]:
-                toc = { **toc, **config["mdx_configs"]["toc"] }
+                toc = {**toc, **config["mdx_configs"]["toc"]}
 
             # Partially apply slugify function
-            self.slugify = lambda value: (
-                toc["slugify"](value, toc["separator"])
-            )
+            self.slugify = lambda value: (toc["slugify"](value, toc["separator"]))
 
     # Hack: 2nd pass for tags index page
     def on_files(self, files, **kwargs):
@@ -84,18 +80,18 @@ class TagsPlugin(BasePlugin):
             markdown += "\n[TAGS]"
 
         # Replace placeholder in Markdown with rendered tags index
-        return markdown.replace("[TAGS]", "\n".join([
-            self.__render_tag_links(*args) for args in sorted(self.tags.items())
-        ]))
+        return markdown.replace(
+            "[TAGS]",
+            "\n".join(
+                [self.__render_tag_links(*args) for args in sorted(self.tags.items())]
+            ),
+        )
 
     # Render the given tag and links to all pages with occurrences
     def __render_tag_links(self, tag, pages):
-        content = ["## <span class=\"md-tag\">{}</span>".format(tag), ""]
+        content = ['## <span class="md-tag">{}</span>'.format(tag), ""]
         for page in pages:
-            url = utils.get_relative_url(
-                page.file.src_path,
-                self.tags_file.src_path
-            )
+            url = utils.get_relative_url(page.file.src_path, self.tags_file.src_path)
             content.append("- [{}]({})".format(page.title, url))
 
         # Return rendered tag links
@@ -104,8 +100,8 @@ class TagsPlugin(BasePlugin):
     # Render the given tag, linking to the tags index (if enabled)
     def __render_tag(self, tag):
         if not self.tags_file or not self.slugify:
-            return dict(name = tag)
+            return dict(name=tag)
         else:
             url = self.tags_file.url
             url += "#" + self.slugify(tag)
-            return dict(name = tag, url = url)
+            return dict(name=tag, url=url)

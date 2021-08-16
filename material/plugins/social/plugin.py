@@ -40,9 +40,9 @@ class SocialPlugin(BasePlugin):
 
     # Configuration scheme
     config_scheme = (
-        ("cards", Type(bool, default = True)),
-        ("cards_directory", Type(str, default = "assets/images/social")),
-        ("cards_color", Type(dict, default = {}))
+        ("cards", Type(bool, default=True)),
+        ("cards_directory", Type(str, default="assets/images/social")),
+        ("cards_color", Type(dict, default={})),
     )
 
     # Initialize plugin
@@ -72,7 +72,7 @@ class SocialPlugin(BasePlugin):
                 self.color = colors.get(primary, self.color)
 
         # Retrieve color overrides
-        self.color = { **self.color, **self.config.get("cards_color") }
+        self.color = {**self.color, **self.config.get("cards_color")}
 
         # Retrieve logo and font
         self.logo = self.__load_logo(config)
@@ -84,11 +84,7 @@ class SocialPlugin(BasePlugin):
         file, _ = os.path.splitext(page.file.src_path)
 
         # Resolve path of image
-        path = "{}.png".format(os.path.join(
-            config.get("site_dir"),
-            directory,
-            file
-        ))
+        path = "{}.png".format(os.path.join(config.get("site_dir"), directory, file))
 
         # Resolve path of image directory
         directory = os.path.dirname(path)
@@ -129,28 +125,25 @@ class SocialPlugin(BasePlugin):
         image = self.__render_card_background((1200, 630), self.color["fill"])
         image.alpha_composite(
             logo.resize((144, int(144 * logo.height / logo.width))),
-            (1200 - 228, 64 - 4)
+            (1200 - 228, 64 - 4),
         )
 
         # Render site name
         font = ImageFont.truetype(self.font.get(700), 36)
         image.alpha_composite(
-            self.__render_text((826, 48), font, site_name),
-            (64 + 4, 64)
+            self.__render_text((826, 48), font, site_name), (64 + 4, 64)
         )
 
         # Render page title
         font = ImageFont.truetype(self.font.get(700), 92)
         image.alpha_composite(
-            self.__render_text((826, 328), font, title, 20),
-            (64, 160)
+            self.__render_text((826, 328), font, title, 20), (64, 160)
         )
 
         # Render page description
         font = ImageFont.truetype(self.font.get(400), 28)
         image.alpha_composite(
-            self.__render_text((826, 80), font, description, 14),
-            (64 + 4, 512)
+            self.__render_text((826, 80), font, description, 14), (64 + 4, 512)
         )
 
         # Return social card image
@@ -158,20 +151,20 @@ class SocialPlugin(BasePlugin):
 
     # Render social card background
     def __render_card_background(self, size, fill):
-        return Image.new(mode = "RGBA", size = size, color = fill)
+        return Image.new(mode="RGBA", size=size, color=fill)
 
     # Render social card text
-    def __render_text(self, size, font, text, spacing = 0):
+    def __render_text(self, size, font, text, spacing=0):
         lines, words = [], []
 
         # Create temporary image
-        image = Image.new(mode = "RGBA", size = size)
+        image = Image.new(mode="RGBA", size=size)
 
         # Create drawing context and split text into lines
         context = ImageDraw.Draw(image)
         for word in text.split(" "):
             combine = " ".join(words + [word])
-            textbox = context.textbbox((0, 0), combine, font = font)
+            textbox = context.textbbox((0, 0), combine, font=font)
             if not words or textbox[2] <= image.width:
                 words.append(word)
             else:
@@ -190,13 +183,16 @@ class SocialPlugin(BasePlugin):
         # Join words for each line and create image
         lines.append(words)
         lines = [" ".join(line) for line in lines]
-        image = Image.new(mode = "RGBA", size = size)
+        image = Image.new(mode="RGBA", size=size)
 
         # Create drawing context and split text into lines
         context = ImageDraw.Draw(image)
         context.text(
-            (0, 0), "\n".join(lines),
-            font = font, fill = self.color["text"], spacing = spacing
+            (0, 0),
+            "\n".join(lines),
+            font=font,
+            fill=self.color["text"],
+            spacing=spacing,
         )
 
         # Return text image
@@ -220,32 +216,26 @@ class SocialPlugin(BasePlugin):
             description = page.meta["description"]
 
         # Resolve image URL
-        url = "{}.png".format(os.path.join(
-            config.get("site_url"),
-            directory,
-            file
-        ))
+        url = "{}.png".format(os.path.join(config.get("site_url"), directory, file))
 
         # Return meta tags
         return [
-
             # Meta tags for Open Graph
-            { "property": "og:type", "content": "website" },
-            { "property": "og:title", "content": title },
-            { "property": "og:description", "content": description },
-            { "property": "og:image", "content": url },
-            { "property": "og:image:type", "content": "image/png" },
-            { "property": "og:image:width", "content": "1200" },
-            { "property": "og:image:height", "content": "630" },
-            { "property": "og:url", "content": page.canonical_url },
-
+            {"property": "og:type", "content": "website"},
+            {"property": "og:title", "content": title},
+            {"property": "og:description", "content": description},
+            {"property": "og:image", "content": url},
+            {"property": "og:image:type", "content": "image/png"},
+            {"property": "og:image:width", "content": "1200"},
+            {"property": "og:image:height", "content": "630"},
+            {"property": "og:url", "content": page.canonical_url},
             # Meta tags for Twitter
-            { "name": "twitter:card", "content": "summary_large_image" },
+            {"name": "twitter:card", "content": "summary_large_image"},
             # { "name": "twitter:site", "content": user },
             # { "name": "twitter:creator", "content": user },
-            { "name": "twitter:title", "content": title },
-            { "name": "twitter:description", "content": description },
-            { "name": "twitter:image", "content": url }
+            {"name": "twitter:title", "content": title},
+            {"name": "twitter:description", "content": description},
+            {"name": "twitter:image", "content": url},
         ]
 
     # Retrieve logo image or icon
@@ -271,29 +261,23 @@ class SocialPlugin(BasePlugin):
             logo = icon["logo"]
 
         # Resolve path of package
-        base = os.path.abspath(os.path.join(
-            os.path.dirname(__file__),
-            "../.."
-        ))
+        base = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 
         # Load icon data and fill with color
         path = "{}/.icons/{}.svg".format(base, logo)
         return self.__load_logo_svg(path, self.color["text"])
 
     # Load SVG file and convert to PNG
-    def __load_logo_svg(self, path, fill = None):
+    def __load_logo_svg(self, path, fill=None):
         file = BytesIO()
         data = open(path).read()
 
         # Fill with color, if given
         if fill:
-            data = data.replace(
-                "<svg",
-                "<svg fill=\"{}\"".format(fill)
-            )
+            data = data.replace("<svg", '<svg fill="{}"'.format(fill))
 
         # Convert to PNG and return image
-        svg2png(bytestring = data, write_to = file, scale = 10)
+        svg2png(bytestring=data, write_to=file, scale=10)
         return Image.open(file)
 
     # Retrieve fonts
@@ -306,15 +290,16 @@ class SocialPlugin(BasePlugin):
             name = theme["font"]["text"]
 
         # Retrieve font files, if not already done
-        if not all(os.path.isfile(
-            os.path.join(self.cache, "{}.{}.ttf".format(name, weight))
-        ) for weight in ["400", "700"]):
+        if not all(
+            os.path.isfile(os.path.join(self.cache, "{}.{}.ttf".format(name, weight)))
+            for weight in ["400", "700"]
+        ):
             self.__load_font_webfont(name)
 
         # Return paths associated with font weights
         return {
             400: os.path.join(self.cache, "{}.400.ttf".format(name)),
-            700: os.path.join(self.cache, "{}.700.ttf".format(name))
+            700: os.path.join(self.cache, "{}.700.ttf".format(name)),
         }
 
     # Retrieve font from Google Fonts
@@ -324,10 +309,7 @@ class SocialPlugin(BasePlugin):
 
         # Parse font declarations from stylesheet
         sheet = parseString(res.text)
-        fonts = dict((
-            rule.style["font-weight"],
-            rule.style["src"]
-        ) for rule in sheet)
+        fonts = dict((rule.style["font-weight"], rule.style["src"]) for rule in sheet)
 
         # Fetch referenced fonts
         for weight, url in fonts.items():
@@ -340,31 +322,34 @@ class SocialPlugin(BasePlugin):
             file.write(res.content)
             file.close()
 
+
 # -----------------------------------------------------------------------------
 # Data
 # -----------------------------------------------------------------------------
 
 # Color palette
-colors = dict({
-    "red":         { "fill": "#ef5552", "text": "#ffffff" },
-    "pink":        { "fill": "#e92063", "text": "#ffffff" },
-    "purple":      { "fill": "#ab47bd", "text": "#ffffff" },
-    "deep-purple": { "fill": "#7e56c2", "text": "#ffffff" },
-    "indigo":      { "fill": "#4051b5", "text": "#ffffff" },
-    "blue":        { "fill": "#2094f3", "text": "#ffffff" },
-    "light-blue":  { "fill": "#02a6f2", "text": "#ffffff" },
-    "cyan":        { "fill": "#00bdd6", "text": "#ffffff" },
-    "teal":        { "fill": "#009485", "text": "#ffffff" },
-    "green":       { "fill": "#4cae4f", "text": "#ffffff" },
-    "light-green": { "fill": "#8bc34b", "text": "#ffffff" },
-    "lime":        { "fill": "#cbdc38", "text": "#000000" },
-    "yellow":      { "fill": "#ffec3d", "text": "#000000" },
-    "amber":       { "fill": "#ffc105", "text": "#000000" },
-    "orange":      { "fill": "#ffa724", "text": "#000000" },
-    "deep-orange": { "fill": "#ff6e42", "text": "#ffffff" },
-    "brown":       { "fill": "#795649", "text": "#ffffff" },
-    "grey":        { "fill": "#757575", "text": "#ffffff" },
-    "blue-grey":   { "fill": "#546d78", "text": "#ffffff" },
-    "black":       { "fill": "#000000", "text": "#ffffff" },
-    "white":       { "fill": "#ffffff", "text": "#000000" }
-})
+colors = dict(
+    {
+        "red": {"fill": "#ef5552", "text": "#ffffff"},
+        "pink": {"fill": "#e92063", "text": "#ffffff"},
+        "purple": {"fill": "#ab47bd", "text": "#ffffff"},
+        "deep-purple": {"fill": "#7e56c2", "text": "#ffffff"},
+        "indigo": {"fill": "#4051b5", "text": "#ffffff"},
+        "blue": {"fill": "#2094f3", "text": "#ffffff"},
+        "light-blue": {"fill": "#02a6f2", "text": "#ffffff"},
+        "cyan": {"fill": "#00bdd6", "text": "#ffffff"},
+        "teal": {"fill": "#009485", "text": "#ffffff"},
+        "green": {"fill": "#4cae4f", "text": "#ffffff"},
+        "light-green": {"fill": "#8bc34b", "text": "#ffffff"},
+        "lime": {"fill": "#cbdc38", "text": "#000000"},
+        "yellow": {"fill": "#ffec3d", "text": "#000000"},
+        "amber": {"fill": "#ffc105", "text": "#000000"},
+        "orange": {"fill": "#ffa724", "text": "#000000"},
+        "deep-orange": {"fill": "#ff6e42", "text": "#ffffff"},
+        "brown": {"fill": "#795649", "text": "#ffffff"},
+        "grey": {"fill": "#757575", "text": "#ffffff"},
+        "blue-grey": {"fill": "#546d78", "text": "#ffffff"},
+        "black": {"fill": "#000000", "text": "#ffffff"},
+        "white": {"fill": "#ffffff", "text": "#000000"},
+    }
+)
