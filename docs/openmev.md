@@ -82,10 +82,7 @@ If someone front runs the transaction sent by the OpenMEV:
 
 ## Engine
 
-
-
-OpenMEV uses a batch auction-based matching engine to execute orders. Batch
-auctions were chosen to reduce the impact of frontrunning on the exchange.
+OpenMEV uses a batch auction-based matching engine to execute orders.
 
 1. All orders for the given market are collected.
 
@@ -121,8 +118,8 @@ an order ahead of someone else’s.
 
 ## Application structure
 
-- Route paths: acceptable trading pairs/whitelisted tokens. See
-  `manifold.tokenlist.json`
+- Route paths: acceptable trading pairs/whitelisted tokens.
+ See  `manifold.tokenlist.json`
 - Subroutes can be defined in separate files within the routes folder and
   referenced in
 - Controllers should be used to handle HTTP/WS/RPC requests
@@ -158,15 +155,19 @@ On any additions to the queue, the server runs a sequencing algorithm to
 optimize MEV, then decides if it is time to submit the transactions to a miner
 for the current block.
 
-Garbage collection will have to be run on the queues periodically to remove
+!!! attention GC (Garbage Collection) is only on public submitted transactions, not SushiSwap sent transactions!
+
+!!! warning  Garbage collection will have to be run on the queues periodically to remove
 transactions that are not going to be successful due to timeout or slippage.
 
 On successful and failed (garbage collected) transactions, the backend will send
 WebSocket messages to the frontend to notify users.
 
-## Gwei Service
+## Transaction Price Service
 
-The Gwei Service is an important part of the overall system. Since Gwei pricing
+!!! tip Visit [txprice.com](https://txprice.com) and [API](https://api.txprice.com)
+
+The TxPrice Service is an important part of the overall system. Since Gwei pricing
 is the most important portion of the overall system efficacy it is decoupled
 from the application itself and run in a separate stack entirely. We inject the
 Gwei pricing service by loading at runtime via `startGasWorker()`. _note_ we use
@@ -182,6 +183,8 @@ highest price with the slowest times until 80% of the data is represented; these
 are _outliers_.
 
 See the API Service here: [https://api.txprice.com](https://api.txprice.com)
+
+!! warning This is for Legacy Transactions 
 
 ```js
 /**
