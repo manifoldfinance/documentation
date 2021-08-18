@@ -1,15 +1,15 @@
 [build]
   base = "."
   publish = "build/"
-  command = "echo $COMMIT_REF && echo $BUILD_ID"
+  command = "bash netlify-ci.sh"
 
   [build.processing]
     skip_processing = false
   [build.processing.css]
-    bundle = true
+    bundle = false
     minify = true
   [build.processing.js]
-    bundle = true
+    bundle = false
     minify = true
   [build.processing.html]
     pretty_urls = true
