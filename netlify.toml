@@ -1,7 +1,7 @@
 [build]
   base = "."
-  publish = "output/"
-  command = "pip install -r requirements.txt && npm i && npm run-script build && mkdocs build --config-file mkdocs.yml"
+  publish = "build/"
+  command = "echo $COMMIT_REF && echo $BUILD_ID"
 
   [build.processing]
     skip_processing = false
