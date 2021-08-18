@@ -28,7 +28,7 @@ jobs:
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt &&  python3 setup.py install
       - name: Build docs
         run: mkdocs build --clean --site-dir build/
 
