@@ -1,0 +1,18 @@
+name: cspell
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  cspell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: streetsidesoftware/cspell-action@v1.2.5
+        with:
+          strict: false
+          incremental_files_only: true
+          files: */**.{md,adoc}
+          root: docs/    
