@@ -1,3 +1,6 @@
 #!/bin/sh
-mkdocs build --clean --site-dir output/
-netlify deploy --dir=output/ --prod
+pip install -r requirements.txt
+python3 setup.py install
+yarn install
+yarn run build
+mkdocs build --clean --site-dir build/
