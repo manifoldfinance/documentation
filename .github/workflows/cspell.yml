@@ -14,5 +14,5 @@ jobs:
         with:
           strict: false
           incremental_files_only: true
-          files: */**.{md,adoc}
-          root: docs/    
+          files: '*/**.{md,adoc}'
+          root: docs/
