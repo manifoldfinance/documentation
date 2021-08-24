@@ -166,6 +166,7 @@ nav:
     - Overview: sushi-overview.md
     - Help and Support: sushi-help.md
   - Manifold Finance:
+    - Platform: spec/README.md
     - Strategies: strategies.md
     - Releases:
       - Changelog: changelog.md
