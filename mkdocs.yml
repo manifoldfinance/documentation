@@ -175,6 +175,7 @@ nav:
               - Platform Overview: openmev-diagrams.md
               - Workflow: workflow/README.md
               - Chain State: chain-state/README.md
+	      - Mining Pools: mining-pools.md
   - Rulebook:
               - Limit Order Book: limit_order_books.md
               - Obligations: obligations.md
