@@ -1,10 +1,15 @@
-# Manifold Stratagies
+# Overview
+
+!!! warning
+	this documentation is in an active rewrite
 
 ## 0 - Ashbys Law
-> You do not rise to the level of your goals. You fall to the level of your systems.”
+
+>  You do not rise to the level of your goals. You fall to the level of your systems.”
 > — James Clear
 
 > Law of requisite variety
+
 If a system is to be stable, the number of states of its control mechanism must be greater than or equal to the number of states in the system being controlled. Ashby states the law as "variety can destroy variety".
 
 ## 1 - Building better systems, not 'better goals'
