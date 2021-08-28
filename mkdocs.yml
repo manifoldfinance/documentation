@@ -23,6 +23,19 @@ extra:
       - ''
   logo_regular: custom_theme/logo.svg
   logo_reversed: &logo_reversed custom_theme/manifold.svg
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/manifoldfinance
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/manifoldfinance
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/manifoldfinance
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/foldfinance
+
 
 # Repository
 repo_name: manifoldfinance/documentation
@@ -95,20 +108,8 @@ extra_javascript:
   - js/config.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-# Customization
-extra:
-  analytics:
-    provider: google
-    property: !ENV GOOGLE_ANALYTICS_KEY
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/manifoldfinance
-    - icon: fontawesome/brands/telegram
-      link: https://t.me/manifoldfinance
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/manifoldfinance
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/foldfinance
+
+
 
 # Extensions
 markdown_extensions:
@@ -175,7 +176,7 @@ nav:
               - Platform Overview: openmev-diagrams.md
               - Workflow: workflow/README.md
               - Chain State: chain-state/README.md
-	      - Mining Pools: mining-pools.md
+              - Mining Pools: mining-pools.md
   - Rulebook:
               - Limit Order Book: limit_order_books.md
               - Obligations: obligations.md
