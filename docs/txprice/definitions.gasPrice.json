@@ -1,0 +1,45 @@
+{
+    "definitions": {
+        "GasPrice": {
+            "required": ["lastUpdate", "lowest", "safeLow", "standard", "fast", "fastest"],
+            "type": "object",
+            "properties": {
+                "lastUpdate": {
+                    "title": "Last update",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "lowest": {
+                    "title": "Lowest",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                },
+                "safeLow": {
+                    "title": "Safe low",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                },
+                "standard": {
+                    "title": "Standard",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                },
+                "fast": {
+                    "title": "Fast",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                },
+                "fastest": {
+                    "title": "Fastest",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                }
+            }
+        }
+    }
+}

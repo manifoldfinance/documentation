@@ -1,0 +1,24 @@
+{
+    "version": "0.0.0.x.y.z",
+    "stable": true,
+    "release_url": "https://github.com/${GITHUB_ORG}/${GITHUB_REPO}/releases/tag/${DISTRIBUTION}",
+    "files": [{
+            "filename": "${DIST_TARBALL}",
+            "arch": "x64",
+            "platform": "darwin",
+            "download_url": "https://github.com/${GITHUB_ORG}/${GITHUB_REPO}/releases/download/${DISTRIBUTION}/${DIST_TARBALL}"
+        },
+        {
+            "filename": "${DIST_TARBALL}",
+            "arch": "x64",
+            "platform": "linux",
+            "download_url": "https://github.com/${GITHUB_ORG}/${GITHUB_REPO}/releases/download/${DISTRIBUTION}/${DIST_TARBALL}"
+        },
+        {
+            "filename": "${DIST_TARBALL}",
+            "arch": "x64",
+            "platform": "win32",
+            "download_url": "https://github.com/${GITHUB_ORG}/${GITHUB_REPO}/releases/download/${DISTRIBUTION}/${DIST_TARBALL}"
+        }
+    ]
+}

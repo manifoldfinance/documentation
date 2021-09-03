@@ -169,6 +169,7 @@ nav:
   - Manifold Finance:
     - Platform: spec/README.md
     - TxPrice: txprice.md
+    - API TxPrice.com: api-txprice.md
     - Strategies: strategies.md
     - Releases:
       - Changelog: changelog.md
