@@ -13,27 +13,27 @@
         <meta name="author" content="Manifold Finance">
       
       
-        <link rel="canonical" href="https://docs.manifoldfinance.com/txprice/sorting-overview/">
+        <link rel="canonical" href="https://docs.manifoldfinance.com/dapp/wrapper/PoolRouter/">
       
       
         
       
-      <link rel="icon" href="../../assets/favicon.png">
+      <link rel="icon" href="../../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4+insiders-2.13.0">
     
     
       
-        <title>EIP-1559 Transaction Sorting: Overview - Manifold Finance</title>
+        <title>PoolRouter - Manifold Finance</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.06b57b5d.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.06b57b5d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.1d832a92.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.1d832a92.min.css">
         
       
-      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      <link rel="preload" as="style" href="../../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
       
     
     
@@ -47,7 +47,7 @@
     
     
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
     
       
 
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#eip-1559-transaction-sorting-overview" class="md-skip">
+        <a href="#poolrouter" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Manifold Finance" class="md-header__button md-logo" aria-label="Manifold Finance" data-md-component="logo">
+    <a href="../../.." title="Manifold Finance" class="md-header__button md-logo" aria-label="Manifold Finance" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -121,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              EIP-1559 Transaction Sorting: Overview
+              PoolRouter
             
           </span>
         </div>
@@ -226,7 +226,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
+    <a href="../../.." class="md-tabs__link">
       Index
     </a>
   </li>
@@ -241,7 +241,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../openmev/" class="md-tabs__link">
+      <a href="../../../openmev/" class="md-tabs__link">
         OpenMEV
       </a>
     </li>
@@ -257,7 +257,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../sushi-intro/" class="md-tabs__link">
+      <a href="../../../sushi-intro/" class="md-tabs__link">
         SushiSwap
       </a>
     </li>
@@ -273,7 +273,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../spec/" class="md-tabs__link">
+      <a href="../../../spec/" class="md-tabs__link">
         Manifold Finance
       </a>
     </li>
@@ -289,7 +289,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../openmev-diagrams/" class="md-tabs__link">
+      <a href="../../../openmev-diagrams/" class="md-tabs__link">
         OpenMEV Technical
       </a>
     </li>
@@ -305,7 +305,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../limit_order_books/" class="md-tabs__link">
+      <a href="../../../limit_order_books/" class="md-tabs__link">
         Rulebook
       </a>
     </li>
@@ -321,7 +321,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../SushiSwap/" class="md-tabs__link">
+      <a href="../../../SushiSwap/" class="md-tabs__link">
         Internal
       </a>
     </li>
@@ -349,7 +349,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Manifold Finance" class="md-nav__button md-logo" aria-label="Manifold Finance" data-md-component="logo">
+    <a href="../../.." title="Manifold Finance" class="md-nav__button md-logo" aria-label="Manifold Finance" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -381,7 +381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Index
       </a>
     </li>
@@ -422,7 +422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../openmev/" class="md-nav__link">
+      <a href="../../../openmev/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -436,7 +436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sushi-intro/" class="md-nav__link">
+      <a href="../../../sushi-intro/" class="md-nav__link">
         SushiSwap
       </a>
     </li>
@@ -450,7 +450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../refunder/" class="md-nav__link">
+      <a href="../../../refunder/" class="md-nav__link">
         Gas Rebating
       </a>
     </li>
@@ -464,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev-example/" class="md-nav__link">
+      <a href="../../../dev-example/" class="md-nav__link">
         Specification
       </a>
     </li>
@@ -478,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mev-risks/" class="md-nav__link">
+      <a href="../../../mev-risks/" class="md-nav__link">
         Risks
       </a>
     </li>
@@ -526,7 +526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sushi-intro/" class="md-nav__link">
+      <a href="../../../sushi-intro/" class="md-nav__link">
         How it works
       </a>
     </li>
@@ -540,7 +540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sushi-overview/" class="md-nav__link">
+      <a href="../../../sushi-overview/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -554,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sushi-help/" class="md-nav__link">
+      <a href="../../../sushi-help/" class="md-nav__link">
         Help and Support
       </a>
     </li>
@@ -602,7 +602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../spec/" class="md-nav__link">
+      <a href="../../../spec/" class="md-nav__link">
         Platform
       </a>
     </li>
@@ -616,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../../txprice/" class="md-nav__link">
         TxPrice
       </a>
     </li>
@@ -630,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api-txprice/" class="md-nav__link">
+      <a href="../../../api-txprice/" class="md-nav__link">
         API TxPrice.com
       </a>
     </li>
@@ -644,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/" class="md-nav__link">
+      <a href="../../../strategies/" class="md-nav__link">
         Strategies
       </a>
     </li>
@@ -686,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
+      <a href="../../../changelog/" class="md-nav__link">
         Changelog
       </a>
     </li>
@@ -735,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/dapp/farming/LPRewards.md" class="md-nav__link">
+      <a href="../../../docs/dapp/farming/LPRewards.md" class="md-nav__link">
         Rewards
       </a>
     </li>
@@ -749,7 +749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/dapp/farming/RewardsVault.md" class="md-nav__link">
+      <a href="../../../docs/dapp/farming/RewardsVault.md" class="md-nav__link">
         Vaults
       </a>
     </li>
@@ -763,7 +763,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/dapp/farming/Staking.md" class="md-nav__link">
+      <a href="../../../docs/dapp/farming/Staking.md" class="md-nav__link">
         Staking
       </a>
     </li>
@@ -777,7 +777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/dapp/wrapper/WrappingRewards.md" class="md-nav__link">
+      <a href="../../../docs/dapp/wrapper/WrappingRewards.md" class="md-nav__link">
         Wrapper
       </a>
     </li>
@@ -832,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../openmev-diagrams/" class="md-nav__link">
+      <a href="../../../openmev-diagrams/" class="md-nav__link">
         Platform Overview
       </a>
     </li>
@@ -846,7 +846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/" class="md-nav__link">
+      <a href="../../../workflow/" class="md-nav__link">
         Workflow
       </a>
     </li>
@@ -860,7 +860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chain-state/" class="md-nav__link">
+      <a href="../../../chain-state/" class="md-nav__link">
         Chain State
       </a>
     </li>
@@ -874,7 +874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mining-pools/" class="md-nav__link">
+      <a href="../../../mining-pools/" class="md-nav__link">
         Mining Pools
       </a>
     </li>
@@ -922,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../limit_order_books/" class="md-nav__link">
+      <a href="../../../limit_order_books/" class="md-nav__link">
         Limit Order Book
       </a>
     </li>
@@ -936,7 +936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../obligations/" class="md-nav__link">
+      <a href="../../../obligations/" class="md-nav__link">
         Obligations
       </a>
     </li>
@@ -950,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../suspensions/" class="md-nav__link">
+      <a href="../../../suspensions/" class="md-nav__link">
         Suspensions
       </a>
     </li>
@@ -964,7 +964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../trade-settlement/" class="md-nav__link">
+      <a href="../../../trade-settlement/" class="md-nav__link">
         Settlement
       </a>
     </li>
@@ -1012,7 +1012,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/" class="md-nav__link">
+      <a href="../../../SushiSwap/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -1026,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../formulas/" class="md-nav__link">
+      <a href="../../../formulas/" class="md-nav__link">
         Formulas and Calculations
       </a>
     </li>
@@ -1040,7 +1040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/FeeInformation/" class="md-nav__link">
+      <a href="../../../SushiSwap/FeeInformation/" class="md-nav__link">
         Fee Information
       </a>
     </li>
@@ -1054,7 +1054,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Order/" class="md-nav__link">
+      <a href="../../../SushiSwap/Order/" class="md-nav__link">
         Orders
       </a>
     </li>
@@ -1068,7 +1068,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/OrderCancellation/" class="md-nav__link">
+      <a href="../../../SushiSwap/OrderCancellation/" class="md-nav__link">
         Order Cancellation
       </a>
     </li>
@@ -1082,7 +1082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/OrderCreation/" class="md-nav__link">
+      <a href="../../../SushiSwap/OrderCreation/" class="md-nav__link">
         Order Creation
       </a>
     </li>
@@ -1096,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/OrderMetaData/" class="md-nav__link">
+      <a href="../../../SushiSwap/OrderMetaData/" class="md-nav__link">
         Order Data
       </a>
     </li>
@@ -1110,7 +1110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/OrderPostError/" class="md-nav__link">
+      <a href="../../../SushiSwap/OrderPostError/" class="md-nav__link">
         Order Errors
       </a>
     </li>
@@ -1124,7 +1124,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/OrderType/" class="md-nav__link">
+      <a href="../../../SushiSwap/OrderType/" class="md-nav__link">
         Order Types
       </a>
     </li>
@@ -1138,7 +1138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Trade/" class="md-nav__link">
+      <a href="../../../SushiSwap/Trade/" class="md-nav__link">
         Trade
       </a>
     </li>
@@ -1152,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Apis/" class="md-nav__link">
+      <a href="../../../SushiSwap/Apis/" class="md-nav__link">
         API
       </a>
     </li>
@@ -1194,7 +1194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/FeeInformation/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/FeeInformation/" class="md-nav__link">
         Fee Information
       </a>
     </li>
@@ -1208,7 +1208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/Order/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/Order/" class="md-nav__link">
         Order
       </a>
     </li>
@@ -1222,7 +1222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/OrderCancellation/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/OrderCancellation/" class="md-nav__link">
         OrderCancellation
       </a>
     </li>
@@ -1236,7 +1236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/OrderCreation/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/OrderCreation/" class="md-nav__link">
         OrderCreation
       </a>
     </li>
@@ -1250,7 +1250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/OrderMetaData/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/OrderMetaData/" class="md-nav__link">
         OrderMetaData
       </a>
     </li>
@@ -1264,7 +1264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/OrderPostError/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/OrderPostError/" class="md-nav__link">
         OrderPostError
       </a>
     </li>
@@ -1278,7 +1278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/OrderType/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/OrderType/" class="md-nav__link">
         OrderType
       </a>
     </li>
@@ -1292,7 +1292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SushiSwap/Models/Trade/" class="md-nav__link">
+      <a href="../../../SushiSwap/Models/Trade/" class="md-nav__link">
         Trade
       </a>
     </li>
@@ -1329,8 +1329,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1339,71 +1337,114 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mempool-sorting" class="md-nav__link">
-    Mempool Sorting
+  <a href="#poolrouter" class="md-nav__link">
+    PoolRouter
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-situation" class="md-nav__link">
-    Current Situation
-  </a>
-  
-    <nav class="md-nav" aria-label="Current Situation">
+    <nav class="md-nav" aria-label="PoolRouter">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#transaction-format" class="md-nav__link">
-    Transaction Format
+  <a href="#constructoraddress-_smartpool-address-_wrappingcontract-address-_treasury-address-_foldtoken-uint256-_protocolfee-public" class="md-nav__link">
+    constructor(address _smartPool, address _wrappingContract, address _treasury, address _foldToken, uint256 _protocolFee) (public)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mining" class="md-nav__link">
-    Mining
+  <a href="#depositaddress-tokenin-uint256-tokenamountin-uint256-minpoolamountout-uint256-liquidationfee-public" class="md-nav__link">
+    deposit(address tokenIn, uint256 tokenAmountIn, uint256 minPoolAmountOut, uint256 liquidationFee) (public)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#all-nodes" class="md-nav__link">
-    All Nodes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changes-under-eip-1559" class="md-nav__link">
-    Changes Under EIP-1559
-  </a>
-  
-    <nav class="md-nav" aria-label="Changes Under EIP-1559">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#transaction-format_1" class="md-nav__link">
-    Transaction Format
+  <a href="#depositalluint256-poolamountout-uint256-maxtokensamountin-uint256-liquidationfee-public" class="md-nav__link">
+    depositAll(uint256 poolAmountOut, uint256[] maxTokensAmountIn, uint256 liquidationFee) (public)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mining_1" class="md-nav__link">
-    Mining
+  <a href="#withdrawaddress-tokenout-uint256-poolamountin-uint256-minamountout-public" class="md-nav__link">
+    withdraw(address tokenOut, uint256 poolAmountIn, uint256 minAmountOut) (public)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#all-nodes_1" class="md-nav__link">
-    All Nodes
+  <a href="#withdrawalluint256-poolamountin-uint256-minamountsout-public" class="md-nav__link">
+    withdrawAll(uint256 poolAmountIn, uint256[] minAmountsOut) (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#liquidateaddress-liquidateduser-address-tokenout-uint256-poolamountin-uint256-minamountout-public" class="md-nav__link">
+    liquidate(address liquidatedUser, address tokenOut, uint256 poolAmountIn, uint256 minAmountOut) (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collectfeestodaoaddress-token-public" class="md-nav__link">
+    collectFeesToDAO(address token) (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpooltokens-address-public" class="md-nav__link">
+    getPoolTokens() → address[] (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettokenweights-uint256-public" class="md-nav__link">
+    getTokenWeights() → uint256[] (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getfoldamountoutsingleaddress-tokenin-uint256-tokenamountin-uint256-minpoolamountout-uint256-poolamountout-public" class="md-nav__link">
+    getFoldAmountOutSingle(address tokenIn, uint256 tokenAmountIn, uint256 minPoolAmountOut) → uint256 poolAmountOut (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettokensamountinuint256-poolamountout-uint256-maxamountsin-uint256-actualamountsin-public" class="md-nav__link">
+    getTokensAmountIn(uint256 poolAmountOut, uint256[] maxAmountsIn) → uint256[] actualAmountsIn (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getfoldamountinsingleaddress-tokenout-uint256-tokenamountout-uint256-maxpoolamountin-uint256-poolamountin-public" class="md-nav__link">
+    getFoldAmountInSingle(address tokenOut, uint256 tokenAmountOut, uint256 maxPoolAmountIn) → uint256 poolAmountIn (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettokenamountoutsingleaddress-tokenout-uint256-poolamountin-uint256-mintokenamountout-uint256-tokenamountout-public" class="md-nav__link">
+    getTokenAmountOutSingle(address tokenOut, uint256 poolAmountIn, uint256 minTokenAmountOut) → uint256 tokenAmountOut (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettokensamountoutuint256-poolamountin-uint256-minamountsout-uint256-actualamountsout-public" class="md-nav__link">
+    getTokensAmountOut(uint256 poolAmountIn, uint256[] minAmountsOut) → uint256[] actualAmountsOut (public)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_gettokensamountinuint256-poolamountout-uint256-maxamountsin-uint256-actualamountsin-internal" class="md-nav__link">
+    _getTokensAmountIn(uint256 poolAmountOut, uint256[] maxAmountsIn) → uint256[] actualAmountsIn (internal)
   </a>
   
 </li>
@@ -1425,90 +1466,52 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/manifoldfinance/documentation/edit/master/docs/txprice/sorting-overview.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/manifoldfinance/documentation/edit/master/docs/dapp/wrapper/PoolRouter.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
                 
-                <h1 id="eip-1559-transaction-sorting-overview">EIP-1559 Transaction Sorting: Overview<a class="headerlink" href="#eip-1559-transaction-sorting-overview" title="Permanent link">&para;</a></h1>
-<p><strong>tl;dr</strong> Transaction comparison and sorting in the mempool is used for two main problems: On the upper end, finding the most attractive transactions during mining; and on the lower end, identifying the least promising transactions for eviction. For legacy transactions, both problems use the <code>gas_price</code> as the relevant decision metric and max-/min-heaps as efficient partially sorted data structures. For EIP-1559, these problems require different metrics. For mining, a (somewhat more complex) explicit solution seems feasible. For eviction, heuristics are needed that are both efficiently implementable and robust under many different base fee paradigms.</p>
-<hr />
-<p>As a proposal for a new transaction pricing model, <a href="https://eips.ethereum.org/EIPS/eip-1559">EIP-1559</a> will change many aspects of Ethereum clients &#39;behavior. One of the areas most impacted is the mempool, i.e. the part of a client responsible for handling in-flight transactions on their way from users to miners.</p>
-<p>Tim Beiko <a href="https://hackmd.io/@timbeiko/1559-tx-pool-mgmt">recently listed 4 open questions</a> around mempool handling of EIP-1559 transactions, with three of them closely tied to the problem of transaction sorting. Here we aim to give a brief overview of different aspects of mempool transaction sorting and how they are impacted by EIP-1559.</p>
-<p><em>This document is mainly intended to serve as a basis of discussion for the <a href="https://github.com/ethereum/pm/issues/226">upcoming implementers &#39;call</a>. It will be followed up by a more comprehensive writeup. As the Quilt team has only recently joined the EIP-1559 effort, it is very possible that we made incorrect assumption or overlooked relevant existing work. Feedback in these cases and in general is much appreciated!</em></p>
-<h2 id="mempool-sorting">Mempool Sorting<a class="headerlink" href="#mempool-sorting" title="Permanent link">&para;</a></h2>
-<p>There are two main distinct sorting problems: Miners, when picking transactions for a new block,  want to get the currently most profitable transactions. And all nodes, when reaching the maximum mempool capacity, want to get the transactions with the lowest inclusion chance, that they can evict to make room for more promising transactions. Both of these problems consist of two sub-problems: The choice of a comparison metric and the choice of an efficient data structure for transactions, based on that metric.</p>
-<p>For current (legacy) transactions, both the high-end sorting for mining and the low-end sorting for eviction rely on the <code>gas_price</code> transaction field as their comparison metric. This in turn also leads to the same choice of data structure, namely a (partially-sorted) max-heap for mining and a (partially-sorted) min-heap for eviction.</p>
-<p>For EIP-1559 transactions, the situation is more complex. For mining, the relevant metric is the current effective transaction tip, i.e. the amount per gas the transaction is willing to pay to the miner for inclusion. For eviction however, this is not the correct metric to use. As the effective transaction tip depends on the current protocol <code>base_fee</code>, the relative order of transaction changes over time and is not an accurate heuristic for inclusion chance. Thus, a more elaborate metric, ideally close to &#34;estimated average future effective transaction tip &#34;, is necessary.</p>
-<p>The change in metrics also requires different data structures for EIP-1559 transaction sorting. For mining, a solution based on a slightly more complex heap-approach <a href="https://github.com/adietrichs/1559Simulations">is in the process of being prototyped</a>. For eviction, the choice of data structure depends on the choice of metric. In particular, this imposes an additional constraint on the choice of metric: Find a metric that is accurate enough under a vast variety of <code>base_fee</code> regimes, while also being efficiently implementable.</p>
-<p>The third sorting-related problem mentioned by Tim is that of transaction replacement (for transactions with the same sender and nonce). It is similar to that of eviction, with an added focus on DOS protection and predicatability. For EIP-1559 transactions, a decision rule similar to the <code>min_price_bump</code> for legacy transactions can be devised.</p>
-<h2 id="current-situation">Current Situation<a class="headerlink" href="#current-situation" title="Permanent link">&para;</a></h2>
-<h3 id="transaction-format">Transaction Format<a class="headerlink" href="#transaction-format" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>gas_price</code></td>
-<td>The fee the transaction is willing to pay (per gas used)</td>
-</tr>
-</tbody>
-</table>
-<p>While there are additional transaction fields relevant for mempool handling, this is the one relevant for sorting and also the one that sets legacy transactions apart from their EIP-1559 counterparts.</p>
-<p>It is important to note that the payment willingness as indicated by <code>gas_price</code> for any given transaction is a static value, i.e. cannot depend on the overall current gas price level. Thus, the relative order of transaction always remains the same, as illustrated in this plot:</p>
-<p><img alt="" src="https://i.imgur.com/NXsCoOq.png" /></p>
-<p>A mempool holding all of these transactions can be certain that C &gt;E &gt;A &gt;B &gt;D will always  correctly describe the relative payment willingness of the transactions. It is thus possible to create and maintain efficient (partially) sorted views of the transactions in mempool.</p>
-<h3 id="mining">Mining<a class="headerlink" href="#mining" title="Permanent link">&para;</a></h3>
-<p>When assembling a new block, miners need a way to find the most profitable transactions to include. They can do so by querying the mempool for the upper end of (currently executable) pending transactions. For this purpose, the mempool maintains a (partially sorted) max-heap of its transactions, allowing efficient queries for the highest paying transactions.</p>
-<p><em>Note: As these heaps are only needed for mining (see below for those used by all nodes), they are usually created and maintained by the mining module directly and not technically part of the mempool. For simplicity we subsume these parts under &#34;mempool &#34;.</em></p>
-<h3 id="all-nodes">All Nodes<a class="headerlink" href="#all-nodes" title="Permanent link">&para;</a></h3>
-<p>As nodes only have a limited amount of memory to work with, they cannot keep an unlimited amount of transactions in their mempools. That means that once that limit is reached, they need a way to decide whether to keep additional incoming transactions and if so, which transactions to drop in their favor.</p>
-<p>Nodes ideally want to prioritize transactions by chance of future on-chain inclusion, dropping those with the least chances of ever being included by a miner. As the relative attractiveness of transactions for miners only depends on their <code>gas_price</code>, it remains constant over time. Thus, the transactions currently least attractive will also have the lowest chances of eventual inclusion.</p>
-<p>When choosing which transactions to drop, the mempool thus need to be able to find the transactions with the lowest <code>gas_price</code>. It does so by maintaining a (partially sorted) min-heap of its transactions.</p>
-<p>Decisions on transaction replacement (i.e. when the mempool already holds a transaction from the same sender with the same nonce) are done with the same <code>gas_price</code> metric. An additional minimum price bump is enforecd to ensure DOS protection.</p>
-<h2 id="changes-under-eip-1559">Changes Under EIP-1559<a class="headerlink" href="#changes-under-eip-1559" title="Permanent link">&para;</a></h2>
-<h3 id="transaction-format_1">Transaction Format<a class="headerlink" href="#transaction-format_1" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>fee_cap</code></td>
-<td>The total fee the transaction is willing to pay (per gas used)</td>
-</tr>
-<tr>
-<td><code>tip</code></td>
-<td>The maximum share of the total fee the transaction is willing to pay to the miner (per gas used)</td>
-</tr>
-</tbody>
-</table>
-<p>Under EIP-1559, transaction fees are no longer fully paid to the miner. Instead, there is a protocol-wide and dynamically adjusted <code>base_fee</code> (per gas used) that each transaction is required to burn. In addition, transactions can tip the miner to increase their chance of timely inclusion. Instead of specifying a <code>gas_price</code>, transactions now set a <code>tip</code> amount and a <code>fee_cap</code>. If <code>base_fee + tip</code> exceeds <code>fee_cap</code>, the tip is reduced to <code>fee_cap - base_fee</code>.</p>
-<p>As the effective payment to the miner can thus be lower than the tip specified in the transaction, miner expectations for any given transation is no longer static. As an important consequence, the relative order of transaction is also no longer static, as illustrated by this plot:</p>
-<p><img alt="" src="https://i.imgur.com/aV22Drb.png" /></p>
-<p>This example mirrors the total payment willingness of the legacy example above, but sets varying values for <code>tip</code>. The plot shows the effective tip for each transaction as a function of the current <code>base_fee</code>. As one can see, the lines now intersect, indicating <code>base_fee</code> levels at which the relative order of the specific two transactions flips. This behavior has been <a href="https://github.com/ethereum/rig/blob/master/eip1559/notes-call3.md#important-client-strategies">noted in the past</a> when analysing the properties of EIP-1559 transactions.</p>
-<p>Each transaction can be in one of two states for any given <code>base_fee</code>:
-While <code>base_fee &amp;lt;= fee_cap - tip</code>, the transaction is willing to pay a constant <code>tip</code> to the miner (<em>static state</em>). Transactions that set <code>tip == fee_cap</code> (Tx D in the plot) are never in this state.
-Once <code>base_fee &amp;gt;fee_cap - tip</code>, the miner payment ability of a transaction is in a <em>dynamic range</em>, decreasing further with increasing <code>base_fee</code>.</p>
-<h3 id="mining_1">Mining<a class="headerlink" href="#mining_1" title="Permanent link">&para;</a></h3>
-<p>As before, miners need a way to find the most profitable transactions to include into a new block and thus want to be able to query the mempool for the current upper end of pending transactions. Given the current <code>base_fee</code>, a transaction &#39;s profitability for the miner is given by its effective tip. Thus, the sorting in this context is not a problem of the right metric, but only of efficient implementation.</p>
-<p>As the relative order of transactions can change over time, the simple single-heap approach for legacy transactions is no longer sufficient. However, the order does stay constant for transactions within both the static and dynamic state respectively, changing only for those that leave either of these states due to a change in the <code>base_fee</code> (that crosses <code>fee_cap - tip</code>). Thus, it seems plausible that a fairly simple new sorting mechanism can be devised relying on this observation and adjusting the sorting on <code>base_fee</code> changes. Work on the prototyping of such an mechanism has been started and can be found <a href="https://github.com/adietrichs/1559Simulations">here</a>.</p>
-<h3 id="all-nodes_1">All Nodes<a class="headerlink" href="#all-nodes_1" title="Permanent link">&para;</a></h3>
-<p>For eviction, nodes still want to prioritize transactions by chance of future on-chain inclusion. Under EIP-1559 however, the relative attraciveness of transactions as given by their effective tip depends on the <code>base_fee</code>. As the <code>base_fee</code> is adjusted over time, its future behavior is unknown. Thus, a precise ordering by chance of future inclusion is impossible. Instead, the goal has to be to find a heuristic for estimation of this chance that is both efficiently computable and robust (i.e. reasonably precise) under many different <code>base fee</code> paradigms.</p>
-<p>In addition to the current <code>base_fee</code>, the heuristic could also take into account empirical data from recent history, e.g. <code>base_fee</code> volatility over the last 24h. However, this area still needs further work. Importantly, it is unclear what the practical limits for per-block (i.e. every time the <code>base_fee</code> changes) are and how severely those restrict the choice of heuristic.</p>
-<p>For transaction replacement, in principle the same heuristic could be used. However, to make replacement predictable for users (as a replacement is usually a conscious effort by a user), a simple rule that enforces improved mining attractiveness and incorporates DOS protection is preferable. A simple example would be
-<div class="highlight"><pre><span></span><code>new_tx.fee_cap &amp;gt;= old_tx.fee_cap + min_bump &amp;amp;&amp;amp;new_tx.tip &amp;gt;= old_tx.tip + min_bump
-where min_bump = 0.1 * old_tx.tip
-</code></pre></div>
-but alternative approaches are possible.</p>
+                  <h1>PoolRouter</h1>
+                
+                <h2 id="poolrouter"><code>PoolRouter</code><a class="headerlink" href="#poolrouter" title="Permanent link">&para;</a></h2>
+<h3 id="constructoraddress-_smartpool-address-_wrappingcontract-address-_treasury-address-_foldtoken-uint256-_protocolfee-public"><code>constructor(address _smartPool, address _wrappingContract, address _treasury, address _foldToken, uint256 _protocolFee)</code> (public)<a class="headerlink" href="#constructoraddress-_smartpool-address-_wrappingcontract-address-_treasury-address-_foldtoken-uint256-_protocolfee-public" title="Permanent link">&para;</a></h3>
+<h3 id="depositaddress-tokenin-uint256-tokenamountin-uint256-minpoolamountout-uint256-liquidationfee-public"><code>deposit(address tokenIn, uint256 tokenAmountIn, uint256 minPoolAmountOut, uint256 liquidationFee)</code> (public)<a class="headerlink" href="#depositaddress-tokenin-uint256-tokenamountin-uint256-minpoolamountout-uint256-liquidationfee-public" title="Permanent link">&para;</a></h3>
+<p>This methods performs the following actions:
+            1. pull token for user
+            2. joinswap into balancer pool, recieving lp
+            3. stake lp tokens into Wrapping Contrat which mints FOLD to User</p>
+<h3 id="depositalluint256-poolamountout-uint256-maxtokensamountin-uint256-liquidationfee-public"><code>depositAll(uint256 poolAmountOut, uint256[] maxTokensAmountIn, uint256 liquidationFee)</code> (public)<a class="headerlink" href="#depositalluint256-poolamountout-uint256-maxtokensamountin-uint256-liquidationfee-public" title="Permanent link">&para;</a></h3>
+<p>This methods performs the following actions:
+            1. pull tokens for user
+            2. join into balancer pool, recieving lp
+            3. stake lp tokens into Wrapping Contrat which mints FOLD to User</p>
+<h3 id="withdrawaddress-tokenout-uint256-poolamountin-uint256-minamountout-public"><code>withdraw(address tokenOut, uint256 poolAmountIn, uint256 minAmountOut)</code> (public)<a class="headerlink" href="#withdrawaddress-tokenout-uint256-poolamountin-uint256-minamountout-public" title="Permanent link">&para;</a></h3>
+<p>This methods performs the following actions:
+            1. burn FOLD from user and unstake lp
+            2. exitswap lp into one of the underlyings
+            3. send the underlying to the User</p>
+<h3 id="withdrawalluint256-poolamountin-uint256-minamountsout-public"><code>withdrawAll(uint256 poolAmountIn, uint256[] minAmountsOut)</code> (public)<a class="headerlink" href="#withdrawalluint256-poolamountin-uint256-minamountsout-public" title="Permanent link">&para;</a></h3>
+<p>This methods performs the following actions:
+            1. burn FOLD from user and unstake lp
+            2. exitswap lp into all of the underlyings
+            3. send the underlyings to the User</p>
+<h3 id="liquidateaddress-liquidateduser-address-tokenout-uint256-poolamountin-uint256-minamountout-public"><code>liquidate(address liquidatedUser, address tokenOut, uint256 poolAmountIn, uint256 minAmountOut)</code> (public)<a class="headerlink" href="#liquidateaddress-liquidateduser-address-tokenout-uint256-poolamountin-uint256-minamountout-public" title="Permanent link">&para;</a></h3>
+<p>This methods performs the following actions:
+            1. burn FOLD from caller and unstake lp of liquidatedUser
+            2. exitswap lp into one of the underlyings
+            3. send the underlying to the caller
+            4. transfer fee from caller to liquidatedUser</p>
+<h3 id="collectfeestodaoaddress-token-public"><code>collectFeesToDAO(address token)</code> (public)<a class="headerlink" href="#collectfeestodaoaddress-token-public" title="Permanent link">&para;</a></h3>
+<h3 id="getpooltokens-address-public"><code>getPoolTokens() → address[]</code> (public)<a class="headerlink" href="#getpooltokens-address-public" title="Permanent link">&para;</a></h3>
+<p>VIEWS</p>
+<h3 id="gettokenweights-uint256-public"><code>getTokenWeights() → uint256[]</code> (public)<a class="headerlink" href="#gettokenweights-uint256-public" title="Permanent link">&para;</a></h3>
+<h3 id="getfoldamountoutsingleaddress-tokenin-uint256-tokenamountin-uint256-minpoolamountout-uint256-poolamountout-public"><code>getFoldAmountOutSingle(address tokenIn, uint256 tokenAmountIn, uint256 minPoolAmountOut) → uint256 poolAmountOut</code> (public)<a class="headerlink" href="#getfoldamountoutsingleaddress-tokenin-uint256-tokenamountin-uint256-minpoolamountout-uint256-poolamountout-public" title="Permanent link">&para;</a></h3>
+<h3 id="gettokensamountinuint256-poolamountout-uint256-maxamountsin-uint256-actualamountsin-public"><code>getTokensAmountIn(uint256 poolAmountOut, uint256[] maxAmountsIn) → uint256[] actualAmountsIn</code> (public)<a class="headerlink" href="#gettokensamountinuint256-poolamountout-uint256-maxamountsin-uint256-actualamountsin-public" title="Permanent link">&para;</a></h3>
+<h3 id="getfoldamountinsingleaddress-tokenout-uint256-tokenamountout-uint256-maxpoolamountin-uint256-poolamountin-public"><code>getFoldAmountInSingle(address tokenOut, uint256 tokenAmountOut, uint256 maxPoolAmountIn) → uint256 poolAmountIn</code> (public)<a class="headerlink" href="#getfoldamountinsingleaddress-tokenout-uint256-tokenamountout-uint256-maxpoolamountin-uint256-poolamountin-public" title="Permanent link">&para;</a></h3>
+<h3 id="gettokenamountoutsingleaddress-tokenout-uint256-poolamountin-uint256-mintokenamountout-uint256-tokenamountout-public"><code>getTokenAmountOutSingle(address tokenOut, uint256 poolAmountIn, uint256 minTokenAmountOut) → uint256 tokenAmountOut</code> (public)<a class="headerlink" href="#gettokenamountoutsingleaddress-tokenout-uint256-poolamountin-uint256-mintokenamountout-uint256-tokenamountout-public" title="Permanent link">&para;</a></h3>
+<h3 id="gettokensamountoutuint256-poolamountin-uint256-minamountsout-uint256-actualamountsout-public"><code>getTokensAmountOut(uint256 poolAmountIn, uint256[] minAmountsOut) → uint256[] actualAmountsOut</code> (public)<a class="headerlink" href="#gettokensamountoutuint256-poolamountin-uint256-minamountsout-uint256-actualamountsout-public" title="Permanent link">&para;</a></h3>
+<h3 id="_gettokensamountinuint256-poolamountout-uint256-maxamountsin-uint256-actualamountsin-internal"><code>_getTokensAmountIn(uint256 poolAmountOut, uint256[] maxAmountsIn) → uint256[] actualAmountsIn</code> (internal)<a class="headerlink" href="#_gettokensamountinuint256-poolamountout-uint256-maxamountsin-uint256-actualamountsin-internal" title="Permanent link">&para;</a></h3>
                 
               
               
@@ -1599,12 +1602,12 @@ but alternative approaches are possible.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.expand", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.expand", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.0015ff2c.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.0015ff2c.min.js"></script>
       
-        <script src="../../js/config.js"></script>
+        <script src="../../../js/config.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       

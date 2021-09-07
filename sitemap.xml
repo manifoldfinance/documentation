@@ -2,222 +2,252 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.manifoldfinance.com/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/api-txprice/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/changelog/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/dev-example/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/formulas/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/limit_order_books/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/mev-risks/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/mining-pools/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/obligations/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/openmev-diagrams/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/openmev/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/refunder/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/strategies/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/sushi-help/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/sushi-intro/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/sushi-overview/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/suspensions/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/trade-settlement/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/txprice/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/FeeInformation/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Order/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderCancellation/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderCreation/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderMetaData/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderPostError/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderType/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Trade/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Apis/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/FeeInformation/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/Order/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderCancellation/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderCreation/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderMetaData/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderPostError/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderType/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/Trade/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/chain-state/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/dapp/farming/LPRewards/</loc>
+         <lastmod>2021-09-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/dapp/farming/RewardsVault/</loc>
+         <lastmod>2021-09-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/dapp/farming/Staking/</loc>
+         <lastmod>2021-09-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/dapp/wrapper/FoldWrapper/</loc>
+         <lastmod>2021-09-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/dapp/wrapper/PoolRouter/</loc>
+         <lastmod>2021-09-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/dapp/wrapper/WrappingRewards/</loc>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/spec/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/txprice/fast-sorting/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/txprice/informative-1559/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/txprice/sorting-overview/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/workflow/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/workflow/EVENT_TRACING/</loc>
-         <lastmod>2021-09-03</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
