@@ -173,6 +173,11 @@ nav:
     - Strategies: strategies.md
     - Releases:
       - Changelog: changelog.md
+    - DApp:
+       - Rewards: docs/dapp/farming/LPRewards.md
+       - Vaults: docs/dapp/farming/RewardsVault.md
+       - Staking: docs/dapp/farming/Staking.md
+       - Wrapper: docs/dapp/wrapper/WrappingRewards.md
   - OpenMEV Technical:
               - Platform Overview: openmev-diagrams.md
               - Workflow: workflow/README.md
