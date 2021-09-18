@@ -25,5 +25,5 @@
  * ------------------------------------------------------------------------- */
 
 interface FormData {
-  keys(): IterableIterator<string>;
+  keys(): IterableIterator<string>
 }

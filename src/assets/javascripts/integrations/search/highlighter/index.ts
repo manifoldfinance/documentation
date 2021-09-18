@@ -60,7 +60,14 @@ export type SearchHighlightFactoryFn = (query: string) => SearchHighlightFn
 export function setupSearchHighlighter(
   config: SearchIndexConfig
 ): SearchHighlightFactoryFn {
-  const separator = new RegExp(config.separator, "img")
+  // Hack: temporarily remove pure lookaheads
+  const regex = config.separator.split("|").map(term => {
+    const temp = term.replace(/(\(\?[!=][^)]+\))/g, "")
+    return temp.length === 0 ? "�" : term
+  })
+    .join("|")
+
+  const separator = new RegExp(regex, "img")
   const highlight = (_: unknown, data: string, term: string) => {
     return `${data}<mark data-md-highlight>${term}</mark>`
   }
@@ -72,7 +79,7 @@ export function setupSearchHighlighter(
       .trim()
 
     /* Create search term match expression */
-    const match = new RegExp(`(^|${config.separator})(${
+    const match = new RegExp(`(^|${config.separator}|\\b)(${
       query
         .replace(/[|\\{}()[\]^$+*?.-]/g, "\\$&")
         .replace(separator, "|")

@@ -53,7 +53,7 @@
     // [tablet portrait -]: Search modal
     @include break-to-device(tablet portrait) {
       position: absolute;
-      top: px2rem(4px);
+      top: px2rem(-20px);
       left: px2rem(-44px);
       width: px2rem(40px);
       height: px2rem(40px);
@@ -597,6 +597,8 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    // Hack: omit accidental text selection on fast toggle of more button
+    user-select: none;
   }
 
   // Search result item
@@ -628,36 +630,15 @@
     }
   }
 
-  // Search result more link
-  &__more summary {
+  // Search result more container
+  &__more > summary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     display: block;
-    padding: px2em(12px) px2rem(16px);
-    color: var(--md-typeset-a-color);
-    font-size: px2rem(12.8px);
     outline: none;
     cursor: pointer;
-    transition:
-      color            250ms,
-      background-color 250ms;
     scroll-snap-align: start;
-
-    // [tablet landscape +]: Adjust spacing
-    @include break-from-device(tablet landscape) {
-      padding-left: px2rem(44px);
-
-      // Adjust for right-to-left languages
-      [dir="rtl"] & {
-        padding-right: px2rem(44px);
-        padding-left: px2rem(16px);
-      }
-    }
-
-    // Search result more link on focus/hover
-    &:focus,
-    &:hover {
-      color: var(--md-accent-fg-color);
-      background-color: var(--md-accent-fg-color--transparent);
-    }
 
     // Hide native details marker
     &::marker,
@@ -665,10 +646,39 @@
       display: none;
     }
 
-    // Adjust transparency of less relevant results
-    ~ * > * {
-      opacity: 0.65;
+    // Search result more button
+    > div {
+      padding: px2em(12px) px2rem(16px);
+      color: var(--md-typeset-a-color);
+      font-size: px2rem(12.8px);
+      transition:
+        color            250ms,
+        background-color 250ms;
+
+      // [tablet landscape +]: Adjust spacing
+      @include break-from-device(tablet landscape) {
+        padding-left: px2rem(44px);
+
+        // Adjust for right-to-left languages
+        [dir="rtl"] & {
+          padding-right: px2rem(44px);
+          padding-left: px2rem(16px);
+        }
+      }
     }
+
+    // Search result more link on focus/hover
+    &:focus > div,
+    &:hover > div {
+      color: var(--md-accent-fg-color);
+      background-color: var(--md-accent-fg-color--transparent);
+    }
+  }
+
+  // Adjust background for more container in open state
+  &__more[open] > summary {
+    background-color: var(--md-default-bg-color);
+    // box-shadow: 0 px2rem(-1px) hsla(0, 0%, 0%, 0.07) inset;
   }
 
   // Search result article
@@ -685,18 +695,6 @@
       [dir="rtl"] & {
         padding-right: px2rem(44px);
         padding-left: px2rem(16px);
-      }
-    }
-
-    // Search result article document
-    &--document {
-
-      // Search result title
-      .md-search-result__title {
-        margin: px2rem(11px) 0;
-        font-weight: 400;
-        font-size: px2rem(16px);
-        line-height: 1.4;
       }
     }
   }
@@ -739,49 +737,46 @@
     }
   }
 
-  // Search result title
-  &__title {
-    margin: 0.5em 0;
-    font-weight: 700;
-    font-size: px2rem(12.8px);
-    line-height: 1.6;
-  }
-
-  // Search result teaser
-  &__teaser {
-    display: -webkit-box;
-    max-height: px2rem(40px);
-    margin: 0.5em 0;
-    overflow: hidden;
+  // Typesetted content
+  .md-typeset {
     color: var(--md-default-fg-color--light);
     font-size: px2rem(12.8px);
     line-height: 1.6;
-    text-overflow: ellipsis;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
 
-    // [mobile -]: Adjust number of lines
-    @include break-to-device(mobile) {
-      max-height: px2rem(60px);
-      -webkit-line-clamp: 3;
+    // Search result article title
+    h1 {
+      margin: px2rem(11px) 0;
+      color: var(--md-default-fg-color);
+      font-weight: 400;
+      font-size: px2rem(16px);
+      line-height: 1.4;
+
+      // Search term highlighting
+      mark {
+        text-decoration: none;
+      }
     }
 
-    // [tablet landscape]: Adjust number of lines
-    @include break-at-device(tablet landscape) {
-      max-height: px2rem(60px);
-      -webkit-line-clamp: 3;
-    }
+    // Search result section title
+    h2 {
+      margin: 0.5em 0;
+      color: var(--md-default-fg-color);
+      font-weight: 700;
+      font-size: px2rem(12.8px);
+      line-height: 1.6;
 
-    // Search term highlighting
-    mark {
-      text-decoration: underline;
-      background-color: transparent;
+      // Search term highlighting
+      mark {
+        text-decoration: none;
+      }
     }
   }
 
   // Search result terms
   &__terms {
+    display: block;
     margin: 0.5em 0;
+    color: var(--md-default-fg-color);
     font-size: px2rem(12.8px);
     font-style: italic;
   }
@@ -789,6 +784,7 @@
   // Search term highlighting
   mark {
     color: var(--md-accent-fg-color);
+    text-decoration: underline;
     background-color: transparent;
   }
 }

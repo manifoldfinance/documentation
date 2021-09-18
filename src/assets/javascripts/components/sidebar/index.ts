@@ -28,6 +28,7 @@ import {
 } from "rxjs"
 import {
   distinctUntilChanged,
+  finalize,
   map,
   observeOn,
   take,
@@ -181,7 +182,8 @@ export function mountSidebar(
   /* Create and return component */
   return watchSidebar(el, options)
     .pipe(
-      tap(internal$),
+      tap(state => internal$.next(state)),
+      finalize(() => internal$.complete()),
       map(state => ({ ref: el, ...state }))
     )
 }

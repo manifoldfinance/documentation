@@ -46,6 +46,11 @@ export type SearchQueryTerms = Record<string, boolean>
 /**
  * Parse a search query for analysis
  *
+ * Lunr.js itself has a bug where it doesn't detect or remove wildcards for
+ * query clauses, so we must do this here.
+ *
+ * @see https://bit.ly/3DpTGtz - GitHub issue
+ *
  * @param value - Query value
  *
  * @returns Search query clauses
@@ -53,11 +58,28 @@ export type SearchQueryTerms = Record<string, boolean>
 export function parseSearchQuery(
   value: string
 ): SearchQueryClause[] {
-  const query  = new (lunr as any).Query(["title", "text"])
-  const parser = new (lunr as any).QueryParser(value, query)
+  const query  = new lunr.Query(["title", "text"])
+  const parser = new lunr.QueryParser(value, query)
 
-  /* Parse and return query clauses */
+  /* Parse Search query */
   parser.parse()
+  for (const clause of query.clauses) {
+    clause.usePipeline = true
+
+    /* Handle leading wildcards */
+    if (clause.term.startsWith("*")) {
+      clause.wildcard = lunr.Query.wildcard.LEADING
+      clause.term = clause.term.slice(1)
+    }
+
+    /* Handle trailing wildcards */
+    if (clause.term.endsWith("*")) {
+      clause.wildcard = lunr.Query.wildcard.TRAILING
+      clause.term = clause.term.slice(0, -1)
+    }
+  }
+
+  /* Return query clauses */
   return query.clauses
 }
 

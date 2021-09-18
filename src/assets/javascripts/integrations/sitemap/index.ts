@@ -31,7 +31,7 @@ import { getElements, requestXML } from "~/browser"
  * ------------------------------------------------------------------------- */
 
 /**
- * A sitemap, i.e. a list of URLs
+ * Sitemap, i.e. a list of URLs
  */
 export type Sitemap = string[]
 

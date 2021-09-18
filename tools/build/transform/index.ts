@@ -163,6 +163,7 @@ export function transformScript(
           map: null
         })
       }),
+      catchError(() => NEVER),
       switchMap(({ js }) => {
         const file = digest(options.to, js)
         return concat(

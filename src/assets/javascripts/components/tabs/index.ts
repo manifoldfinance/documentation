@@ -28,6 +28,7 @@ import {
 } from "rxjs"
 import {
   distinctUntilKeyChanged,
+  finalize,
   map,
   observeOn,
   switchMap,
@@ -145,7 +146,8 @@ export function mountTabs(
       : watchTabs(el, options)
   )
     .pipe(
-      tap(internal$),
+      tap(state => internal$.next(state)),
+      finalize(() => internal$.complete()),
       map(state => ({ ref: el, ...state }))
     )
 }

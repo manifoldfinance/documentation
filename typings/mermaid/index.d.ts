@@ -24,4 +24,5 @@
  * Global types
  * ------------------------------------------------------------------------- */
 
-declare const mermaid: any;
+declare const mermaid: any
+

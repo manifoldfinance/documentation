@@ -22,6 +22,7 @@
 
 import {
   Observable,
+  ObservableInput,
   Subject,
   combineLatest,
   fromEvent,
@@ -32,7 +33,10 @@ import {
   distinctUntilChanged,
   distinctUntilKeyChanged,
   filter,
+  finalize,
   map,
+  share,
+  switchMapTo,
   take,
   takeLast,
   takeUntil,
@@ -50,12 +54,14 @@ import {
   watchElementFocus
 } from "~/browser"
 import {
+  SearchIndex,
   SearchMessageType,
   SearchQueryMessage,
   SearchWorker,
-  defaultTransform,
-  isSearchReadyMessage
+  isSearchReadyMessage,
+  transform
 } from "~/integrations"
+import { split } from "~/utilities"
 
 import { Component } from "../../_"
 
@@ -72,6 +78,24 @@ export interface SearchQuery {
 }
 
 /* ----------------------------------------------------------------------------
+ * Helper types
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Watch options
+ */
+interface WatchOptions {
+  index$: ObservableInput<SearchIndex> /* Search index observable */
+}
+
+/**
+ * Mount options
+ */
+interface MountOptions {
+  index$: ObservableInput<SearchIndex> /* Search index observable */
+}
+
+/* ----------------------------------------------------------------------------
  * Functions
  * ------------------------------------------------------------------------- */
 
@@ -83,13 +107,14 @@ export interface SearchQuery {
  *
  * @param el - Search query element
  * @param worker - Search worker
+ * @param options - Options
  *
  * @returns Search query observable
  */
 export function watchSearchQuery(
-  el: HTMLInputElement, { rx$ }: SearchWorker
+  el: HTMLInputElement, { rx$ }: SearchWorker, { index$ }: WatchOptions
 ): Observable<SearchQuery> {
-  const fn = __search?.transform || defaultTransform
+  const fn = __search?.transform || transform
 
   /* Intercept focus and input events */
   const focus$ = watchElementFocus(el)
@@ -98,7 +123,14 @@ export function watchSearchQuery(
     fromEvent(el, "focus").pipe(delay(1))
   )
     .pipe(
-      map(() => fn(el.value)),
+      switchMapTo(index$),
+      map(({ config }) => fn(el.value, term => {
+        const terms: string[] = []
+        split(term, config.separator, range => {
+          terms.push(term.slice(...range))
+        })
+        return terms
+      })),
       distinctUntilChanged()
     )
 
@@ -129,11 +161,12 @@ export function watchSearchQuery(
  *
  * @param el - Search query element
  * @param worker - Search worker
+ * @param options - Options
  *
  * @returns Search query component observable
  */
 export function mountSearchQuery(
-  el: HTMLInputElement, { tx$, rx$ }: SearchWorker
+  el: HTMLInputElement, { tx$, rx$ }: SearchWorker, options: MountOptions
 ): Observable<Component<SearchQuery, HTMLInputElement>> {
   const internal$ = new Subject<SearchQuery>()
 
@@ -170,9 +203,11 @@ export function mountSearchQuery(
       .subscribe(() => setElementFocus(el))
 
   /* Create and return component */
-  return watchSearchQuery(el, { tx$, rx$ })
+  return watchSearchQuery(el, { tx$, rx$ }, options)
     .pipe(
-      tap(internal$),
-      map(state => ({ ref: el, ...state }))
+      tap(state => internal$.next(state)),
+      finalize(() => internal$.complete()),
+      map(state => ({ ref: el, ...state })),
+      share()
     )
 }

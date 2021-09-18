@@ -1,4 +1,7 @@
 output/
+*.zip
+*.tar.gz
+
 .DS_Store
 # Dependencies
 /node_modules

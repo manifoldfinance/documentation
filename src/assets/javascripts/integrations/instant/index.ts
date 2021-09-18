@@ -49,7 +49,6 @@ import { configuration, feature } from "~/_"
 import {
   Viewport,
   ViewportOffset,
-  createElement,
   getElement,
   getElements,
   replaceElement,
@@ -59,6 +58,7 @@ import {
   setViewportOffset
 } from "~/browser"
 import { getComponentElement } from "~/components"
+import { h } from "~/utilities"
 
 import { fetchSitemap } from "../sitemap"
 
@@ -265,7 +265,7 @@ export function setupInstantLoading(
       map(() => getComponentElement("container")),
       switchMap(el => of(...getElements("script", el))),
       concatMap(el => {
-        const script = createElement("script")
+        const script = h("script")
         if (el.src) {
           for (const name of el.getAttributeNames())
             script.setAttribute(name, el.getAttribute(name)!)

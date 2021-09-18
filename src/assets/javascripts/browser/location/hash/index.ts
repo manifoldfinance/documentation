@@ -21,9 +21,16 @@
  */
 
 import { Observable, fromEvent, of } from "rxjs"
-import { filter, map, share, startWith, switchMap } from "rxjs/operators"
+import {
+  filter,
+  map,
+  share,
+  startWith,
+  switchMap
+} from "rxjs/operators"
 
-import { createElement, getElement } from "~/browser"
+import { getElement } from "~/browser"
+import { h } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -49,8 +56,7 @@ export function getLocationHash(): string {
  * @param hash - Location hash
  */
 export function setLocationHash(hash: string): void {
-  const el = createElement("a")
-  el.href = hash
+  const el = h("a", { href: hash })
   el.addEventListener("click", ev => ev.stopPropagation())
   el.click()
 }

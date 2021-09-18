@@ -30,6 +30,7 @@ import {
 import {
   bufferCount,
   filter,
+  finalize,
   map,
   observeOn,
   switchMap,
@@ -46,6 +47,7 @@ import {
   setSearchResultMeta
 } from "~/actions"
 import {
+  getElement,
   getElementOrThrow,
   watchElementThreshold
 } from "~/browser"
@@ -136,10 +138,22 @@ export function mountSearchResult(
             zipWith(boundary$),
             switchMap(([chunk]) => of(...chunk))
           )
-      ))
+      )),
+      // TODO: memleak, refactor into distinct chain
+      map(result => {
+        const item = renderSearchResultItem(result)
+        addToSearchResultList(list, item)
+        return getElement("details", item)
+      })
     )
-      .subscribe(result => {
-        addToSearchResultList(list, renderSearchResultItem(result))
+      // TODO: memleak, refactor into distinct chain
+      .subscribe(item => {
+        if (item)
+          item.addEventListener("toggle", () => {
+            if (!item.open && item.offsetTop <= el.parentElement!.scrollTop) {
+              el.parentElement!.scrollTop = item.offsetTop
+            }
+          })
       })
 
   /* Filter search result message */
@@ -152,7 +166,8 @@ export function mountSearchResult(
   /* Create and return component */
   return result$
     .pipe(
-      tap(internal$),
+      tap(state => internal$.next(state)),
+      finalize(() => internal$.complete()),
       map(state => ({ ref: el, ...state }))
     )
 }
