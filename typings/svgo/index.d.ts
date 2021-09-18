@@ -24,27 +24,28 @@
  * Types
  * ------------------------------------------------------------------------- */
 
-declare module 'svgo' {
+declare module "svgo" {
+
   /**
    * Plugin
    */
   interface Plugin {
-    name: string;
-    active: boolean;
+    name: string
+    active: boolean
   }
 
   /**
    * Optimization configuration
    */
   interface OptimizeConfig {
-    plugins: Plugin[];
+    plugins: Plugin[]
   }
 
   /**
    * Optimization result
    */
   interface OptimizeResult {
-    data: string;
+    data: string
   }
 
   /**
@@ -54,7 +55,7 @@ declare module 'svgo' {
    *
    * @returns Optimization result
    */
-  function optimize(data: string, config: OptimizeConfig): OptimizeResult;
+  function optimize(data: string, config: OptimizeConfig): OptimizeResult
 
   /**
    * Extend the list of default plugins
@@ -63,5 +64,5 @@ declare module 'svgo' {
    *
    * @returns Plugins
    */
-  function extendDefaultPlugins(plugins: Plugin[]): Plugin[];
+  function extendDefaultPlugins(plugins: Plugin[]): Plugin[]
 }

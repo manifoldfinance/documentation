@@ -30,11 +30,11 @@ import {
 } from "rxjs/operators"
 
 import {
-  createElement,
   getElementOrThrow,
   request,
   watchScript
 } from "~/browser"
+import { h } from "~/utilities"
 
 import { Component } from "../../../_"
 
@@ -110,7 +110,7 @@ export function mountMermaidCodeBlock(
   /* Render diagram */
   mermaid$.subscribe(() => {
     const id = `__mermaid_${index++}`
-    const host = createElement("div")
+    const host = h("div", { class: "mermaid" })
     mermaid.mermaidAPI.render(id, el.innerText, (svg: string) => {
 
       /* Create a shadow root and inject diagram */

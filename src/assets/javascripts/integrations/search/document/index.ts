@@ -20,8 +20,6 @@
  * IN THE SOFTWARE.
  */
 
-import escapeHTML from "escape-html"
-
 import { SearchIndexDocument } from "../_"
 
 /* ----------------------------------------------------------------------------
@@ -54,53 +52,21 @@ export type SearchDocumentMap = Map<string, SearchDocument>
  * @returns Search document map
  */
 export function setupSearchDocumentMap(
-  docs: SearchIndexDocument[]
+  docs: SearchDocument[]
 ): SearchDocumentMap {
   const documents = new Map<string, SearchDocument>()
-  const parents   = new Set<SearchDocument>()
   for (const doc of docs) {
-    const [path, hash] = doc.location.split("#")
+    const [path] = doc.location.split("#")
 
-    /* Extract location, title and tags */
-    const location = doc.location
-    const title    = doc.title
-    const tags     = doc.tags
+    /* Add document article */
+    const article = documents.get(path)
+    if (typeof article === "undefined") {
+      documents.set(path, doc)
 
-    /* Escape and cleanup text */
-    const text = escapeHTML(doc.text)
-      .replace(/\s+(?=[,.:;!?])/g, "")
-      .replace(/\s+/g, " ")
-
-    /* Handle section */
-    if (hash) {
-      const parent = documents.get(path)!
-
-      /* Ignore first section, override article */
-      if (!parents.has(parent)) {
-        parent.title = doc.title
-        parent.text  = text
-
-        /* Remember that we processed the article */
-        parents.add(parent)
-
-      /* Add subsequent section */
-      } else {
-        documents.set(location, {
-          location,
-          title,
-          text,
-          parent
-        })
-      }
-
-    /* Add article */
+    /* Add document section */
     } else {
-      documents.set(location, {
-        location,
-        title,
-        text,
-        ...tags && { tags }
-      })
+      documents.set(doc.location, doc)
+      doc.parent = article
     }
   }
   return documents

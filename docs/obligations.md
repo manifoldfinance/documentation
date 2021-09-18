@@ -1,10 +1,10 @@
 ---
-sort: 8
+topic: Limitation of Liability
 ---
 
-# Obligations
+## Obligations
 
-## 501\. Limitation of Liability
+## 501. Limitation of Liability
 
 (A). THE LIABILITY OF Commodity Stream, LLC CLEARING RELATING TO OR ARISING OUT
 OF CONTRACTS SHALL BE LIMITED TO LOSSES RESULTING FROM THE NOVATION OF THE

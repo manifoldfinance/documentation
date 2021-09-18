@@ -20,12 +20,39 @@
  * IN THE SOFTWARE.
  */
 
-import lunr from 'lunr';
+import lunr from "lunr"
 
 /* ----------------------------------------------------------------------------
  * Global types
  * ------------------------------------------------------------------------- */
 
 declare global {
-  const lunr: typeof lunr; /* Global Lunr.js namespace */
+  namespace lunr {
+
+    /**
+     * Query clause - add missing field definitions
+     */
+    namespace Query {
+      interface Clause {
+        presence: Query.presence
+      }
+    }
+
+    /**
+     * Query parser - add missing class definitions
+     */
+    class QueryParser {
+      constructor(value: string, query: Query)
+      public parse(): void
+    }
+
+    /**
+     * Enable multi-language support
+     *
+     * @param lang - Languages
+     *
+     * @returns Plugin
+     */
+    function multiLanguage(...lang: string[]): Builder.Plugin
+  }
 }

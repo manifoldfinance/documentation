@@ -20,11 +20,14 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject } from "rxjs"
 
-import { Keyboard, Viewport } from '~/browser';
-import { Component } from '~/components';
-import { SearchIndex, SearchTransformFn } from '~/integrations';
+import { Keyboard, Viewport } from "~/browser"
+import { Component } from "~/components"
+import {
+  SearchIndex,
+  SearchTransformFn
+} from "~/integrations"
 
 /* ----------------------------------------------------------------------------
  * Global types
@@ -34,17 +37,19 @@ import { SearchIndex, SearchTransformFn } from '~/integrations';
  * Global search configuration
  */
 export interface GlobalSearchConfig {
-  transform?: SearchTransformFn /* Transformation function */;
-  index?: Promise<SearchIndex> /* Alternate index */;
+  transform?: SearchTransformFn        /* Transformation function */
+  index?: Promise<SearchIndex>         /* Alternate index */
+  worker?: string                      /* Alternate worker URL */
 }
 
 /* ------------------------------------------------------------------------- */
 
 declare global {
+
   /**
    * Global search configuration
    */
-  const __search: GlobalSearchConfig | undefined;
+  const __search: GlobalSearchConfig | undefined
 
   /**
    * Fetch the value for a key from the given storage
@@ -60,7 +65,9 @@ declare global {
    *
    * @return Value or nothing
    */
-  function __md_get<T>(key: string, storage?: Storage, base?: string): T | null;
+  function __md_get<T>(
+    key: string, storage?: Storage, base?: string
+  ): T | null
 
   /**
    * Persist a key-value pair in the given storage
@@ -76,11 +83,8 @@ declare global {
    * @param base - Base URL (default: current base)
    */
   function __md_set<T>(
-    key: string,
-    value: T,
-    storage?: Storage,
-    base?: string,
-  ): void;
+    key: string, value: T, storage?: Storage, base?: string
+  ): void
 }
 
 /* ------------------------------------------------------------------------- */
@@ -89,7 +93,7 @@ declare global {
  * Google Analytics
  */
 declare global {
-  function ga(...args: string[]): void;
+  function ga(...args: string[]): void
 }
 
 /* ----------------------------------------------------------------------------
@@ -97,14 +101,14 @@ declare global {
  * ------------------------------------------------------------------------- */
 
 declare global {
-  var document$: Observable<Document>; /* Document observable */
-  var location$: Subject<URL>; /* Location subject */
-  var target$: Observable<HTMLElement>; /* Location target observable */
-  var keyboard$: Observable<Keyboard>; /* Keyboard observable */
-  var viewport$: Observable<Viewport>; /* Viewport obsevable */
-  var tablet$: Observable<boolean>; /* Tablet breakpoint observable */
-  var screen$: Observable<boolean>; /* Screen breakpoint observable */
-  var print$: Observable<void>; /* Print mode observable */
-  var alert$: Subject<string>; /* Alert subject */
-  var component$: Observable<Component>; /* Component observable */
+  var document$: Observable<Document>  /* Document observable */
+  var location$: Subject<URL>          /* Location subject */
+  var target$: Observable<HTMLElement> /* Location target observable */
+  var keyboard$: Observable<Keyboard>  /* Keyboard observable */
+  var viewport$: Observable<Viewport>  /* Viewport obsevable */
+  var tablet$: Observable<boolean>     /* Tablet breakpoint observable */
+  var screen$: Observable<boolean>     /* Screen breakpoint observable */
+  var print$: Observable<void>         /* Print mode observable */
+  var alert$: Subject<string>          /* Alert subject */
+  var component$: Observable<Component>/* Component observable */
 }

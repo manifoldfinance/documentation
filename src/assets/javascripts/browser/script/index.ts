@@ -34,7 +34,7 @@ import {
   take
 } from "rxjs/operators"
 
-import { createElement } from "../element"
+import { h } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -51,8 +51,7 @@ import { createElement } from "../element"
  * @returns Script observable
  */
 export function watchScript(src: string): Observable<void> {
-  const script = createElement("script")
-  script.src = src
+  const script = h("script", { src })
   return defer(() => {
     document.head.appendChild(script)
     return merge(

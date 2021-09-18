@@ -34,6 +34,19 @@
 export type SearchTransformFn = (value: string) => string
 
 /* ----------------------------------------------------------------------------
+ * Helper types
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Visitor function
+ *
+ * @param value - String value
+ *
+ * @returns String values
+ */
+type VisitorFn = (value: string) => string | string[]
+
+/* ----------------------------------------------------------------------------
  * Functions
  * ------------------------------------------------------------------------- */
 
@@ -52,20 +65,40 @@ export type SearchTransformFn = (value: string) => string
  *    character or are at the end of the query string. Furthermore, filter
  *    unmatched quotation marks.
  *
- * 3. Trim excess whitespace from left and right.
+ * 3. Split the query string at whitespace, pass it to the visitor function for
+ *    tokenization, and append a wildcard to every term that is not explicitly
+ *    marked with a `+` or `-` modifier, as this ensures consistent and stable
+ *    ranking when multiple terms are entered.
+ *
+ * 4. Trim excess whitespace from left and right.
  *
  * @param query - Query value
+ * @param fn - Visitor function
  *
  * @returns Transformed query value
  */
-export function defaultTransform(query: string): string {
+export function transform(
+  query: string, fn: VisitorFn = term => term
+): string {
   return query
-    .split(/"([^"]+)"/g)                            /* => 1 */
+
+    /* => 1 */
+    .split(/"([^"]+)"/g)
       .map((terms, index) => index & 1
         ? terms.replace(/^\b|^(?![^\x00-\x7F]|$)|\s+/g, " +")
         : terms
       )
       .join("")
-    .replace(/"|(?:^|\s+)[*+\-:^~]+(?=\s+|$)/g, "") /* => 2 */
-    .trim()                                         /* => 3 */
+
+    /* => 2 */
+    .replace(/"|(?:^|\s+)[*+\-:^~]+(?=\s+|$)/g, "")
+
+    /* => 3 */
+    .split(/\s+/g)
+      .flatMap(fn)
+      .map(term => /^[+-]/.test(term) ? term : `${term}*`)
+      .join(" ")
+
+    /* => 4 */
+    .trim()
 }
