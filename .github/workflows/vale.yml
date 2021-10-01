@@ -1,0 +1,17 @@
+name: vale
+on: [push]
+
+jobs:
+  prose:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4   
+
+    - name: Vale
+      uses: errata-ai/vale-action@v1.4.0
+      with:
+        config: CI/vale/.vale.ini
+        files: docs/
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
