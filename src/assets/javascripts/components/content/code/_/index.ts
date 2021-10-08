@@ -80,6 +80,7 @@ export interface CodeBlock {
  */
 interface WatchOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
+  print$: Observable<boolean>          /* Print mode observable */
 }
 
 /**
@@ -87,6 +88,7 @@ interface WatchOptions {
  */
 interface MountOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
+  print$: Observable<boolean>          /* Print mode observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -114,7 +116,7 @@ let index = 0
  * @returns Code block observable
  */
 export function watchCodeBlock(
-  el: HTMLElement, { viewport$ }: WatchOptions
+  el: HTMLElement, { viewport$, print$ }: WatchOptions
 ): Observable<CodeBlock> {
   const container$ = of(el)
     .pipe(
@@ -149,11 +151,31 @@ export function watchCodeBlock(
         const [, j = -1] = comment.textContent!.match(/\((\d+)\)/) || []
         const content = items[+j - 1]
         if (typeof content !== "undefined") {
-          const annotation = renderAnnotation(+j, content)
+          const annotation = renderAnnotation(+j, content.childNodes)
           comment.replaceWith(annotation)
           annotations.push(annotation)
         }
       }
+
+      /* Move elements back on print */ // TODO: refactor memleak (instant loading)
+      print$.subscribe(active => {
+        if (active) {
+          container.insertAdjacentElement("afterend", list)
+          for (const annotation of annotations) {
+            const id = parseInt(annotation.getAttribute("data-index")!, 10)
+            const nodes = getElements(":scope .md-typeset > *", annotation)
+            items[id - 1].append(...nodes)
+          }
+        } else {
+          list.remove()
+          for (const annotation of annotations) {
+            const id = parseInt(annotation.getAttribute("data-index")!, 10)
+            const nodes = items[id - 1].childNodes
+            getElementOrThrow(":scope .md-typeset", annotation)
+              .append(...Array.from(nodes))
+          }
+        }
+      })
     }
   }
 

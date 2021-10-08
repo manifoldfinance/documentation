@@ -20,18 +20,11 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject, fromEvent, of } from "rxjs"
-import {
-  finalize,
-  map,
-  mapTo,
-  mergeMap,
-  switchMap,
-  tap
-} from "rxjs/operators"
+import { Observable, Subject, fromEvent, merge } from "rxjs"
+import { finalize, map, mapTo, tap } from "rxjs/operators"
 
 import { feature } from "~/_"
-import { getElements } from "~/browser"
+import { getElementOrThrow, getElements } from "~/browser"
 
 import { Component } from "../../_"
 
@@ -60,19 +53,13 @@ export interface ContentTabs {
 export function watchContentTabs(
   el: HTMLElement
 ): Observable<ContentTabs> {
-  return of(getElements<HTMLLabelElement>(":scope > label", el))
+  return merge(...getElements(":scope > input", el)
+    .map(input => fromEvent(input, "change").pipe(mapTo(input.id)))
+  )
     .pipe(
-      switchMap(labels => of(...labels)
-        .pipe(
-          mergeMap(label => {
-            const input = label.previousElementSibling as HTMLInputElement
-            return fromEvent(input, "change")
-              .pipe(
-                mapTo({ active: label })
-              )
-          })
-        )
-      )
+      map(id => ({
+        active: getElementOrThrow<HTMLLabelElement>(`label[for=${id}]`)
+      }))
     )
 }
 
@@ -93,17 +80,21 @@ export function mountContentTabs(
 ): Observable<Component<ContentTabs>> {
   const internal$ = new Subject<ContentTabs>()
   internal$.subscribe(({ active }) => {
+    active.scrollIntoView({ behavior: "smooth",  block: "nearest" })
 
     /* Set up linking of content tabs, if enabled */
     if (feature("content.tabs.link")) {
       const tab = active.innerText.trim()
       for (const set of getElements("[data-tabs]"))
-        for (const label of getElements(":scope > label", set))
+        for (const input of getElements<HTMLInputElement>(
+          ":scope > input", set
+        )) {
+          const label = getElementOrThrow(`label[for=${input.id}]`)
           if (label.innerText.trim() === tab) {
-            const input = label.previousElementSibling as HTMLInputElement
             input.checked = true
             break
           }
+        }
 
       /* Persist active tabs in local storage */
       const tabs = __md_get<string[]>("__tabs") || []

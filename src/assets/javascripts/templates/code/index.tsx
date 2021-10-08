@@ -35,13 +35,13 @@ import { h } from "~/utilities"
  * @returns Element
  */
 export function renderAnnotation(
-  id: number, content: Element
+  id: number, content: NodeListOf<ChildNode>
 ): HTMLElement {
   return (
-    <aside class="md-annotation" tabIndex={0}>
+    <aside class="md-annotation" data-index={id} tabIndex={0}>
       <div class="md-tooltip">
         <div class="md-tooltip__inner md-typeset">
-          {...Array.from(content.childNodes)}
+          {...Array.from(content)}
         </div>
       </div>
       <span class="md-annotation__index">{id}</span>

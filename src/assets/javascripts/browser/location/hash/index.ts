@@ -20,13 +20,12 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent, of } from "rxjs"
+import { Observable, fromEvent } from "rxjs"
 import {
   filter,
   map,
-  share,
-  startWith,
-  switchMap
+  shareReplay,
+  startWith
 } from "rxjs/operators"
 
 import { getElement } from "~/browser"
@@ -74,7 +73,7 @@ export function watchLocationHash(): Observable<string> {
       map(getLocationHash),
       startWith(getLocationHash()),
       filter(hash => hash.length > 0),
-      share()
+      shareReplay(1)
     )
 }
 
@@ -86,6 +85,7 @@ export function watchLocationHash(): Observable<string> {
 export function watchLocationTarget(): Observable<HTMLElement> {
   return watchLocationHash()
     .pipe(
-      switchMap(id => of(getElement(`[id="${id}"]`)!))
+      map(id => getElement(`[id="${id}"]`)!),
+      filter(el => typeof el !== "undefined")
     )
 }

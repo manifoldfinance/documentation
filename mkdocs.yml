@@ -4,70 +4,29 @@ site_description: Manifold Finance documentation.
 site_author: Manifold Finance
 copyright: Copyright 2021 - Manifold Finance, Inc.  All Rights Reserved
 
-
-extra:
-#  doc_site_edit_url: https://github.com/manifoldfinance/docs/
-  latest_version_warning:
-    url_contains: /latest/
-    text: 'You are reading m the development version documentation and
-    some displayed features may not be available in the stable release.
-    You can switch to stable version using the version box at screen bottom.'
-  support:
-    chat: https://t.me/manifoldfinance
-    email: ops@manifoldfinance.com
-    website: https://www.manifoldfinance.com
-    issues: https://github.com/manifoldfinance/boards/issues
-    doc_issues: https://github.com/manifoldfinance/documentation/issues/new/choose
-  google:
-    site_verification:
-      - ''
-  logo_regular: custom_theme/logo.svg
-  logo_reversed: &logo_reversed custom_theme/manifold.svg
-  analytics:
-    provider: google
-    property: !ENV GOOGLE_ANALYTICS_KEY
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/manifoldfinance
-    - icon: fontawesome/brands/telegram
-      link: https://t.me/manifoldfinance
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/manifoldfinance
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/foldfinance
-
-
-# Repository
-repo_name: manifoldfinance/documentation
-repo_url: https://github.com/manifoldfinance/documentation/
-
-# Configuration
 theme:
   name: null
   custom_dir: !ENV [THEME_DIR, "material"]
-  icon:
-    logo: material/library
+
   # Static files
   static_templates:
     - 404.html
-
   # Don't include MkDocs' JavaScript
   include_search_page: false
   search_index_only: true
-
-
   # Default values, taken from mkdocs_theme.yml
   language: en
   features:
     - content.code.annotate
     - content.tabs.link
     # - header.autohide
-    - navigation.expand
-    # - navigation.indexes
+    # - navigation.expand
+    - navigation.indexes
     # - navigation.instant
     - navigation.sections
     - navigation.tabs
     # - navigation.tabs.sticky
+    - navigation.instant
     - navigation.top
     - navigation.tracking
     - search.highlight
@@ -91,16 +50,52 @@ theme:
     text: Roboto
     code: Roboto Mono
   favicon: assets/favicon.png
+  icon:
+    logo: material/library
 
-extra_javascript:
-  - js/config.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+# Plugins
+plugins:
+  - search:
+      separator: "[\\s\\-,:!=\\[\\]()\"/]+|\\.(?!\\d)|&[lg]t;|(?!\\b)(?=[A-Z][a-z])"
+  - awesome-pages
+  - minify:
+      minify_html: true
 
+# Customization
+extra:
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/manifoldfinance
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/manifoldfinance
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/foldfinance
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/manifoldfinance/
 
+  latest_version_warning:
+    url_contains: /latest/
+    text: 'You are reading m the development version documentation and
+    some displayed features may not be available in the stable release.
+    You can switch to stable version using the version box at screen bottom.'
+  support:
+    chat: https://t.me/manifoldfinance
+    email: ops@manifoldfinance.com
+    website: https://www.manifoldfinance.com
+    issues: https://github.com/manifoldfinance/boards/issues
+    doc_issues: https://github.com/manifoldfinance/documentation/issues/new/choose
 
 # Extensions
 markdown_extensions:
+  - toc:
+      permalink: 
+      toc_depth: 3
+  - codehilite
+  - markdown_include.include:
+      base_path: docs
   - admonition
   - abbr
   - attr_list
@@ -115,7 +110,6 @@ markdown_extensions:
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
-  - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
@@ -125,8 +119,8 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
-      user: squidfunk
-      repo: mkdocs-material
+      user: manifoldfinance
+      repo: documentation
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences:
@@ -134,63 +128,110 @@ markdown_extensions:
         - name: mermaid
           class: mermaid-experimental
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
 
-# Navigation
 nav:
-  - Index: index.md
-  - OpenMEV:
-    - Overview: openmev.md
-    - SushiSwap: sushi-intro.md
-    - Gas Rebating: refunder.md
-    - Specification: dev-example.md
-    - Risks: mev-risks.md
-  - SushiSwap:
-    - How it works: sushi-intro.md
-    - Overview: sushi-overview.md
-    - Help and Support: sushi-help.md
-  - Manifold Finance:
-    - Platform: spec/README.md
-    - TxPrice: txprice.md
-    - API TxPrice.com: api-txprice.md
-    - Strategies: strategies.md
-    - Releases:
-      - Changelog: changelog.md
-    - DApp:
-       - Rewards: docs/dapp/farming/LPRewards.md
-       - Vaults: docs/dapp/farming/RewardsVault.md
-       - Staking: docs/dapp/farming/Staking.md
-       - Wrapper: docs/dapp/wrapper/WrappingRewards.md
-  - OpenMEV Technical:
-              - Platform Overview: openmev-diagrams.md
-              - Workflow: workflow/README.md
-              - Chain State: chain-state/README.md
-  - Rulebook:
-              - Limit Order Book: limit_order_books.md
-              - Obligations: obligations.md
-              - Suspensions: suspensions.md
-              - Settlement: trade-settlement.md
-  - Internal:
-              - Overview: SushiSwap/README.md
-              - Formulas and Calculations: formulas.md
-              - Fee Information: SushiSwap/FeeInformation.md
-              - Orders: SushiSwap/Order.md
-              - Order Cancellation: SushiSwap/OrderCancellation.md
-              - Order Creation: SushiSwap/OrderCreation.md
-              - Order Data: SushiSwap/OrderMetaData.md
-              - Order Errors: SushiSwap/OrderPostError.md
-              - Order Types: SushiSwap/OrderType.md
-              - Trade: SushiSwap/Trade.md
-              - API: SushiSwap/Apis/README.md
-              - Models:
-                - Fee Information: SushiSwap/Models/FeeInformation.md
-                - Order: SushiSwap/Models/Order.md
-                - OrderCancellation: SushiSwap/Models/OrderCancellation.md
-                - OrderCreation: SushiSwap/Models/OrderCreation.md
-                - OrderMetaData: SushiSwap/Models/OrderMetaData.md
-                - OrderPostError: SushiSwap/Models/OrderPostError.md
-                - OrderType: SushiSwap/Models/OrderType.md
-                - Trade: SushiSwap/Models/Trade.md
+- FAQ: faq.md
+- Omnibus: index.md
+- OpenMEV & Sushiswap: sushiswap-overview.md
+- Network:
+  - Getting Started: Network/README.md
+  - api:
+    - get:
+      - eth_accounts: Network/api/get/eth_accounts.md
+      - eth_blockNumber: Network/api/get/eth_blockNumber.md
+      - eth_gasPrice: Network/api/get/eth_gasPrice.md
+      - eth_getBalance: Network/api/get/eth_getBalance.md
+      - eth_getBlockByHash: Network/api/get/eth_getBlockByHash.md
+      - eth_getBlockByNumber: Network/api/get/eth_getBlockByNumber.md
+      - eth_getBlockTransactionCountByHash: Network/api/get/eth_getBlockTransactionCountByHash.md
+      - eth_getBlockTransactionCountByNumber: Network/api/get/eth_getBlockTransactionCountByNumber.md
+      - eth_getCode: Network/api/get/eth_getCode.md
+      - eth_getLogs: Network/api/get/eth_getLogs.md
+      - eth_getStorageAt: Network/api/get/eth_getStorageAt.md
+      - eth_getTransactionByBlockHashAndIndex: Network/api/get/eth_getTransactionByBlockHashAndIndex.md
+      - eth_getTransactionByBlockNumberAndIndex: Network/api/get/eth_getTransactionByBlockNumberAndIndex.md
+      - eth_getTransactionByHash: Network/api/get/eth_getTransactionByHash.md
+      - eth_getTransactionCount: Network/api/get/eth_getTransactionCount.md
+      - eth_getTransactionReceipt: Network/api/get/eth_getTransactionReceipt.md
+      - eth_getUncleByBlockHashAndIndex: Network/api/get/eth_getUncleByBlockHashAndIndex.md
+      - eth_getUncleByBlockNumberAndIndex: Network/api/get/eth_getUncleByBlockNumberAndIndex.md
+      - eth_getUncleCountByBlockHash: Network/api/get/eth_getUncleCountByBlockHash.md
+      - eth_getUncleCountByBlockNumber: Network/api/get/eth_getUncleCountByBlockNumber.md
+      - eth_getWork: Network/api/get/eth_getWork.md
+      - eth_hashrate: Network/api/get/eth_hashrate.md
+      - eth_mining: Network/api/get/eth_mining.md
+      - eth_protocolVersion: Network/api/get/eth_protocolVersion.md
+      - eth_syncing: Network/api/get/eth_syncing.md
+      - net_listening: Network/api/get/net_listening.md
+      - net_peerCount: Network/api/get/net_peerCount.md
+      - net_version: Network/api/get/net_version.md
+      - method: Network/api/get/networkMethod.md
+      - methods: Network/api/get/networkMethods.md
+      - eth_accounts: Network/api/get/README.md
+      - symbol: Network/api/get/symbol.md
+      - full: Network/api/get/symbolFull.md
+      - symbols: Network/api/get/symbols.md
+      - v1 Blacklist: Network/api/get/v1Blacklist.md
+      - v2 Blacklist: Network/api/get/v2Blacklist.md
+      - web3_clientVersion: Network/api/get/web3_clientVersion.md
+    - post:
+      - eth_call: Network/api/post/eth_call.md
+      - eth_estimateGas: Network/api/post/eth_estimateGas.md
+      - eth_sendRawTransaction: Network/api/post/eth_sendRawTransaction.md
+      - eth_submitHashrate: Network/api/post/eth_submitHashrate.md
+      - eth_submitWork: Network/api/post/eth_submitWork.md
+      - network: Network/api/post/network.md
+  - websocket:
+    - eth_getFilterChanges: Network/websocket/eth_getFilterChanges.md
+    - eth_getFilterLogs: Network/websocket/eth_getFilterLogs.md
+    - eth_newBlockFilter: Network/websocket/eth_newBlockFilter.md
+    - eth_newFilter: Network/websocket/eth_newFilter.md
+    - eth_newPendingTransactionFilter: Network/websocket/eth_newPendingTransactionFilter.md
+    - eth_subscribe: Network/websocket/eth_subscribe.md
+    - eth_uninstallFilter: Network/websocket/eth_uninstallFilter.md
+    - eth_unsubscribe: Network/websocket/eth_unsubscribe.md
+    - parity_subscribe: Network/websocket/parity_subscribe.md
+    - parity_unsubscribe: Network/websocket/parity_unsubscribe.md
+    - Introduction: Network/websocket/README.md
+- OpenMEV:
+  - OpenMEV Mechanics and Formulas: OpenMEV/math.md
+  - 'MEV Risks ': OpenMEV/mev-risks.md
+  - Pool Examples for ETH: OpenMEV/mining-pools.md
+  - OpenMEV Technical Overview: OpenMEV/openmev-diagrams.md
+  - OpenMEV: OpenMEV/openmev.md
+  - Searchers: OpenMEV/searchers.md
+- SushiSwap:
+  - FeeInformation: SushiSwap/FeeInformation.md
+  - Order: SushiSwap/Order.md
+  - OrderCancellation: SushiSwap/OrderCancellation.md
+  - OrderCreation: SushiSwap/OrderCreation.md
+  - OrderMetaData: SushiSwap/OrderMetaData.md
+  - OrderPostError: SushiSwap/OrderPostError.md
+  - OrderType: SushiSwap/OrderType.md
+  - SushiSwap User API: SushiSwap/README.md
+  - Trade: SushiSwap/Trade.md
+  - Apis:
+    - SushiSwap API Overview: SushiSwap/Apis/README.md
+  - gettingStarted:
+    - Make Requests: SushiSwap/gettingStarted/makeRequests.md
+    - Useful Links: SushiSwap/gettingStarted/usefulLinks.md
+  - Models:
+    - FeeInformation: SushiSwap/Models/FeeInformation.md
+    - Order: SushiSwap/Models/Order.md
+    - OrderCancellation: SushiSwap/Models/OrderCancellation.md
+    - OrderCreation: SushiSwap/Models/OrderCreation.md
+    - OrderMetaData: SushiSwap/Models/OrderMetaData.md
+    - OrderPostError: SushiSwap/Models/OrderPostError.md
+    - OrderType: SushiSwap/Models/OrderType.md
+    - Trade: SushiSwap/Models/Trade.md
+- Technical:
+  - spec:
+    - Platform Specification and Diagrams: Technical/spec/README.md
+  - workflow:
+    - Event Tracing: Technical/workflow/EVENT_TRACING.md
+    - Generalized Workflows and Strategies: Technical/workflow/README.md

@@ -108,7 +108,7 @@ declare global {
   var viewport$: Observable<Viewport>  /* Viewport obsevable */
   var tablet$: Observable<boolean>     /* Tablet breakpoint observable */
   var screen$: Observable<boolean>     /* Screen breakpoint observable */
-  var print$: Observable<void>         /* Print mode observable */
+  var print$: Observable<boolean>      /* Print mode observable */
   var alert$: Subject<string>          /* Alert subject */
   var component$: Observable<Component>/* Component observable */
 }

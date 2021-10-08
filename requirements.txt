@@ -22,7 +22,7 @@
 markdown>=3.2
 mkdocs>=1.2.2
 mkdocs-material-extensions>=1.0
-pymdown-extensions>=7.0
+pymdown-extensions>=9.0
 pygments>=2.4
 
 # Requirements for social plugin

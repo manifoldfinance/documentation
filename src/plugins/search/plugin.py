@@ -18,6 +18,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
+import re
+
 from html import escape
 from html.parser import HTMLParser
 from mkdocs.contrib.search import SearchPlugin as BasePlugin
@@ -31,9 +33,17 @@ from mkdocs.contrib.search.search_index import SearchIndex as BaseIndex
 class SearchPlugin(BasePlugin):
 
     # Override: use custom search index
-    def on_pre_build(self, config):
-        super().on_pre_build(config)
+    def on_pre_build(self, **kwargs):
         self.search_index = SearchIndex(**self.config)
+
+    # Override: remove search pragmas after indexing
+    def on_page_context(self, context, page, **kwargs):
+        self.search_index.add_entry_from_context(context['page'])
+        page.content = re.sub(
+            r'\s?data-search-\w+="[^"]+"',
+            "",
+            page.content
+        )
 
 # -----------------------------------------------------------------------------
 
@@ -47,36 +57,34 @@ class SearchIndex(BaseIndex):
             return
 
         # Divide page content into sections
-        parser = ContentParser()
+        parser = Parser()
         parser.feed(page.content)
         parser.close()
 
-        # Ensure presence of top-level section
-        if len(parser.data) and parser.data[0].tag != "h1":
-            section = ContentSection("h1")
-            section.title.append(page.title)
-
-            # Insert section at the start
-            parser.data.insert(0, section)
-
         # Add sections to index
         for section in parser.data:
-            self.create_entry_for_section(section, page.toc, page.url, page)
+            if not section.is_excluded():
+                self.create_entry_for_section(section, page.toc, page.url, page)
 
     # Override: graceful indexing and additional fields
     def create_entry_for_section(self, section, toc, url, page):
         item = self._find_toc_by_id(toc, section.id)
-        if item and not section.tag == "h1":
+        if item:
             url = url + item.url
+        elif section.id:
+            url = url + "#{}".format(section.id)
 
-        # Compute text
-        text = ""
-        if self.config["indexing"] != "titles":
-            text = "".join(section.text).strip()
+        # Compute title and text
+        title = "".join(section.title or page.title).strip()
+        text  = "".join(section.text).strip()
+
+        # Reset text, if only titles should be indexed
+        if self.config["indexing"] == "titles":
+            text = ""
 
         # Create entry for section
         entry = {
-            "title": "".join(section.title),
+            "title": title,
             "text": text,
             "location": url
         }
@@ -95,24 +103,62 @@ class SearchIndex(BaseIndex):
 
 # -----------------------------------------------------------------------------
 
-# Content section
-class ContentSection:
+# HTML element
+class Element:
     """
-    A content section is a block of text, preceded by a headline with a certain
-    tag and title, optionally with an identifier. It's used by the parser.
+    An element with attributes, essentially a small wrapper object for the
+    parser to access attributes in other callbacks than handle_starttag.
     """
 
-    # Intialize content section
-    def __init__(self, tag):
+    # Initialize HTML element
+    def __init__(self, tag, attrs = {}):
         self.tag   = tag
-        self.text  = []
-        self.title = []
-        self.id    = None
+        self.attrs = attrs
+
+    # Support comparison (compare by tag only)
+    def __eq__(self, other):
+        if other is Element:
+            return self.tag == other.tag
+        else:
+            return self.tag == other
+
+    # Support set operations
+    def __hash__(self):
+        return hash(self.tag)
+
+    # Check whether the element should be excluded
+    def is_excluded(self):
+        for key, _ in self.attrs:
+            if key == "data-search-exclude":
+                return True
+
+        # Element is not excluded
+        return False
 
 # -----------------------------------------------------------------------------
 
-# Content parser
-class ContentParser(HTMLParser):
+# HTML section
+class Section:
+    """
+    A block of text with markup, preceded by a title (with markup), i.e., a
+    headline with a certain level (h1-h6). Internally used by the parser.
+    """
+
+    # Initialize HTML section
+    def __init__(self, el):
+        self.el    = el
+        self.text  = []
+        self.title = []
+        self.id = None
+
+    # Check whether the section should be excluded
+    def is_excluded(self):
+        return self.el.is_excluded()
+
+# -----------------------------------------------------------------------------
+
+# HTML parser
+class Parser(HTMLParser):
     """
     This parser divides the given string of HTML into a list of sections, each
     of which are preceded by a h1-h6 level heading. A white- and blacklist of
@@ -120,13 +166,12 @@ class ContentParser(HTMLParser):
     which should be ignored in its entirety.
     """
 
-    # Initialize content parser
+    # Initialize HTML parser
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Tags to skip
         self.skip = set([
-            "img",                     # Images
             "object",                  # Objects
             "script",                  # Scripts
             "style"                    # Styles
@@ -148,52 +193,74 @@ class ContentParser(HTMLParser):
 
     # Called at the start of every HTML tag
     def handle_starttag(self, tag, attrs):
-        self.context.append(tag)
+        el = Element(tag, attrs)
+
+        # Ignore self-closing tags
+        if not tag in void:
+            self.context.append(el)
+        else:
+            return
 
         # Handle headings
         if tag in ([f"h{x}" for x in range(1, 7)]):
-            if not self.section or (
-                tag != "h1" or
-                tag != self.section.tag
-            ):
-                self.section = ContentSection(tag)
-                self.data.append(self.section)
+            for key, value in attrs:
+                if key != "id":
+                    continue
 
-            # Set identifier on section for TOC resolution
-            for attr in attrs:
-                if attr[0] == "id":
-                    self.section.id = attr[1]
-                    break
+                # Ensure top-level section
+                if tag != "h1" and not self.data:
+                    self.section = Section(Element("hx"))
+                    self.data.append(self.section)
+
+                # Set identifier, if not first section
+                self.section = Section(el)
+                if self.data:
+                    self.section.id = value
+
+                # Append section to list
+                self.data.append(self.section)
 
         # Handle preface - ensure top-level section
         if not self.section:
-            self.section = ContentSection("h1")
+            self.section = Section(Element("hx"))
             self.data.append(self.section)
+
+        # Append element to skip list
+        for key, value in attrs:
+            if key == "data-search-exclude":
+                self.skip.add(el)
+                return
 
         # Render opening tag if kept
         if tag in self.keep:
-            text = self.section.text
-            if self.section.tag in self.context:
-                text = self.section.title
+            data = self.section.text
+            if self.section.el in reversed(self.context):
+                data = self.section.title
 
             # Append to section title or text
-            text.append("<{}>".format(tag))
+            data.append("<{}>".format(tag))
 
     # Called at the end of every HTML tag
     def handle_endtag(self, tag):
-        if self.context[-1] == tag:
-            self.context.pop()
+        if not self.context or self.context[-1] != tag:
+            return
+
+        # Remove element from skip list
+        el = self.context.pop()
+        if el in self.skip:
+            self.skip.remove(el)
+            return
 
         # Render closing tag if kept
         if tag in self.keep:
-            text = self.section.text
-            if self.section.tag in self.context:
-                text = self.section.title
+            data = self.section.text
+            if self.section.el in reversed(self.context):
+                data = self.section.title
 
             # Append to section title or text
-            text.append("</{}>".format(tag))
+            data.append("</{}>".format(tag))
 
-    # Called for the text contents of each tag.
+    # Called for the text contents of each tag
     def handle_data(self, data):
         if self.skip.intersection(self.context):
             return
@@ -207,12 +274,21 @@ class ContentParser(HTMLParser):
 
         # Handle preface - ensure top-level section
         if not self.section:
-            self.section = ContentSection("h1")
+            self.section = Section(Element("hx"))
             self.data.append(self.section)
 
-        # Ignore section headline
-        if self.section.tag in self.context:
-            if not "a" in self.context:
+        # Handle section headline
+        if self.section.el in reversed(self.context):
+            permalink = False
+            for el in self.context:
+                if el.tag == "a":
+                    for (key, value) in el.attrs:
+                        if key == "class" and "headerlink" in value:
+                            permalink = True
+                            break
+
+            # Ignore permalinks
+            if not permalink:
                 self.section.title.append(
                     escape(data, quote = False)
                 )
@@ -222,3 +298,25 @@ class ContentParser(HTMLParser):
             self.section.text.append(
                 escape(data, quote = False)
             )
+
+# -----------------------------------------------------------------------------
+# Data
+# -----------------------------------------------------------------------------
+
+# Tags that are self-closing
+void = set([
+    "area",                    # Image map areas
+    "base",                    # Document base
+    "br",                      # Line breaks
+    "col",                     # Table columns
+    "embed",                   # External content
+    "hr",                      # Horizontal rules
+    "img",                     # Images
+    "input",                   # Input fields
+    "link",                    # Links
+    "meta",                    # Metadata
+    "param",                   # External parameters
+    "source",                  # Image source sets
+    "track",                   # Text track
+    "wbr"                      # Line break opportunities
+])

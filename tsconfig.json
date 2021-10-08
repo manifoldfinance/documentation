@@ -5,7 +5,11 @@
     "esModuleInterop": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "lib": ["dom", "es2017", "esnext", "webworker"],
+    "lib": [
+      "dom",
+      "esnext",
+      "webworker"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -20,6 +24,7 @@
     },
     "removeComments": false,
     "sourceMap": true,
+    "skipLibCheck": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
