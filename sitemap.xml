@@ -2,542 +2,437 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.manifoldfinance.com/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/api-txprice/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/faq/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/changelog/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/sushiswap-overview/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/dev-example/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/formulas/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/limit_order_books/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_accounts/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/mev-risks/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_blockNumber/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/mining-pools/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_gasPrice/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/obligations/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getBalance/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/openmev-diagrams/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getBlockByHash/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/openmev/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getBlockByNumber/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/refunder/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getBlockTransactionCountByHash/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/searchers/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getBlockTransactionCountByNumber/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/strategies/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getCode/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/sushi-help/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getLogs/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/sushi-intro/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getStorageAt/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/sushi-overview/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getTransactionByBlockHashAndIndex/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/suspensions/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getTransactionByBlockNumberAndIndex/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/trade-settlement/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getTransactionByHash/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/txprice/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getTransactionCount/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getTransactionReceipt/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getUncleByBlockHashAndIndex/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getUncleByBlockNumberAndIndex/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getUncleCountByBlockHash/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getUncleCountByBlockNumber/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_getWork/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_hashrate/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_mining/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_protocolVersion/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/eth_syncing/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/net_listening/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/net_peerCount/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/net_version/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/networkMethod/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/networkMethods/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/symbol/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/symbolFull/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/symbols/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/v1Blacklist/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/v2Blacklist/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/get/web3_clientVersion/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/post/eth_call/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/post/eth_estimateGas/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/post/eth_sendRawTransaction/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/post/eth_submitHashrate/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/post/eth_submitWork/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/api/post/network/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_getFilterChanges/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_getFilterLogs/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_newBlockFilter/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_newFilter/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_newPendingTransactionFilter/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_subscribe/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_uninstallFilter/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/eth_unsubscribe/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/parity_subscribe/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/Network/websocket/parity_unsubscribe/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/OpenMEV/math/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/OpenMEV/mev-risks/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/OpenMEV/mining-pools/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/OpenMEV/openmev-diagrams/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/OpenMEV/openmev/</loc>
+         <lastmod>2021-10-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.manifoldfinance.com/OpenMEV/searchers/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/FeeInformation/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Order/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderCancellation/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderCreation/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderMetaData/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderPostError/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/OrderType/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Trade/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Apis/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/FeeInformation/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/Order/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderCancellation/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderCreation/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderMetaData/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderPostError/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/OrderType/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.manifoldfinance.com/SushiSwap/Models/Trade/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/chain-state/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/SushiSwap/gettingStarted/makeRequests/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/dapp/farming/LPRewards/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/SushiSwap/gettingStarted/usefulLinks/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/dapp/farming/RewardsVault/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Technical/spec/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/dapp/farming/Staking/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Technical/workflow/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.manifoldfinance.com/dapp/wrapper/FoldWrapper/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/dapp/wrapper/PoolRouter/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/dapp/wrapper/WrappingRewards/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_accounts/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_blockNumber/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_gasPrice/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getBalance/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getBlockByHash/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getBlockByNumber/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getBlockTransactionCountByHash/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getBlockTransactionCountByNumber/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getCode/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getLogs/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getStorageAt/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getTransactionByBlockHashAndIndex/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getTransactionByBlockNumberAndIndex/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getTransactionByHash/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getTransactionCount/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getTransactionReceipt/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getUncleByBlockHashAndIndex/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getUncleByBlockNumberAndIndex/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getUncleCountByBlockHash/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getUncleCountByBlockNumber/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_getWork/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_hashrate/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_mining/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_protocolVersion/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/eth_syncing/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/net_listening/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/net_peerCount/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/net_version/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/networkMethod/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/networkMethods/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/symbol/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/symbolFull/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/symbols/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/v1Blacklist/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/v2Blacklist/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/get/web3_clientVersion/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/post/eth_call/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/post/eth_estimateGas/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/post/eth_sendRawTransaction/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/post/eth_submitHashrate/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/post/eth_submitWork/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/api/post/network/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/gettingStarted/makeRequests/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/gettingStarted/usefulLinks/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_getFilterChanges/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_getFilterLogs/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_newBlockFilter/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_newFilter/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_newPendingTransactionFilter/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_subscribe/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_uninstallFilter/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/eth_unsubscribe/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/faq/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/introduction/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/parity_subscribe/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/rpc/wss/parity_unsubscribe/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/spec/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/txprice/fast-sorting/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/txprice/informative-1559/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/txprice/sorting-overview/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/workflow/</loc>
-         <lastmod>2021-10-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://docs.manifoldfinance.com/workflow/EVENT_TRACING/</loc>
-         <lastmod>2021-10-05</lastmod>
+         <loc>https://docs.manifoldfinance.com/Technical/workflow/EVENT_TRACING/</loc>
+         <lastmod>2021-10-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
