@@ -2,8 +2,8 @@
 
 # /v1/jsonrpc/:network/eth_getTransactionByBlockHashAndIndex
 
-Returns information about a transaction by block hash and transaction
-index position.
+Returns information about a transaction by block hash and transaction index
+position.
 
 ### REQUEST
 
@@ -15,10 +15,10 @@ index position.
 
 #### REQUEST PARAMS
 
-- `BLOCK HASH` _[required]_ - a string representing the hash (32 bytes)
-  of a block
-- `TRANSACTION INDEX POSITION` _[required]_ - a hex of the integer
-  representing the position in the block
+- `BLOCK HASH` _[required]_ - a string representing the hash (32 bytes) of a
+  block
+- `TRANSACTION INDEX POSITION` _[required]_ - a hex of the integer representing
+  the position in the block
 
 #### EXAMPLE
 
@@ -41,20 +41,18 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `TRANSACTION` - A transaction object, or null when no transaction was
-  found
+- `TRANSACTION` - A transaction object, or null when no transaction was found
   - `hash`: 32 Bytes - hash of the transaction.
-  - `nonce`: the number of transactions made by the sender prior to this
-    one.
-  - `blockHash`: 32 Bytes - hash of the block where this transaction was
-    in. null when its pending.
-  - `blockNumber`: block number where this transaction was in. null when
-    its pending.
-  - `transactionIndex`: integer of the transactions index position in
-    the block. null when its pending.
+  - `nonce`: the number of transactions made by the sender prior to this one.
+  - `blockHash`: 32 Bytes - hash of the block where this transaction was in.
+    null when its pending.
+  - `blockNumber`: block number where this transaction was in. null when its
+    pending.
+  - `transactionIndex`: integer of the transactions index position in the block.
+    null when its pending.
   - `from`: 20 Bytes - address of the sender.
-  - `to`: 20 Bytes - address of the receiver. null when its a contract
-    creation transaction.
+  - `to`: 20 Bytes - address of the receiver. null when its a contract creation
+    transaction.
   - `value`: value transferred in Wei.
   - `gasPrice`: gas price provided by the sender in Wei.
   - `gas`: gas provided by the sender.

@@ -14,10 +14,10 @@ Returns code at a given address.
 
 #### REQUEST PARAMS
 
-- `ADDRESS` _[required]_ - a string representing the address (20 bytes)
-  of the code
-- `BLOCK PARAMETER` _[required]_ - an integer block number, or the
-  string "latest", "earliest" or "pending", see the
+- `ADDRESS` _[required]_ - a string representing the address (20 bytes) of the
+  code
+- `BLOCK PARAMETER` _[required]_ - an integer block number, or the string
+  "latest", "earliest" or "pending", see the
   [default block parameter](https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter)
 
 #### EXAMPLE

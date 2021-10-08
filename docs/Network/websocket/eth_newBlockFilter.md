@@ -1,7 +1,7 @@
 # eth_newBlockFilter
 
-Creates a filter in the node, to notify when a new block arrives. To
-check if the state has changed, call eth_getFilterChanges.
+Creates a filter in the node, to notify when a new block arrives. To check if
+the state has changed, call eth_getFilterChanges.
 
 #### EXAMPLE
 

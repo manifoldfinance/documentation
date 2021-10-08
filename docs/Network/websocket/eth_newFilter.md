@@ -1,33 +1,31 @@
 # eth_newFilter
 
-Creates a filter object, based on filter options, to notify when the
-state changes (logs). To check if the state has changed, call
-eth_getFilterChanges
+Creates a filter object, based on filter options, to notify when the state
+changes (logs). To check if the state has changed, call eth_getFilterChanges
 
 #### REQUEST PAYLOAD
 
 - `FILTER OBJECT`
-  - `address` _[optional]_ - a string representing the address (20
-    bytes) to check for balance
-  - `fromBlock` _[optional, default is "latest"]_ - an integer block
-    number, or the string "latest", "earliest" or "pending"
-  - `toBlock` _[optional, default is "latest"]_ - an integer block
-    number, or the string "latest", "earliest" or "pending"
+  - `address` _[optional]_ - a string representing the address (20 bytes) to
+    check for balance
+  - `fromBlock` _[optional, default is "latest"]_ - an integer block number, or
+    the string "latest", "earliest" or "pending"
+  - `toBlock` _[optional, default is "latest"]_ - an integer block number, or
+    the string "latest", "earliest" or "pending"
   - `topics`_[optional]_ - Array of 32 Bytes DATA topics. Topics are
     order-dependent.
 
 **A note on specifying topic filters:** Topics are order-dependent. A
-transaction with a log with topics [A, B] will be matched by the
-following topic filters:
+transaction with a log with topics [A, B] will be matched by the following topic
+filters:
 
 - [] - anything"
 - [A] - A in first position (and anything after)
-- [null, B] - anything in first position AND B in second position (and
-  anything after)
-- [A, B] - A in first position AND B in second position (and anything
-  after)"
-- \[[A, B], [A, B]] - (A OR B) in first position AND (A OR B) in second
-  position (and anything after)
+- [null, B] - anything in first position AND B in second position (and anything
+  after)
+- [A, B] - A in first position AND B in second position (and anything after)"
+- \[[A, B], [A, B]] - (A OR B) in first position AND (A OR B) in second position
+  (and anything after)
 
 #### EXAMPLE
 

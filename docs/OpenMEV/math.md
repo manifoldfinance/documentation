@@ -2,7 +2,7 @@
 
 > Overview of OpenMEV Applications
 
-## SushiSwap 
+## SushiSwap
 
 Rebating Transaction Costs
 
@@ -41,8 +41,8 @@ Rebating a transaction is determined by:
    naive formula would consider pairings, then slippage tolerance and finally
    transactional amount_
 
-3. The amount of compensation is the fees less to miners and network
-   operational transactional costs.
+3. The amount of compensation is the fees less to miners and network operational
+   transactional costs.
 
 4. Compensation payouts occur no later than a half hour
 
@@ -74,14 +74,13 @@ Rebating a transaction is determined by:
 | removeLiquidityETHWithPermitSupportingFeeOnTransferTokens |       #       |
 |      removeLiquidityETHSupportingFeeOnTransferTokens      |       #       |
 
-
 ### Rebate Calculations
 
-*Note*: naive implementation, expect changes
+_Note_: naive implementation, expect changes
 
 bundleCost = mev bribe + bundleTxs[1,2,...]
 
-gasAllowance =  mev bribe - bundleTxs[1,2,...]
+gasAllowance = mev bribe - bundleTxs[1,2,...]
 
 BundleTransactionGas[1,2,...] = Individual Gas Cost
 
@@ -93,10 +92,9 @@ max_gasRebate = (BundleId(BundleTransactionGas[1,2,...]))
 
 `targetBlockNumber`: block number at which this bundle is valid
 
-`minTimestamp`:  minimum timestamp at which this bundle is valid (inclusive)
+`minTimestamp`: minimum timestamp at which this bundle is valid (inclusive)
 
- `maxTimestamp`: maximum timestamp at which this bundle is valid (inclusive)
-
+`maxTimestamp`: maximum timestamp at which this bundle is valid (inclusive)
 
 ### MEV Bundle pricing formula
 
@@ -106,24 +104,25 @@ Formula for calculating the pricing of a bundle (flashbots):
 
 $$s_{v0.2} = \frac{\Delta_{coinbase} + \sum_{T\in U}g_Tp_T - \sum_{T\in M \cap U}g_Tp_T}{\sum_{T\in U}g_T}$$
 
-$s$: bundle $U$ _score_ used to sort bundles.
-$U$: ordered list of transactions $T$ in a bundle.
-$M$: set of transactions $T$ in the mempool.
-$g_{T}$: _gas used_ by transaction $T$.
-$p_{T}$: _gas price_ of transaction $T$.
+$s$: bundle $U$ _score_ used to sort bundles. $U$: ordered list of transactions
+$T$ in a bundle. $M$: set of transactions $T$ in the mempool. $g_{T}$: _gas
+used_ by transaction $T$. $p_{T}$: _gas price_ of transaction $T$.
 $\Delta_{coinbase}$: coinbase difference from direct payment.
 
 ### Explanation
 
-This formula derives the effective gas price of the bundle by summing up all payments to coinbase as well as gas fees *except* for the gas fees of transactions that have been seen in the mempool.
+This formula derives the effective gas price of the bundle by summing up all
+payments to coinbase as well as gas fees _except_ for the gas fees of
+transactions that have been seen in the mempool.
 
-The gas fees of mempool transactions are deducted to prevent "stuffing" bundles with high gas price transactions from the mempool to inflate the effective gas price.
-
+The gas fees of mempool transactions are deducted to prevent "stuffing" bundles
+with high gas price transactions from the mempool to inflate the effective gas
+price.
 
 ## Transactions Status Coding
 
 | Status        | Description                                                                                                                                                                                                                                                                                                                       |
-|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | QUEUED        | The default state when initially creating a transaction during the initial API call. This indicates that this transaction is waiting to be picked up by a background worker.                                                                                                                                                      |
 | PROCESSING    | A background worker has started to process this transaction.                                                                                                                                                                                                                                                                      |
 | FUNDING       | An auxiliary funding transaction is being initiated (this only applies to non-Ether transactions).                                                                                                                                                                                                                                |

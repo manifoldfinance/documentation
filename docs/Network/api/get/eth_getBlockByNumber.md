@@ -14,12 +14,11 @@ Returns information about a block by hash.
 
 #### REQUEST PARAMS
 
-- `BLOCK PARAMETER` _[required]_ - an integer block number, or the
-  string "latest", "earliest" or "pending", see the
+- `BLOCK PARAMETER` _[required]_ - an integer block number, or the string
+  "latest", "earliest" or "pending", see the
   [default block parameter](https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter)
-- `SHOW TRANSACTION DETAILS FLAG` _[required]_ - if set to true, it
-  returns the full transaction objects, if false only the hashes of the
-  transactions.
+- `SHOW TRANSACTION DETAILS FLAG` _[required]_ - if set to true, it returns the
+  full transaction objects, if false only the hashes of the transactions.
 
 #### EXAMPLE
 
@@ -46,22 +45,20 @@ curl https://mainnet.backbonecabal.xyz/ \
   - `number`: the block number. null when its pending block.
   - `hash`: 32 Bytes - hash of the block. null when its pending block.
   - `parentHash`: 32 Bytes - hash of the parent block.
-  - `nonce`: 8 Bytes - hash of the generated proof-of-work. null when
-    its pending block.
+  - `nonce`: 8 Bytes - hash of the generated proof-of-work. null when its
+    pending block.
   - `sha3Uncles`: 32 Bytes - SHA3 of the uncles data in the block.
-  - `logsBloom`: 256 Bytes - the bloom filter for the logs of the block.
-    null when its pending block.
-  - `transactionsRoot`: 32 Bytes - the root of the transaction trie of
-    the block.
-  - `stateRoot`: 32 Bytes - the root of the final state trie of the
+  - `logsBloom`: 256 Bytes - the bloom filter for the logs of the block. null
+    when its pending block.
+  - `transactionsRoot`: 32 Bytes - the root of the transaction trie of the
     block.
-  - `receiptsRoot`: 32 Bytes - the root of the receipts trie of the
-    block.
-  - `miner`: 20 Bytes - the address of the beneficiary to whom the
-    mining rewards were given.
+  - `stateRoot`: 32 Bytes - the root of the final state trie of the block.
+  - `receiptsRoot`: 32 Bytes - the root of the receipts trie of the block.
+  - `miner`: 20 Bytes - the address of the beneficiary to whom the mining
+    rewards were given.
   - `difficulty`: integer of the difficulty for this block.
-  - `totalDifficulty`: integer of the total difficulty of the chain
-    until this block.
+  - `totalDifficulty`: integer of the total difficulty of the chain until this
+    block.
   - `extraData`: the "extra data" field of this block.
   - `size`: integer the size of this block in bytes.
   - `gasLimit`: the maximum gas allowed in this block.

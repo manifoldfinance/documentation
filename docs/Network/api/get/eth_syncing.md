@@ -34,11 +34,11 @@ curl https://mainnet.backbonecabal.xyz/ \
 #### RESULT FIELDS
 
 - `SYNC STATUS` - a boolean as false **only** when not syncing
-- `SYNC BLOCKS` i. `startingBlock` - a hexcode of the integer indicating
-  the block at which the import started (will only be reset, after the
-  sync reached his head) ii. `currentBlock` - a hexcode of the integer
-  indicating the current block, same as eth_blockNumber iii.
-  `highestBlock` - a hexcode of the integer indicating the highest block
+- `SYNC BLOCKS` i. `startingBlock` - a hexcode of the integer indicating the
+  block at which the import started (will only be reset, after the sync reached
+  his head) ii. `currentBlock` - a hexcode of the integer indicating the current
+  block, same as eth_blockNumber iii. `highestBlock` - a hexcode of the integer
+  indicating the highest block
 
 #### BODY
 

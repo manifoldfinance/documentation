@@ -43,8 +43,8 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `IS VALID FLAG` - returns true if the provided solution is valid,
-  otherwise false.
+- `IS VALID FLAG` - returns true if the provided solution is valid, otherwise
+  false.
 
 #### BODY
 

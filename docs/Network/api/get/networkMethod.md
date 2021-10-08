@@ -2,11 +2,10 @@
 
 ## /v1/jsonrpc/network/method
 
-A request using an "HTTP GET-compatible" (non-state-changing) JSON-RPC
-method. Most Ethereum JSON-RPC methods can be described in this way,
-since they query the blockchain for various pieces of information. Use
-the `/v1/jsonrpc/{network}/methods` endpoint to get the list of
-permitted methods.
+A request using an "HTTP GET-compatible" (non-state-changing) JSON-RPC method.
+Most Ethereum JSON-RPC methods can be described in this way, since they query
+the blockchain for various pieces of information. Use the
+`/v1/jsonrpc/{network}/methods` endpoint to get the list of permitted methods.
 
 ### GET
 

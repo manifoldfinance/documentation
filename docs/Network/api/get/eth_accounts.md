@@ -27,8 +27,8 @@ curl https://api.backbonecabal.xyz/v1/jsonrpc/mainnet/eth_accounts
 
 #### RESULT FIELDS
 
-- `ADDRESSES` - arrays of hex codes as strings representing the
-  addresses owned by the client
+- `ADDRESSES` - arrays of hex codes as strings representing the addresses owned
+  by the client
 
 #### BODY
 

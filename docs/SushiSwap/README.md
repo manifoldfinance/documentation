@@ -6,7 +6,6 @@ sort: 3
 
 > Documentation for Order Book API
 
-
 ## Endpoints
 
 ### [`/swap/summary`](https://7ob2ikxqn7.execute-api.us-east-1.amazonaws.com/dev//swap/summary)
@@ -153,7 +152,6 @@ address is considered the base in the response.
   // ...
 ]
 ```
-
 
 ## Documentation for API Endpoints
 

@@ -2,8 +2,8 @@
 
 ## /v1/jsonrpc/:network/eth_getTransactionReceipt
 
-Returns the receipt of a transaction by transaction hash. **Note** that
-the receipt is not available for pending transactions.
+Returns the receipt of a transaction by transaction hash. **Note** that the
+receipt is not available for pending transactions.
 
 ### REQUEST
 
@@ -15,8 +15,8 @@ the receipt is not available for pending transactions.
 
 #### REQUEST PARAMS
 
-- `TRANSACTION HASH` _[required]_ - a string representing the hash (32
-  bytes) of a transaction
+- `TRANSACTION HASH` _[required]_ - a string representing the hash (32 bytes) of
+  a transaction
 
 #### EXAMPLE
 
@@ -39,30 +39,26 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `TRANSACTION RECEIPT` - A transaction receipt object, or null when no
-  receipt was found:
+- `TRANSACTION RECEIPT` - A transaction receipt object, or null when no receipt
+  was found:
   - `transactionHash`: 32 Bytes - hash of the transaction.
-  - `transactionIndex`: integer of the transactions index position in
-    the block.
-  - `blockHash`: 32 Bytes - hash of the block where this transaction was
-    in.
+  - `transactionIndex`: integer of the transactions index position in the block.
+  - `blockHash`: 32 Bytes - hash of the block where this transaction was in.
   - `blockNumber`: block number where this transaction was in.
   - `from`: 20 Bytes - address of the sender.
-  - `to`: 20 Bytes - address of the receiver. null when its a contract
-    creation transaction.
-  - `cumulativeGasUsed`: the total amount of gas used when this
-    transaction was executed in the block.
-  - `gasUsed`: the amount of gas used by this specific transaction
-    alone.
+  - `to`: 20 Bytes - address of the receiver. null when its a contract creation
+    transaction.
+  - `cumulativeGasUsed`: the total amount of gas used when this transaction was
+    executed in the block.
+  - `gasUsed`: the amount of gas used by this specific transaction alone.
   - `contractAddress`: 20 Bytes - the contract address created, if the
     transaction was a contract creation, otherwise - null.
-  - `logs`: Array - Array of log objects, which this transaction
-    generated.
-  - `logsBloom`: 256 Bytes - Bloom filter for light clients to quickly
-    retrieve related logs.
+  - `logs`: Array - Array of log objects, which this transaction generated.
+  - `logsBloom`: 256 Bytes - Bloom filter for light clients to quickly retrieve
+    related logs.
 
-It also returns _either_: - `root` : 32 bytes of post-transaction
-stateroot (pre Byzantium) - `status`: either 1 (success) or 0 (failure)
+It also returns _either_: - `root` : 32 bytes of post-transaction stateroot (pre
+Byzantium) - `status`: either 1 (success) or 0 (failure)
 
 #### BODY
 

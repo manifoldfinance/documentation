@@ -2,8 +2,8 @@
 
 ## /v1/jsonrpc/:network/eth_hashrate
 
-Returns the number of hashes per second that the node is mining with.
-Only applicable when the node is mining.
+Returns the number of hashes per second that the node is mining with. Only
+applicable when the node is mining.
 
 ### REQUEST
 
@@ -34,8 +34,8 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `HASHRATE` - a hex code of an integer representing the number of
-  hashes per second.
+- `HASHRATE` - a hex code of an integer representing the number of hashes per
+  second.
 
 #### BODY
 

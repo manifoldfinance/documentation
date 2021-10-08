@@ -2,11 +2,11 @@
 
 ## /v1/jsonrpc/:network/eth_estimateGas
 
-Generates and returns an estimate of how much gas is necessary to allow
-the transaction to complete. The transaction will not be added to the
-blockchain. Note that the estimate may be significantly more than the
-amount of gas actually used by the transaction, for a variety of reasons
-including EVM mechanics and node performance.
+Generates and returns an estimate of how much gas is necessary to allow the
+transaction to complete. The transaction will not be added to the blockchain.
+Note that the estimate may be significantly more than the amount of gas actually
+used by the transaction, for a variety of reasons including EVM mechanics and
+node performance.
 
 ### REQUEST
 
@@ -19,23 +19,20 @@ including EVM mechanics and node performance.
 #### REQUEST PAYLOAD
 
 - `TRANSACTION CALL OBJECT` _[required]_
-  - `from`: _[optional]_ 20 Bytes - The address the transaction is sent
-    from.
+  - `from`: _[optional]_ 20 Bytes - The address the transaction is sent from.
   - `to`: 20 Bytes - The address the transaction is directed to.
   - `gas`: _[optional]_ Integer of the gas provided for the transaction
-    execution. eth_estimateGas consumes zero gas, but this parameter may
-    be needed by some executions.
-  - `gasPrice`: _[optional]_ Integer of the gasPrice used for each paid
-    gas
-  - `value`: _[optional]_ Integer of the value sent with this
-    transaction
-  - `data`: _[optional]_ Hash of the method signature and encoded
-    parameters. For details see Ethereum Contract ABI
+    execution. eth_estimateGas consumes zero gas, but this parameter may be
+    needed by some executions.
+  - `gasPrice`: _[optional]_ Integer of the gasPrice used for each paid gas
+  - `value`: _[optional]_ Integer of the value sent with this transaction
+  - `data`: _[optional]_ Hash of the method signature and encoded parameters.
+    For details see Ethereum Contract ABI
 
-If no gas limit is specified geth uses the block gas limit from the
-pending block as an upper bound. As a result the returned estimate might
-not be enough to executed the call/transaction when the amount of gas is
-higher than the pending block gas limit.
+If no gas limit is specified geth uses the block gas limit from the pending
+block as an upper bound. As a result the returned estimate might not be enough
+to executed the call/transaction when the amount of gas is higher than the
+pending block gas limit.
 
 #### EXAMPLE
 

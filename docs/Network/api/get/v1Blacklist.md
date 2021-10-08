@@ -2,8 +2,8 @@
 
 ## /v1/blacklist
 
-Return a blacklist of phishing sites. This list is maintained by GitHub
-user 409H at
+Return a blacklist of phishing sites. This list is maintained by GitHub user
+409H at
 [https://github.com/409H/EtherAddressLookup/blob/master/blacklists/domains.json](https://github.com/409H/EtherAddressLookup/blob/master/blacklists/domains.json).
 
 ### GET

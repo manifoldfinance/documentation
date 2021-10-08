@@ -10,14 +10,13 @@
 
 ## User Example
 
-
 !!! info Since the JSON-RPC spec allows responses to be returned in a different
 order than sent, we need a mechanism for choosing a canonical id from a list
-that doesn't depend on the order. This chooses the "minimum" id by an
-arbitrary ordering: the smallest string if possible, otherwise the smallest
-number, otherwise null.
+that doesn't depend on the order. This chooses the "minimum" id by an arbitrary
+ordering: the smallest string if possible, otherwise the smallest number,
+otherwise null.
 
-!!! example  end-user transaction example for interacting with the OpenMEV
+!!! example end-user transaction example for interacting with the OpenMEV
 
 ```js
 order = {
@@ -33,8 +32,8 @@ order = {
 }
 ```
 
-When we broadcast this transaction with an arbitrage order, the
-transaction contains 2 orders:
+When we broadcast this transaction with an arbitrage order, the transaction
+contains 2 orders:
 
 !!! example the transaction below is a mock-up for the proposed _data fields_
 
@@ -118,8 +117,8 @@ an order ahead of someone else’s.
 
 ## Application structure
 
-- Route paths: acceptable trading pairs/whitelisted tokens.
- See  `manifold.tokenlist.json`
+- Route paths: acceptable trading pairs/whitelisted tokens. See
+  `manifold.tokenlist.json`
 - Subroutes can be defined in separate files within the routes folder and
   referenced in
 - Controllers should be used to handle HTTP/WS/RPC requests
@@ -155,24 +154,27 @@ On any additions to the queue, the server runs a sequencing algorithm to
 optimize MEV, then decides if it is time to submit the transactions to a miner
 for the current block.
 
-!!! attention GC (Garbage Collection) is only on public submitted transactions, not SushiSwap sent transactions!
+!!! attention GC (Garbage Collection) is only on public submitted transactions,
+not SushiSwap sent transactions!
 
-!!! warning  Garbage collection will have to be run on the queues periodically to remove
-transactions that are not going to be successful due to timeout or slippage.
+!!! warning Garbage collection will have to be run on the queues periodically to
+remove transactions that are not going to be successful due to timeout or
+slippage.
 
 On successful and failed (garbage collected) transactions, the backend will send
 WebSocket messages to the frontend to notify users.
 
 ## Transaction Price Service
 
-!!! tip Visit [txprice.com](https://txprice.com) and [API](https://api.txprice.com)
+!!! tip Visit [txprice.com](https://txprice.com) and
+[API](https://api.txprice.com)
 
-The TxPrice Service is an important part of the overall system. Since Gwei pricing
-is the most important portion of the overall system efficacy it is decoupled
-from the application itself and run in a separate stack entirely. We inject the
-Gwei pricing service by loading at runtime via `startGasWorker()`. _note_ we use
-the term GasWorker to draw a distinction between `gwei` and `gas`. Whereas
-`gwei` is understood as a specific SI unit, gas is more abstract.
+The TxPrice Service is an important part of the overall system. Since Gwei
+pricing is the most important portion of the overall system efficacy it is
+decoupled from the application itself and run in a separate stack entirely. We
+inject the Gwei pricing service by loading at runtime via `startGasWorker()`.
+_note_ we use the term GasWorker to draw a distinction between `gwei` and `gas`.
+Whereas `gwei` is understood as a specific SI unit, gas is more abstract.
 
 ## Gas Pricing Service
 
@@ -184,7 +186,7 @@ are _outliers_.
 
 See the API Service here: [https://api.txprice.com](https://api.txprice.com)
 
-!! warning This is for Legacy Transactions 
+!! warning This is for Legacy Transactions
 
 ```js
 /**

@@ -15,21 +15,20 @@ Returns an array of all logs matching a given filter object.
 #### REQUEST PARAMS
 
 - `FILTER OBJECT`
-  - `address` _[optional]_ - a string representing the address (20
-    bytes) to check for balance
-  - `fromBlock` _[optional, default is "latest"]_ - an integer block
-    number, or the string "latest", "earliest" or "pending"
-  - `toBlock` _[optional, default is "latest"]_ - an integer block
-    number, or the string "latest", "earliest" or "pending"
+  - `address` _[optional]_ - a string representing the address (20 bytes) to
+    check for balance
+  - `fromBlock` _[optional, default is "latest"]_ - an integer block number, or
+    the string "latest", "earliest" or "pending"
+  - `toBlock` _[optional, default is "latest"]_ - an integer block number, or
+    the string "latest", "earliest" or "pending"
   - `topics`_[optional]_ - Array of 32 Bytes DATA topics. Topics are
     order-dependent.
-  - `blockhash`:_[optional, \*\*\_future_\*\*]\_ With the addition of
-    EIP-234, `blockHash` will be a new filter option which restricts the
-    logs returned to the single block with the 32-byte hash `blockHash`.
-    Using `blockHash` is equivalent to `fromBlock` = `toBlock` = the
-    block number with hash `blockHash`. If `blockHash` is present in in
-    the filter criteria, then neither `fromBlock` nor `toBlock` are
-    allowed.
+  - `blockhash`:_[optional, \*\*\_future_\*\*]\_ With the addition of EIP-234,
+    `blockHash` will be a new filter option which restricts the logs returned to
+    the single block with the 32-byte hash `blockHash`. Using `blockHash` is
+    equivalent to `fromBlock` = `toBlock` = the block number with hash
+    `blockHash`. If `blockHash` is present in in the filter criteria, then
+    neither `fromBlock` nor `toBlock` are allowed.
 
 #### EXAMPLE
 
@@ -52,35 +51,33 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `LOG OBJECTS` - An array of log objects, or an empty array if nothing
-  has changed since last poll.
+- `LOG OBJECTS` - An array of log objects, or an empty array if nothing has
+  changed since last poll.
 
-  - For filters created with `eth_newBlockFilter` the return are block
-    hashes of 32 Bytes), e.g. ["0x3454645634534..."]
-  - For filters created with `eth_newPendingTransactionFilter` the
-    return are transaction hashes of 32 Bytes), e.g.
-    ["0x6345343454645..."].
-  - For filters created with `eth_newFilter` logs are objects with
-    following params:
-    - `removed`: true when the log was removed, due to a chain
-      reorganization. false if its a valid log.
-    - `logIndex`: integer of the log index position in the block. null
-      when its pending log.
-    - `transactionIndex`: integer of the transactions index position log
-      was created from. null when its pending log.
-    - `transactionHash`: 32 Bytes - hash of the transactions this log
-      was created from. null when its pending log.
-    - `blockHash`: 32 Bytes - hash of the block where this log was in.
-      null when its pending. null when its pending log.
-    - `blockNumber`: the block number where this log was in. null when
+  - For filters created with `eth_newBlockFilter` the return are block hashes of
+    32 Bytes), e.g. ["0x3454645634534..."]
+  - For filters created with `eth_newPendingTransactionFilter` the return are
+    transaction hashes of 32 Bytes), e.g. ["0x6345343454645..."].
+  - For filters created with `eth_newFilter` logs are objects with following
+    params:
+    - `removed`: true when the log was removed, due to a chain reorganization.
+      false if its a valid log.
+    - `logIndex`: integer of the log index position in the block. null when its
+      pending log.
+    - `transactionIndex`: integer of the transactions index position log was
+      created from. null when its pending log.
+    - `transactionHash`: 32 Bytes - hash of the transactions this log was
+      created from. null when its pending log.
+    - `blockHash`: 32 Bytes - hash of the block where this log was in. null when
       its pending. null when its pending log.
+    - `blockNumber`: the block number where this log was in. null when its
+      pending. null when its pending log.
     - `address`: 20 Bytes - address from which this log originated.
-    - `data`: contains one or more 32 Bytes non-indexed arguments of the
-      log.
-    - `topics`: Array of 0 to 4 32 Bytes of indexed log arguments. (In
-      solidity: The first topic is the hash of the signature of the
-      event (e.g. Deposit(address,bytes32,uint256)), except you declared
-      the event with the anonymous specifier.)
+    - `data`: contains one or more 32 Bytes non-indexed arguments of the log.
+    - `topics`: Array of 0 to 4 32 Bytes of indexed log arguments. (In solidity:
+      The first topic is the hash of the signature of the event (e.g.
+      Deposit(address,bytes32,uint256)), except you declared the event with the
+      anonymous specifier.)
 
 #### BODY
 

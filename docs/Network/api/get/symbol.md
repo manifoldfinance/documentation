@@ -2,10 +2,10 @@
 
 ## /v1/jsonrpc/symbol
 
-Get pricing (ticker) data for various currency pairs (fiat, crypto, and
-tokens) using data from several exchanges. This endpoint shows the price
-at the exchange with the most volume for the symbol. Use the
-`/v1/ticker/symbols` endpoint for the full list of supported symbols.
+Get pricing (ticker) data for various currency pairs (fiat, crypto, and tokens)
+using data from several exchanges. This endpoint shows the price at the exchange
+with the most volume for the symbol. Use the `/v1/ticker/symbols` endpoint for
+the full list of supported symbols.
 
 ### GET
 

@@ -1,7 +1,7 @@
 # parity_unsubscribe
 
-Unsubscribes from a subscription. NOTE: parity_unsubscribe is only
-supported on the Kovan network
+Unsubscribes from a subscription. NOTE: parity_unsubscribe is only supported on
+the Kovan network
 
 ### REQUEST PARAMS
 
@@ -19,8 +19,7 @@ supported on the Kovan network
 
 #### RESULT FIELDS
 
-- `UNSUBSCRIBED FLAG` - true if the subscription was cancelled
-  successful.
+- `UNSUBSCRIBED FLAG` - true if the subscription was cancelled successful.
 
 #### BODY
 

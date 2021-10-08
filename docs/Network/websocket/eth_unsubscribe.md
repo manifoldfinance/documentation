@@ -1,8 +1,8 @@
 # eth_unsubscribe
 
-Subscriptions are cancelled with a regular RPC call with eth_unsubscribe
-as method and the subscription id as first parameter. It returns a bool
-indicating if the subscription was cancelled successful.
+Subscriptions are cancelled with a regular RPC call with eth_unsubscribe as
+method and the subscription id as first parameter. It returns a bool indicating
+if the subscription was cancelled successful.
 
 ### REQUEST PARAMS
 
@@ -20,8 +20,7 @@ indicating if the subscription was cancelled successful.
 
 #### RESULT FIELDS
 
-- `UNSUBSCRIBED FLAG` - true if the subscription was cancelled
-  successful.
+- `UNSUBSCRIBED FLAG` - true if the subscription was cancelled successful.
 
 #### BODY
 

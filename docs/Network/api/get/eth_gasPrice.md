@@ -33,8 +33,8 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `HASHRATE` - a hex code of an integer representing the current gas
-  price in wei.
+- `HASHRATE` - a hex code of an integer representing the current gas price in
+  wei.
 
 #### BODY
 

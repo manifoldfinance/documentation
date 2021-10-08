@@ -2,10 +2,10 @@
 
 ## /v1/ticker/symbol/full
 
-Get pricing (ticker) data for various currency pairs (fiat, crypto, and
-tokens) using data from several exchanges. This endpoint shows the price
-at various exchanges where the symbol is traded. Use the
-`/v1/ticker/symbols` endpoint for the full list of supported symbols.
+Get pricing (ticker) data for various currency pairs (fiat, crypto, and tokens)
+using data from several exchanges. This endpoint shows the price at various
+exchanges where the symbol is traded. Use the `/v1/ticker/symbols` endpoint for
+the full list of supported symbols.
 
 ### GET
 
@@ -39,7 +39,7 @@ curl --include \
 | `ask`                                | number              |
 | `exchange`                           | string              |
 | `volume`                             | number              |
-| `timestamp | number                  |
+| `timestamp                           | number              |
 
 #### Full ticker Response
 

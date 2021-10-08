@@ -2,8 +2,8 @@
 
 ## /v1/jsonrpc/:network/eth_getUncleCountByBlockHash
 
-Returns the number of uncles in a block from a block matching the given
-block hash.
+Returns the number of uncles in a block from a block matching the given block
+hash.
 
 ### REQUEST
 
@@ -15,8 +15,8 @@ block hash.
 
 #### REQUEST PARAMS
 
-- `BLOCK HASH` _[required]_ - a string representing the hash (32 bytes)
-  of a block
+- `BLOCK HASH` _[required]_ - a string representing the hash (32 bytes) of a
+  block
 
 #### EXAMPLE
 
@@ -39,8 +39,8 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `BLOCK TRANSACTION COUNT` - a hex code of the integer representing the
-  number of uncles in the provided block
+- `BLOCK TRANSACTION COUNT` - a hex code of the integer representing the number
+  of uncles in the provided block
 
 #### BODY
 

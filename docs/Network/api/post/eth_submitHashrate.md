@@ -14,10 +14,10 @@ Used for submitting mining hashrate.
 
 #### REQUEST PAYLOAD
 
-- `HASHRATE` _[required]_ - a hexadecimal string representation (32
-  bytes) of the hash rate
-- `ID` _[required]_ - a string representing a random hexadecimal (32
-  bytes) ID identifying the client
+- `HASHRATE` _[required]_ - a hexadecimal string representation (32 bytes) of
+  the hash rate
+- `ID` _[required]_ - a string representing a random hexadecimal (32 bytes) ID
+  identifying the client
 
 #### EXAMPLE
 
@@ -43,8 +43,8 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `SUCCESS` - returns true if submitting went through succesfully and
-  false otherwise.
+- `SUCCESS` - returns true if submitting went through succesfully and false
+  otherwise.
 
 #### BODY
 

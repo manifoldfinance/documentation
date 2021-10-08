@@ -7,7 +7,6 @@ keywords:
   - docs
 ---
 
-
 # OpenMEV & Sushiswap
 
 OpenMEV and Sushiswap work together to recapture lost MEV profits so that Sushi

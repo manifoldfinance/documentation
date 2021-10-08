@@ -6,10 +6,9 @@ date: 2021-10-06
 
 # Omnibus
 
-!!! attention 
-    This aggregated documentation is under active development, some page may be incomplete. 
-    Please visit our forums or discord for specific questions!
-
+!!! attention This aggregated documentation is under active development, some
+page may be incomplete. Please visit our forums or discord for specific
+questions!
 
 ## OpenMEV Platform Documentation
 

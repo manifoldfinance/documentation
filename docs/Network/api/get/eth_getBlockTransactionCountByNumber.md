@@ -2,8 +2,7 @@
 
 ## /v1/jsonrpc/:network/eth_getBlockTransactionCountByNumber
 
-Returns the number of transactions in a block matching the given block
-number.
+Returns the number of transactions in a block matching the given block number.
 
 ### REQUEST
 
@@ -15,8 +14,8 @@ number.
 
 #### REQUEST PARAMS
 
-- `BLOCK PARAMETER` _[required]_ - an integer block number, or the
-  string "latest", "earliest" or "pending", see the
+- `BLOCK PARAMETER` _[required]_ - an integer block number, or the string
+  "latest", "earliest" or "pending", see the
   [default block parameter](https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter)
 
 #### EXAMPLE
@@ -40,8 +39,8 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `BLOCK TRANSACTION COUNT` - a hex code of the integer representing the
-  number of transactions in the provided block
+- `BLOCK TRANSACTION COUNT` - a hex code of the integer representing the number
+  of transactions in the provided block
 
 #### BODY
 

@@ -33,8 +33,7 @@ curl https://mainnet.backbonecabal.xyz/ \
 
 #### RESULT FIELDS
 
-- `PROTOCOL VERSION` - a string indicating the current ethereum protocol
-  version
+- `PROTOCOL VERSION` - a string indicating the current ethereum protocol version
 
 #### BODY
 

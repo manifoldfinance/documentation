@@ -2,10 +2,9 @@
 
 ## /v1/jsonrpc/network
 
-A request using an "HTTP POST-compatible" (state-changing) JSON-RPC
-method. Use the `/v1/jsonrpc/{network}/methods` endpoint to get the list
-of permitted methods. Use the regular Ethereum JSON-RPC format for the
-POST body.
+A request using an "HTTP POST-compatible" (state-changing) JSON-RPC method. Use
+the `/v1/jsonrpc/{network}/methods` endpoint to get the list of permitted
+methods. Use the regular Ethereum JSON-RPC format for the POST body.
 
 ### POST
 

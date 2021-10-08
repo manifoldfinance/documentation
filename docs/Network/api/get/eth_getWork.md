@@ -2,8 +2,8 @@
 
 ## /v1/jsonrpc/:network/eth_getWork
 
-Returns the hash of the current block, the seedHash, and the boundary
-condition to be met ("target").
+Returns the hash of the current block, the seedHash, and the boundary condition
+to be met ("target").
 
 ### REQUEST
 
