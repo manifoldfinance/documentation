@@ -1,5 +1,0 @@
-nav:
-    - ...
-    - First page: README.md
-    - Supported RPC: gettingStarted/makeRequests.md
-    - ... | -*.md
