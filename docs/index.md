@@ -1,14 +1,12 @@
 ---
 title: Manifold FInance Omnibus Documentation
 summary: Manifold Finance and OpenMEV Documentation
-date: 2021-10-06
+date: 2021-10-16
 ---
 
-# Omnibus
+# Manifold Finance Omnibus
 
-!!! attention This aggregated documentation is under active development, some
-page may be incomplete. Please visit our forums or discord for specific
-questions!
+Combined documentation detailing protocol and network resources & specifications
 
 ## OpenMEV Platform Documentation
 
