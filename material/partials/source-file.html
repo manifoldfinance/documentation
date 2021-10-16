@@ -9,7 +9,7 @@
     {% if page.meta.git_revision_date_localized %}
       {{ label }}: {{ page.meta.git_revision_date_localized }}
       {% if page.meta.git_creation_date_localized %}
-        <br>{{ lang.t("source.file.date.created") }}: {{ page.meta.git_creation_date_localized }} 
+        <br>{{ lang.t("source.file.date.created") }}: {{ page.meta.git_creation_date_localized }}
       {% endif %}
     {% elif page.meta.revision_date %}
       {{ label }}: {{ page.meta.revision_date }}
