@@ -34,9 +34,9 @@ theme:
     - search.suggest
     # - toc.integrate
   palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
+   - scheme: default
+      primary: Blue Grey
+      accent: Amber
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
